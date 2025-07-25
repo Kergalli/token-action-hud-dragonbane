@@ -42,24 +42,13 @@ export function createSystemManager(coreModule) {
                 name: typeof group.name === 'function' ? group.name() : group.name
             }))
 
-            // Cache settings for better performance
-            const hideWeaponSkills = game.settings.get(MODULE.ID, 'hideWeaponSkills')
-            const hideSecondarySkills = game.settings.get(MODULE.ID, 'hideSecondarySkills')
-
+            // Always include all skill groups in layout - visibility will be controlled in buildSystemActions
             const skillGroups = [
-                { ...groups.coreSkills, name: groups.coreSkills.name(), nestId: 'skills_coreSkills' }
+                { ...groups.coreSkills, name: groups.coreSkills.name(), nestId: 'skills_coreSkills' },
+                { ...groups.weaponSkills, name: groups.weaponSkills.name(), nestId: 'skills_weaponSkills' },
+                { ...groups.secondarySkills, name: groups.secondarySkills.name(), nestId: 'skills_secondarySkills' },
+                { ...groups.npcTraits, name: groups.npcTraits.name(), nestId: 'skills_npcTraits' }
             ]
-
-            if (!hideWeaponSkills) {
-                skillGroups.push({ ...groups.weaponSkills, name: groups.weaponSkills.name(), nestId: 'skills_weaponSkills' })
-            }
-
-            if (!hideSecondarySkills) {
-                skillGroups.push({ ...groups.secondarySkills, name: groups.secondarySkills.name(), nestId: 'skills_secondarySkills' })
-            }
-
-            // Add NPC Traits group if it would be needed
-            skillGroups.push({ ...groups.npcTraits, name: groups.npcTraits.name(), nestId: 'skills_npcTraits' })
 
             const layout = [
                 {
@@ -75,10 +64,29 @@ export function createSystemManager(coreModule) {
                     groups: [{ ...groups.attributes, name: groups.attributes.name(), nestId: 'attributes_attributes' }]
                 },
                 {
+                    nestId: 'traits',
+                    id: 'traits', 
+                    name: groups.traits.name(),
+                    groups: [
+                        { ...groups.monsterTraits, name: groups.monsterTraits.name(), nestId: 'traits_monsterTraits' },
+                        { ...groups.npcTraits, name: groups.npcTraits.name(), nestId: 'traits_npcTraits' }
+                    ]
+                },
+                {
                     nestId: 'weapons',
                     id: 'weapons',
                     name: groups.weapons.name(),
                     groups: [{ ...groups.weapons, name: groups.weapons.name(), nestId: 'weapons_weapons' }]
+                },
+                {
+                    nestId: 'monsterAttacks',
+                    id: 'monsterAttacks',
+                    name: groups.monsterAttacks.name(),
+                    groups: [
+                        { ...groups.monsterAttacksRandom, name: groups.monsterAttacksRandom.name(), nestId: 'monsterAttacks_random' },
+                        { ...groups.monsterAttacksSpecific, name: groups.monsterAttacksSpecific.name(), nestId: 'monsterAttacks_specific' },
+                        { ...groups.monsterDefend, name: groups.monsterDefend.name(), nestId: 'monsterAttacks_defend' }
+                    ]
                 },
                 {
                     nestId: 'skills',
@@ -102,16 +110,6 @@ export function createSystemManager(coreModule) {
                     id: 'abilities',
                     name: groups.abilities.name(),
                     groups: [{ ...groups.abilities, name: groups.abilities.name(), nestId: 'abilities_abilities' }]
-                },
-                {
-                    nestId: 'monsterAttacks',
-                    id: 'monsterAttacks',
-                    name: groups.monsterAttacks.name(),
-                    groups: [
-                        { ...groups.monsterAttacksRandom, name: groups.monsterAttacksRandom.name(), nestId: 'monsterAttacks_random' },
-                        { ...groups.monsterAttacksSpecific, name: groups.monsterAttacksSpecific.name(), nestId: 'monsterAttacks_specific' },
-                        { ...groups.monsterTraits, name: groups.monsterTraits.name(), nestId: 'monsterAttacks_traits' }
-                    ]
                 },
                 {
                     nestId: 'conditionsParent',
