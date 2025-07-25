@@ -2,17 +2,17 @@
  * ActionHandler for Token Action HUD Dragonbane
  */
 
-import {
-    MODULE,
-    ACTION_TYPE,
-    getAttributeConditionsMap
+import { 
+    MODULE, 
+    ACTION_TYPE, 
+    getAttributeConditionsMap 
 } from './constants.js'
 
 /**
  * Create ActionHandler class that extends the core ActionHandler
  */
 export function createActionHandler(coreModule) {
-
+    
     class ActionHandler extends coreModule.api.ActionHandler {
 
         constructor() {
@@ -38,6 +38,37 @@ export function createActionHandler(coreModule) {
          */
         _getSkillValue(skill) {
             return skill.system?.value || skill.system?.level || skill.system?.rank || 0
+        }
+
+        /**
+         * Helper method to determine if a skill is the Brawling skill
+         * Uses localization for better language support
+         */
+        _isBrawlingSkill(skill) {
+            const skillName = skill.name.toLowerCase()
+            
+            // Try to get the localized name for brawling
+            const localizedBrawling = game.i18n.localize('DoD.skills.brawling')?.toLowerCase()
+            
+            // If we found a localized version and it's not the key itself, use it
+            if (localizedBrawling && localizedBrawling !== 'dod.skills.brawling') {
+                if (skillName === localizedBrawling) {
+                    return true
+                }
+            }
+            
+            // Fallback to known language variants for common translations
+            const knownBrawlingNames = [
+                'brawling',      // English
+                'slagsmål',      // Swedish
+                'rauferei',      // German
+                'bagarre',       // French
+                'rissa',         // Italian
+                'pelea',         // Spanish
+                'briga'          // Portuguese
+            ]
+            
+            return knownBrawlingNames.includes(skillName)
         }
 
         _getActors() {
@@ -76,6 +107,7 @@ export function createActionHandler(coreModule) {
                 await this._buildConditions()
                 await this._buildUtility()
                 await this._buildMonsterAttacks()
+                await this._buildTraits()
                 await this._buildStats()
             }
         }
@@ -137,8 +169,8 @@ export function createActionHandler(coreModule) {
 
                 for (const skill of items) {
                     const systemType = skill.system.skillType || 'core'
-                    const skillType = systemType === 'core' ? 'core' :
-                        systemType === 'weapon' ? 'weapon' : 'secondary'
+                    const skillType = systemType === 'core' ? 'core' : 
+                                     systemType === 'weapon' ? 'weapon' : 'secondary'
 
                     if (skillsByType[skillType]) {
                         skillsByType[skillType].push(skill)
@@ -166,10 +198,20 @@ export function createActionHandler(coreModule) {
                 }
             }
 
-            // Weapon Skills - show for all actor types (unless hidden)
-            if (skillsByType.weapon.length > 0 && !hideWeaponSkills) {
+            // Weapon Skills - show for all actor types (unless hidden, but always show Brawling)
+            if (skillsByType.weapon.length > 0) {
                 const actions = []
-                for (const skill of skillsByType.weapon) {
+                
+                let weaponSkillsToShow = skillsByType.weapon
+                
+                // If weapon skills are hidden, only show Brawling
+                if (hideWeaponSkills) {
+                    weaponSkillsToShow = skillsByType.weapon.filter(skill => {
+                        return this._isBrawlingSkill(skill)
+                    })
+                }
+                
+                for (const skill of weaponSkillsToShow) {
                     const skillValue = this._getSkillValue(skill)
                     const name = `${skill.name} (${skillValue})`
 
@@ -201,30 +243,8 @@ export function createActionHandler(coreModule) {
                     })
                 }
 
-                // Add NPC Traits button if NPC has traits
-                if (this.actor.type === 'npc' && this.actor.system.traits && this.actor.system.traits.trim()) {
-                    actions.push({
-                        id: `${ACTION_TYPE.traits}>show`,
-                        name: game.i18n.localize('DoD.ui.character-sheet.traits') || 'Show Traits',
-                        encodedValue: [ACTION_TYPE.traits, 'show'].join(this.delimiter),
-                        img: 'modules/token-action-hud-dragonbane/assets/icons/traits.webp'
-                    })
-                }
-
                 if (actions.length > 0 && this.addActions) {
                     this.addActions(actions, { id: 'secondarySkills', type: 'system' })
-                }
-            } else if (this.actor.type === 'npc' && this.actor.system.traits && this.actor.system.traits.trim()) {
-                // If no secondary skills but NPC has traits, create traits-only group
-                const actions = [{
-                    id: `${ACTION_TYPE.traits}>show`,
-                    name: game.i18n.localize('DoD.ui.character-sheet.traits') || 'Show Traits',
-                    encodedValue: [ACTION_TYPE.traits, 'show'].join(this.delimiter),
-                    img: 'modules/token-action-hud-dragonbane/assets/icons/traits.webp'
-                }]
-
-                if (this.addActions) {
-                    this.addActions(actions, { id: 'npcTraits', type: 'system' })
                 }
             }
         }
@@ -245,6 +265,9 @@ export function createActionHandler(coreModule) {
             }
 
             if (weapons.length === 0) return
+
+            // Sort weapons alphabetically
+            weapons.sort((a, b) => a.name.localeCompare(b.name))
 
             const actions = []
 
@@ -325,6 +348,13 @@ export function createActionHandler(coreModule) {
                 }
             }
 
+            // Sort spells alphabetically within each rank
+            for (let rank = 0; rank <= 3; rank++) {
+                if (spellsByRank[rank]) {
+                    spellsByRank[rank].sort((a, b) => a.name.localeCompare(b.name))
+                }
+            }
+
             // Magic Tricks (Rank 0)
             if (spellsByRank[0].length > 0) {
                 const actions = spellsByRank[0].map(spell => ({
@@ -362,6 +392,9 @@ export function createActionHandler(coreModule) {
         async _buildAbilities() {
             const abilities = this.actor.items.filter(item => item.type === 'ability')
             if (abilities.length === 0) return
+
+            // Sort abilities alphabetically
+            abilities.sort((a, b) => a.name.localeCompare(b.name))
 
             const actions = abilities.map(ability => ({
                 id: `${ACTION_TYPE.ability}>${ability.id}`,
@@ -518,7 +551,7 @@ export function createActionHandler(coreModule) {
         }
 
         /**
-         * Build stats actions - movement, HP, WP, encumbrance, ferocity
+         * Build stats actions - movement, HP, WP, encumbrance, ferocity, traits
          */
         async _buildStats() {
             const actions = []
@@ -540,11 +573,24 @@ export function createActionHandler(coreModule) {
                 const currentHP = this.actor.system.hitPoints.value || 0
                 const maxHP = this.actor.system.hitPoints.max || 0
                 const hpLabel = game.i18n.localize('DoD.ui.character-sheet.hp')
+                
+                // Determine HP status and CSS class
+                let hpCssClass = ''
+                if (currentHP < maxHP) {
+                    if (currentHP < (maxHP * 0.5)) {
+                        hpCssClass = 'dragonbane-stat-critical' // Red for < 50%
+                    } else {
+                        hpCssClass = 'dragonbane-stat-injured' // Yellow for < 100% but >= 50%
+                    }
+                }
+                // No class needed for full HP (stays white)
+                
                 actions.push({
                     id: `${ACTION_TYPE.stats}>hitpoints`,
                     name: `${hpLabel}: ${currentHP}/${maxHP}`,
                     encodedValue: [ACTION_TYPE.stats, 'hitpoints'].join(this.delimiter),
-                    img: 'modules/game-icons-net/whitetransparent/hearts.svg'
+                    img: 'modules/game-icons-net/whitetransparent/hearts.svg',
+                    cssClass: hpCssClass
                 })
             }
 
@@ -565,11 +611,24 @@ export function createActionHandler(coreModule) {
                 const currentWP = this.actor.system.willPoints.value || 0
                 const maxWP = this.actor.system.willPoints.max || 0
                 const wpLabel = game.i18n.localize('DoD.ui.character-sheet.wp')
+                
+                // Determine WP status and CSS class
+                let wpCssClass = ''
+                if (currentWP < maxWP) {
+                    if (currentWP < (maxWP * 0.5)) {
+                        wpCssClass = 'dragonbane-stat-critical' // Red for < 50%
+                    } else {
+                        wpCssClass = 'dragonbane-stat-injured' // Yellow for < 100% but >= 50%
+                    }
+                }
+                // No class needed for full WP (stays white)
+                
                 actions.push({
                     id: `${ACTION_TYPE.stats}>willpoints`,
                     name: `${wpLabel}: ${currentWP}/${maxWP}`,
                     encodedValue: [ACTION_TYPE.stats, 'willpoints'].join(this.delimiter),
-                    img: 'modules/game-icons-net/whitetransparent/brain.svg'
+                    img: 'modules/game-icons-net/whitetransparent/brain.svg',
+                    cssClass: wpCssClass
                 })
             }
 
@@ -578,16 +637,65 @@ export function createActionHandler(coreModule) {
                 const currentEnc = Math.round(100 * this.actor.system.encumbrance.value) / 100
                 const maxEnc = this.actor.system.maxEncumbrance?.value || 0
                 const encLabel = game.i18n.localize('tokenActionHud.dragonbane.actions.stats.encumbrance') || 'Enc'
+                const isOverEncumbered = currentEnc > maxEnc
+                
                 actions.push({
                     id: `${ACTION_TYPE.stats}>encumbrance`,
                     name: `${encLabel}: ${currentEnc}/${maxEnc}`,
                     encodedValue: [ACTION_TYPE.stats, 'encumbrance'].join(this.delimiter),
-                    img: 'icons/svg/anchor.svg'
+                    img: 'icons/svg/anchor.svg',
+                    cssClass: isOverEncumbered ? 'dragonbane-over-encumbered' : ''
                 })
             }
 
             if (actions.length > 0 && this.addActions) {
                 this.addActions(actions, { id: 'stats', type: 'system' })
+            }
+        }
+
+        /**
+         * Build traits actions for NPCs and Monsters
+         */
+        async _buildTraits() {
+            // Only show for NPCs and Monsters that have traits
+            if ((this.actor.type !== 'npc' && this.actor.type !== 'monster') || 
+                !this.actor.system.traits || !this.actor.system.traits.trim()) {
+                return
+            }
+
+            const actions = [{
+                id: `${ACTION_TYPE.traits}>show`,
+                name: game.i18n.localize('DoD.ui.character-sheet.traits') || 'Show Traits',
+                encodedValue: [ACTION_TYPE.traits, 'show'].join(this.delimiter),
+                img: 'modules/token-action-hud-dragonbane/assets/icons/traits.webp'
+            }]
+
+            if (this.addActions) {
+                const groupId = this.actor.type === 'monster' ? 'monsterTraits' : 'npcTraits'
+                this.addActions(actions, { id: groupId, type: 'system' })
+            }
+        }
+
+        /**
+         * Build traits actions for NPCs and Monsters
+         */
+        async _buildTraits() {
+            // Only show for NPCs and Monsters that have traits
+            if ((this.actor.type !== 'npc' && this.actor.type !== 'monster') || 
+                !this.actor.system.traits || !this.actor.system.traits.trim()) {
+                return
+            }
+
+            const actions = [{
+                id: `${ACTION_TYPE.traits}>show`,
+                name: game.i18n.localize('DoD.ui.character-sheet.traits') || 'Show Traits',
+                encodedValue: [ACTION_TYPE.traits, 'show'].join(this.delimiter),
+                img: 'modules/token-action-hud-dragonbane/assets/icons/traits.webp'
+            }]
+
+            if (this.addActions) {
+                const groupId = this.actor.type === 'monster' ? 'monsterTraits' : 'npcTraits'
+                this.addActions(actions, { id: groupId, type: 'system' })
             }
         }
 
@@ -643,24 +751,13 @@ export function createActionHandler(coreModule) {
                     })
                 }
 
-                // Monster Defend (goes in specific attacks group)
-                specificActions.push({
+                // Monster Defend - separate group
+                const defendActions = [{
                     id: `${ACTION_TYPE.monsterDefend}>defend`,
                     name: game.i18n.localize('DoD.ui.character-sheet.monsterDefendTooltip'),
                     encodedValue: [ACTION_TYPE.monsterDefend, 'defend'].join(this.delimiter),
                     img: 'systems/dragonbane/art/icons/monster-defend.webp'
-                })
-
-                // Traits group (if monster has traits)
-                const traitActions = []
-                if (this.actor.system.traits && this.actor.system.traits.trim()) {
-                    traitActions.push({
-                        id: `${ACTION_TYPE.traits}>show`,
-                        name: game.i18n.localize('DoD.ui.character-sheet.traits'),
-                        encodedValue: [ACTION_TYPE.traits, 'show'].join(this.delimiter),
-                        img: 'modules/token-action-hud-dragonbane/assets/icons/traits.webp'
-                    })
-                }
+                }]
 
                 // Add actions to their respective groups
                 if (randomActions.length > 0 && this.addActions) {
@@ -671,8 +768,8 @@ export function createActionHandler(coreModule) {
                     this.addActions(specificActions, { id: 'monsterAttacksSpecific', type: 'system' })
                 }
 
-                if (traitActions.length > 0 && this.addActions) {
-                    this.addActions(traitActions, { id: 'monsterTraits', type: 'system' })
+                if (defendActions.length > 0 && this.addActions) {
+                    this.addActions(defendActions, { id: 'monsterDefend', type: 'system' })
                 }
 
             } catch (error) {
@@ -680,6 +777,6 @@ export function createActionHandler(coreModule) {
             }
         }
     }
-
+    
     return ActionHandler
 }
