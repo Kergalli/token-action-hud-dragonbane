@@ -84,7 +84,7 @@
       "settings": {
         "hideWeaponSkills": {
           "name": "Dölj Vapenfärdigheter",
-          "hint": "Dölj vapenfärdigheter från Token Action HUD"
+          "hint": "Dölj vapenfärdigheter från Token Action HUD (Slagsmål visas alltid)"
         },
         "hideSecondarySkills": {
           "name": "Dölj Sekundära Färdigheter", 
