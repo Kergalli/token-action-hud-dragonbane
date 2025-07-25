@@ -2,17 +2,17 @@
  * ActionHandler for Token Action HUD Dragonbane
  */
 
-import { 
-    MODULE, 
-    ACTION_TYPE, 
-    getAttributeConditionsMap 
+import {
+    MODULE,
+    ACTION_TYPE,
+    getAttributeConditionsMap
 } from './constants.js'
 
 /**
  * Create ActionHandler class that extends the core ActionHandler
  */
 export function createActionHandler(coreModule) {
-    
+
     class ActionHandler extends coreModule.api.ActionHandler {
 
         constructor() {
@@ -137,8 +137,8 @@ export function createActionHandler(coreModule) {
 
                 for (const skill of items) {
                     const systemType = skill.system.skillType || 'core'
-                    const skillType = systemType === 'core' ? 'core' : 
-                                     systemType === 'weapon' ? 'weapon' : 'secondary'
+                    const skillType = systemType === 'core' ? 'core' :
+                        systemType === 'weapon' ? 'weapon' : 'secondary'
 
                     if (skillsByType[skillType]) {
                         skillsByType[skillType].push(skill)
@@ -680,6 +680,6 @@ export function createActionHandler(coreModule) {
             }
         }
     }
-    
+
     return ActionHandler
 }
