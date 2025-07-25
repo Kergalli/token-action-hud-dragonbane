@@ -127,6 +127,16 @@ export const GROUP = {
         name: () => game.i18n.localize('DoD.ui.character-sheet.monsterAttackTooltip'),
         type: 'system'
     },
+    monsterDefend: {
+        id: 'monsterDefend',
+        name: () => 'Monster Defend',
+        type: 'system'
+    },
+    traits: {
+        id: 'traits',
+        name: () => game.i18n.localize('DoD.ui.character-sheet.traits') || 'Traits',
+        type: 'system'
+    },
     monsterTraits: {
         id: 'monsterTraits',
         name: () => game.i18n.localize('DoD.ui.character-sheet.traits'),
