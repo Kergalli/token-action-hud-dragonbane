@@ -16,7 +16,7 @@
       "actions": {
         "rest": {
           "round": "Round Rest (1D6 WP)",
-          "stretch": "Stretch Rest (1D6 HP/WP)",
+          "stretch": "Stretch Rest (1D6* HP/WP/1 Condition)",
           "shift": "Shift Rest (All HP/WP/Conditions)",
           "reset": "Pass One Shift of Time"
         },
