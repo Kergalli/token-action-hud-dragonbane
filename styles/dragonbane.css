@@ -1,0 +1,112 @@
+/* Token Action HUD Dragonbane Styles */
+
+/* Color Variables */
+:root {
+  --dragonbane-primary: #8B0000;
+  --dragonbane-secondary: #DAA520;
+  --dragonbane-accent: #2F4F4F;
+  --dragonbane-disabled: #e93031;
+}
+
+/* Main HUD Styling */
+.token-action-hud.dragonbane {
+  border: 2px solid var(--dragonbane-primary);
+  background: rgba(139, 0, 0, 0.1);
+}
+
+/* Group Headers */
+.token-action-hud .tah-group-title.dragonbane {
+  background: var(--dragonbane-primary);
+  color: white;
+  border-bottom: 1px solid var(--dragonbane-secondary);
+}
+
+/* Action Buttons - General */
+.token-action-hud .tah-action.dragonbane {
+  border: 1px solid var(--dragonbane-accent);
+  background: rgba(47, 79, 79, 0.1);
+}
+
+.token-action-hud .tah-action.dragonbane:hover {
+  background: var(--dragonbane-secondary);
+  color: black;
+}
+
+/* Action Buttons - By Type */
+.token-action-hud .tah-action[data-action-type="attribute"] {
+  background: rgba(139, 0, 0, 0.2);
+}
+
+.token-action-hud .tah-action[data-action-type="skill"] {
+  background: rgba(218, 165, 32, 0.2);
+}
+
+.token-action-hud .tah-action[data-action-type="weapon"] {
+  background: rgba(47, 79, 79, 0.2);
+}
+
+.token-action-hud .tah-action[data-action-type="spell"] {
+  background: rgba(75, 0, 130, 0.2);
+}
+
+.token-action-hud .tah-action[data-action-type="ability"] {
+  background: rgba(0, 100, 0, 0.2);
+}
+
+.token-action-hud .tah-action[data-action-type="utility"] {
+  background: rgba(105, 105, 105, 0.2);
+}
+
+/* Icons */
+.token-action-hud .tah-action-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+}
+
+/* Tooltips */
+.tah-tooltip {
+    background-color: #000000 !important;
+    color: #00604d !important;
+    border: 2px solid #00604d !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Disabled Rest Buttons - Simple but Effective */
+.dragonbane-rest-unavailable {
+    color: var(--dragonbane-disabled) !important;
+}
+
+.dragonbane-rest-unavailable:hover {
+    color: var(--dragonbane-disabled) !important;
+    cursor: not-allowed !important;
+}
+
+/* Ensure child elements also get the disabled styling */
+.dragonbane-rest-unavailable * {
+    color: var(--dragonbane-disabled) !important;
+}
+
+/* Active Condition Styling */
+.token-action-hud .tah-action.active {
+    background-color: rgba(255, 215, 0, 0.3) !important;
+    border: 2px solid #ffd700 !important;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.5) !important;
+    animation: conditionPulse 2s infinite;
+}
+
+.token-action-hud.dark .tah-action.active {
+    background-color: rgba(255, 140, 0, 0.4) !important;
+    border: 2px solid #ff8c00 !important;
+    box-shadow: 0 0 8px rgba(255, 140, 0, 0.6) !important;
+}
+
+@keyframes conditionPulse {
+    0% { box-shadow: 0 0 8px rgba(255, 215, 0, 0.5); }
+    50% { box-shadow: 0 0 12px rgba(255, 215, 0, 0.8); }
+    100% { box-shadow: 0 0 8px rgba(255, 215, 0, 0.5); }
+}

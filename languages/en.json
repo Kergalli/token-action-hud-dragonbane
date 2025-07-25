@@ -1,0 +1,104 @@
+{
+  "tokenActionHud": {
+    "dragonbane": {
+      "groups": {
+        "attributes": "Attributes",
+        "monsterAttacksRandom": "Random Monster Attack",
+        "attributeConditions": "Attribute Conditions",
+        "conditions": "Status Effects",
+        "conditionsParent": "Conditions",
+        "utility": "Utility",
+        "stats": "Stats",
+        "spellsRank1": "Rank 1",
+        "spellsRank2": "Rank 2", 
+        "spellsRank3": "Rank 3"
+      },
+      "actions": {
+        "rest": {
+          "round": "Round Rest (1D6 WP)",
+          "stretch": "Stretch Rest (1D6 HP/WP)",
+          "shift": "Shift Rest (All HP/WP/Conditions)",
+          "reset": "Pass One Shift of Time"
+        },
+        "weapon": {
+          "equipped": "⚔ {name}"
+        },
+        "stats": {
+          "ferocity": "Ferocity", 
+          "encumbrance": "Enc"
+        }
+      },
+      "messages": {
+        "stats": {
+          "movement": "{actor} has a Movement of {value}.",
+          "hitPoints": "{actor} has {current}/{max} Hit Points",
+          "hitPointsDamage": " ({damage} damage taken)",
+          "ferocity": "{actor} has a Ferocity of {value}.",
+          "willPoints": "{actor} has {current}/{max} Will Points",
+          "willPointsSpent": " ({spent} spent)",
+          "encumbrance": "{actor} is carrying {current}/{max} items",
+          "encumbranceOver": " and is over-encumbered",
+          "default": "{actor} - Stat information."
+        },
+        "weapons": {
+          "noSkillFound": "No associated skill found for {weapon}"
+        },
+        "rest": {
+          "alreadyTaken": "{actor} has already taken a {restType} this shift!",
+          "roundRestType": "round rest",
+          "stretchRestType": "stretch rest", 
+          "shiftRestType": "shift rest"
+        },
+        "conditions": {
+          "added": "Added {condition} to {actor}",
+          "removed": "Removed {condition} from {actor}"
+        },
+        "deathRoll": {
+          "flavor": "Death Roll {result}"
+        },
+        "actions": {
+          "rolling": "Rolling {skill}",
+          "attacking": "Attacking with {weapon}",
+          "casting": "Casting {spell}",
+          "using": "Using {ability}"
+        },
+        "monster": {
+          "randomAttackFallback": "{actor} makes a random attack!",
+          "noResultFound": "{actor} makes a random attack (no result found)"
+        }
+      },
+      "errors": {
+        "monsterAttacksOnly": "Monster attacks can only be used by monsters",
+        "deathRollsOnly": "Death rolls can only be used by characters", 
+        "monsterDefendOnly": "Monster defend can only be used by monsters",
+        "traitsOnly": "Show Traits can only be used by monsters and NPCs",
+        "monsterAttackFailed": "Failed to execute monster attack",
+        "deathRollFailed": "Failed to execute death roll", 
+        "statsFailed": "Failed to display stat information",
+        "traitsFailed": "Failed to show traits",
+        "noTraits": "{actor} has no traits to display",
+        "noAttackTable": "Monster has no attack table",
+        "attackNotFound": "Attack {attack} not found in table",
+        "conditionToggleFailed": "Failed to toggle condition: {condition}"
+      },
+      "settings": {
+        "hideWeaponSkills": {
+          "name": "Hide Weapon Skills",
+          "hint": "Hide weapon skills from the Token Action HUD"
+        },
+        "hideSecondarySkills": {
+          "name": "Hide Secondary Skills", 
+          "hint": "Hide secondary skills from the Token Action HUD"
+        },
+        "showOnlyMemorizedSpells": {
+          "name": "Show Only Memorized Spells",
+          "hint": "Only show memorized spells in the Token Action HUD. Uncheck to show all spells."
+        },
+        "showUnequippedWeapons": {
+          "name": "Show Unequipped Weapons",
+          "hint": "Show weapons that are not currently equipped in addition to equipped weapons"
+        }
+      }
+    }
+  }
+}

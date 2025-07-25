@@ -1,0 +1,104 @@
+{
+  "tokenActionHud": {
+    "dragonbane": {
+      "groups": {
+        "attributes": "Egenskaper",
+        "monsterAttacksRandom": "Slumpmässig Monsterattack",
+        "attributeConditions": "Egenskapstillstånd",
+        "conditions": "Statuseffekter",
+        "conditionsParent": "Tillstånd",
+        "utility": "Verktyg",
+        "stats": "Statistik",
+        "spellsRank1": "Rang 1",
+        "spellsRank2": "Rang 2", 
+        "spellsRank3": "Rang 3"
+      },
+      "actions": {
+        "rest": {
+          "round": "Rundvila (1T6 VP)",
+          "stretch": "Stretchvila (1T6 KP/VP)",
+          "shift": "Skiftvila (Alla KP/VP/Tillstånd)",
+          "reset": "Låt Ett Skift Passera"
+        },
+        "weapon": {
+          "equipped": "⚔ {name}"
+        },
+        "stats": {
+          "ferocity": "Vildhet", 
+          "encumbrance": "Bärk"
+        }
+      },
+      "messages": {
+        "stats": {
+          "movement": "{actor} har en Rörelse på {value}.",
+          "hitPoints": "{actor} har {current}/{max} Kroppspoäng",
+          "hitPointsDamage": " ({damage} skada tagen)",
+          "ferocity": "{actor} har en Vildhet på {value}.",
+          "willPoints": "{actor} har {current}/{max} Viljepoäng",
+          "willPointsSpent": " ({spent} spenderade)",
+          "encumbrance": "{actor} bär {current}/{max} föremål",
+          "encumbranceOver": " och är överbelastad",
+          "default": "{actor} - Statistikinformation."
+        },
+        "weapons": {
+          "noSkillFound": "Ingen associerad färdighet hittades för {weapon}"
+        },
+        "rest": {
+          "alreadyTaken": "{actor} har redan tagit en {restType} detta skift!",
+          "roundRestType": "rundvila",
+          "stretchRestType": "stretchvila", 
+          "shiftRestType": "skiftvila"
+        },
+        "conditions": {
+          "added": "Lade till {condition} på {actor}",
+          "removed": "Tog bort {condition} från {actor}"
+        },
+        "deathRoll": {
+          "flavor": "Dödsslag {result}"
+        },
+        "actions": {
+          "rolling": "Slår {skill}",
+          "attacking": "Attackerar med {weapon}",
+          "casting": "Kastar {spell}",
+          "using": "Använder {ability}"
+        },
+        "monster": {
+          "randomAttackFallback": "{actor} gör en slumpmässig attack!",
+          "noResultFound": "{actor} gör en slumpmässig attack (inget resultat hittades)"
+        }
+      },
+      "errors": {
+        "monsterAttacksOnly": "Monsterattacker kan endast användas av monster",
+        "deathRollsOnly": "Dödsslag kan endast användas av rollpersoner", 
+        "monsterDefendOnly": "Monsterförsvar kan endast användas av monster",
+        "traitsOnly": "Visa Egenskaper kan endast användas av monster och SLP",
+        "monsterAttackFailed": "Misslyckades att utföra monsterattack",
+        "deathRollFailed": "Misslyckades att utföra dödsslag", 
+        "statsFailed": "Misslyckades att visa statistikinformation",
+        "traitsFailed": "Misslyckades att visa egenskaper",
+        "noTraits": "{actor} har inga egenskaper att visa",
+        "noAttackTable": "Monster har ingen attacktabell",
+        "attackNotFound": "Attack {attack} hittades inte i tabellen",
+        "conditionToggleFailed": "Misslyckades att växla tillstånd: {condition}"
+      },
+      "settings": {
+        "hideWeaponSkills": {
+          "name": "Dölj Vapenfärdigheter",
+          "hint": "Dölj vapenfärdigheter från Token Action HUD"
+        },
+        "hideSecondarySkills": {
+          "name": "Dölj Sekundära Färdigheter", 
+          "hint": "Dölj sekundära färdigheter från Token Action HUD"
+        },
+        "showOnlyMemorizedSpells": {
+          "name": "Visa Endast Memorerade Besvärjelser",
+          "hint": "Visa endast memorerade besvärjelser i Token Action HUD. Avmarkera för att visa alla besvärjelser."
+        },
+        "showUnequippedWeapons": {
+          "name": "Visa Ej Utrustade Vapen",
+          "hint": "Visa vapen som inte är utrustade tillsammans med utrustade vapen"
+        }
+      }
+    }
+  }
+}
