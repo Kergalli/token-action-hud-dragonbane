@@ -84,7 +84,7 @@
       "settings": {
         "hideWeaponSkills": {
           "name": "Hide Weapon Skills",
-          "hint": "Hide weapon skills from the Token Action HUD"
+          "hint": "Hide weapon skills from the Token Action HUD (Brawling is always shown)"
         },
         "hideSecondarySkills": {
           "name": "Hide Secondary Skills", 
