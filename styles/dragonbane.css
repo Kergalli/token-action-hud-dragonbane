@@ -91,6 +91,46 @@
     color: var(--dragonbane-disabled) !important;
 }
 
+/* Over-Encumbered Styling - Red color but still clickable */
+.dragonbane-over-encumbered {
+    color: var(--dragonbane-disabled) !important;
+}
+
+.dragonbane-over-encumbered:hover {
+    color: var(--dragonbane-disabled) !important;
+    /* Normal cursor behavior - no cursor: not-allowed */
+}
+
+/* Ensure child elements also get the over-encumbered styling */
+.dragonbane-over-encumbered * {
+    color: var(--dragonbane-disabled) !important;
+}
+
+/* Health Status Styling - Yellow for injured, Red for critical */
+.dragonbane-stat-injured {
+    color: #ffd700 !important; /* Gold/Yellow for injured */
+}
+
+.dragonbane-stat-injured:hover {
+    color: #ffd700 !important;
+}
+
+.dragonbane-stat-injured * {
+    color: #ffd700 !important;
+}
+
+.dragonbane-stat-critical {
+    color: var(--dragonbane-disabled) !important; /* Red for critical */
+}
+
+.dragonbane-stat-critical:hover {
+    color: var(--dragonbane-disabled) !important;
+}
+
+.dragonbane-stat-critical * {
+    color: var(--dragonbane-disabled) !important;
+}
+
 /* Active Condition Styling */
 .token-action-hud .tah-action.active {
     background-color: rgba(255, 215, 0, 0.3) !important;
