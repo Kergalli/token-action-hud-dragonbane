@@ -2,17 +2,17 @@
  * ActionHandler for Token Action HUD Dragonbane
  */
 
-import { 
-    MODULE, 
-    ACTION_TYPE, 
-    getAttributeConditionsMap 
+import {
+    MODULE,
+    ACTION_TYPE,
+    getAttributeConditionsMap
 } from './constants.js'
 
 /**
  * Create ActionHandler class that extends the core ActionHandler
  */
 export function createActionHandler(coreModule) {
-    
+
     class ActionHandler extends coreModule.api.ActionHandler {
 
         constructor() {
@@ -46,17 +46,17 @@ export function createActionHandler(coreModule) {
          */
         _isBrawlingSkill(skill) {
             const skillName = skill.name.toLowerCase()
-            
+
             // Try to get the localized name for brawling
             const localizedBrawling = game.i18n.localize('DoD.skills.brawling')?.toLowerCase()
-            
+
             // If we found a localized version and it's not the key itself, use it
             if (localizedBrawling && localizedBrawling !== 'dod.skills.brawling') {
                 if (skillName === localizedBrawling) {
                     return true
                 }
             }
-            
+
             // Fallback to known language variants for common translations
             const knownBrawlingNames = [
                 'brawling',      // English
@@ -67,7 +67,7 @@ export function createActionHandler(coreModule) {
                 'pelea',         // Spanish
                 'briga'          // Portuguese
             ]
-            
+
             return knownBrawlingNames.includes(skillName)
         }
 
@@ -79,6 +79,17 @@ export function createActionHandler(coreModule) {
          * Build system actions
          */
         async buildSystemActions(groupIds) {
+            // Check the core "Always show HUD" setting
+            const alwaysShowHud = game.settings.get('token-action-hud-core', 'alwaysShowHud')
+
+            // If "Always show HUD" is disabled and no tokens are controlled, don't build any actions
+            if (!alwaysShowHud) {
+                const controlledTokens = canvas.tokens?.controlled || []
+                if (controlledTokens.length === 0) {
+                    return // Just return early, let core handle everything else
+                }
+            }
+
             // Use the default Token Action HUD Core logic
             this.actors = (!this.actor) ? this._getActors() : [this.actor]
             this.actorType = this.actor?.type
@@ -169,8 +180,8 @@ export function createActionHandler(coreModule) {
 
                 for (const skill of items) {
                     const systemType = skill.system.skillType || 'core'
-                    const skillType = systemType === 'core' ? 'core' : 
-                                     systemType === 'weapon' ? 'weapon' : 'secondary'
+                    const skillType = systemType === 'core' ? 'core' :
+                        systemType === 'weapon' ? 'weapon' : 'secondary'
 
                     if (skillsByType[skillType]) {
                         skillsByType[skillType].push(skill)
@@ -201,16 +212,16 @@ export function createActionHandler(coreModule) {
             // Weapon Skills - show for all actor types (unless hidden, but always show Brawling)
             if (skillsByType.weapon.length > 0) {
                 const actions = []
-                
+
                 let weaponSkillsToShow = skillsByType.weapon
-                
+
                 // If weapon skills are hidden, only show Brawling
                 if (hideWeaponSkills) {
                     weaponSkillsToShow = skillsByType.weapon.filter(skill => {
                         return this._isBrawlingSkill(skill)
                     })
                 }
-                
+
                 for (const skill of weaponSkillsToShow) {
                     const skillValue = this._getSkillValue(skill)
                     const name = `${skill.name} (${skillValue})`
@@ -573,7 +584,7 @@ export function createActionHandler(coreModule) {
                 const currentHP = this.actor.system.hitPoints.value || 0
                 const maxHP = this.actor.system.hitPoints.max || 0
                 const hpLabel = game.i18n.localize('DoD.ui.character-sheet.hp')
-                
+
                 // Determine HP status and CSS class
                 let hpCssClass = ''
                 if (currentHP < maxHP) {
@@ -584,7 +595,7 @@ export function createActionHandler(coreModule) {
                     }
                 }
                 // No class needed for full HP (stays white)
-                
+
                 actions.push({
                     id: `${ACTION_TYPE.stats}>hitpoints`,
                     name: `${hpLabel}: ${currentHP}/${maxHP}`,
@@ -611,7 +622,7 @@ export function createActionHandler(coreModule) {
                 const currentWP = this.actor.system.willPoints.value || 0
                 const maxWP = this.actor.system.willPoints.max || 0
                 const wpLabel = game.i18n.localize('DoD.ui.character-sheet.wp')
-                
+
                 // Determine WP status and CSS class
                 let wpCssClass = ''
                 if (currentWP < maxWP) {
@@ -622,7 +633,7 @@ export function createActionHandler(coreModule) {
                     }
                 }
                 // No class needed for full WP (stays white)
-                
+
                 actions.push({
                     id: `${ACTION_TYPE.stats}>willpoints`,
                     name: `${wpLabel}: ${currentWP}/${maxWP}`,
@@ -638,7 +649,7 @@ export function createActionHandler(coreModule) {
                 const maxEnc = this.actor.system.maxEncumbrance?.value || 0
                 const encLabel = game.i18n.localize('tokenActionHud.dragonbane.actions.stats.encumbrance') || 'Enc'
                 const isOverEncumbered = currentEnc > maxEnc
-                
+
                 actions.push({
                     id: `${ACTION_TYPE.stats}>encumbrance`,
                     name: `${encLabel}: ${currentEnc}/${maxEnc}`,
@@ -658,7 +669,7 @@ export function createActionHandler(coreModule) {
          */
         async _buildTraits() {
             // Only show for NPCs and Monsters that have traits
-            if ((this.actor.type !== 'npc' && this.actor.type !== 'monster') || 
+            if ((this.actor.type !== 'npc' && this.actor.type !== 'monster') ||
                 !this.actor.system.traits || !this.actor.system.traits.trim()) {
                 return
             }
@@ -681,7 +692,7 @@ export function createActionHandler(coreModule) {
          */
         async _buildTraits() {
             // Only show for NPCs and Monsters that have traits
-            if ((this.actor.type !== 'npc' && this.actor.type !== 'monster') || 
+            if ((this.actor.type !== 'npc' && this.actor.type !== 'monster') ||
                 !this.actor.system.traits || !this.actor.system.traits.trim()) {
                 return
             }
@@ -777,6 +788,6 @@ export function createActionHandler(coreModule) {
             }
         }
     }
-    
+
     return ActionHandler
 }
