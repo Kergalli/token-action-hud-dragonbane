@@ -4,8 +4,8 @@
  */
 
 // Import constants and class factories
-import { 
-    MODULE, 
+import {
+    MODULE,
     REQUIRED_CORE_MODULE_VERSION
 } from './constants.js'
 
@@ -26,6 +26,15 @@ Hooks.once('ready', async () => {
     const debouncedSettingsUpdate = foundry.utils.debounce(() => {
         if (ui.tokenActionHud) ui.tokenActionHud.update()
     }, 100)
+
+    // Listen for core Token Action HUD setting changes
+    Hooks.on('updateSetting', (setting) => {
+        // Check if it's a core Token Action HUD setting we care about
+        if (setting.namespace === 'token-action-hud-core') {
+            // Update the HUD when core settings change
+            debouncedSettingsUpdate()
+        }
+    })
 
     // Register module settings
     game.settings.register(MODULE.ID, 'hideWeaponSkills', {
