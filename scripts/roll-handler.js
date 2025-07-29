@@ -143,6 +143,26 @@ export function createRollHandler(coreModule) {
             }
 
             try {
+                // Check if action is available before proceeding
+                let isAvailable = true
+
+                if (combatActionData.skillName) {
+                    const skill = this._findSkillByName(combatActionData.skillName)
+                    if (!skill) {
+                        isAvailable = false
+                    }
+                } else if (combatActionData.attributeName) {
+                    const attribute = this.actor.system.attributes?.[combatActionData.attributeName]
+                    if (!attribute) {
+                        isAvailable = false
+                    }
+                }
+
+                // If action is not available (disabled), don't execute
+                if (!isAvailable) {
+                    return
+                }
+
                 // Validate targeting if required
                 if (combatActionData.requiresTarget) {
                     const validationResult = this._validateTargeting(combatActionData)
