@@ -57,6 +57,10 @@
   background: rgba(105, 105, 105, 0.2);
 }
 
+.token-action-hud .tah-action[data-action-type="combatAction"] {
+  background: rgba(139, 69, 19, 0.2);
+}
+
 /* Icons */
 .token-action-hud .tah-action-icon {
   width: 20px;
@@ -89,6 +93,36 @@
 /* Ensure child elements also get the disabled styling */
 .dragonbane-rest-unavailable * {
     color: var(--dragonbane-disabled) !important;
+}
+
+/* Broken Weapon Styling - Red color and disabled cursor */
+.dragonbane-weapon-broken {
+    color: var(--dragonbane-disabled) !important;
+}
+
+.dragonbane-weapon-broken:hover {
+    color: var(--dragonbane-disabled) !important;
+    cursor: not-allowed !important;
+}
+
+/* Ensure child elements also get the broken weapon styling */
+.dragonbane-weapon-broken * {
+    color: var(--dragonbane-disabled) !important;
+}
+
+/* Unavailable Combat Action Styling */
+.dragonbane-action-unavailable {
+    color: #999 !important;
+    opacity: 0.6;
+}
+
+.dragonbane-action-unavailable:hover {
+    color: #999 !important;
+    cursor: not-allowed !important;
+}
+
+.dragonbane-action-unavailable * {
+    color: #999 !important;
 }
 
 /* Over-Encumbered Styling - Red color but still clickable */
