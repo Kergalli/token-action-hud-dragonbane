@@ -5,6 +5,7 @@
 import {
     MODULE,
     ACTION_TYPE,
+    COMBAT_ACTIONS,
     getAttributeConditionsMap
 } from './constants.js'
 
@@ -71,6 +72,40 @@ export function createActionHandler(coreModule) {
             return knownBrawlingNames.includes(skillName)
         }
 
+        /**
+         * Helper method to find a skill by name with localization support
+         */
+        _findSkillByName(skillName) {
+            const allSkills = this.actor.items.filter(item => item.type === 'skill')
+
+            // Direct name match (case insensitive)
+            let skill = allSkills.find(s => s.name.toLowerCase() === skillName.toLowerCase())
+            if (skill) return skill
+
+            // Try localized skill names
+            const localizedSkillName = game.i18n.localize(`DoD.skills.${skillName}`)?.toLowerCase()
+            if (localizedSkillName && localizedSkillName !== `dod.skills.${skillName}`) {
+                skill = allSkills.find(s => s.name.toLowerCase() === localizedSkillName)
+                if (skill) return skill
+            }
+
+            // Try common translations
+            const skillTranslations = {
+                'healing': ['healing', 'läkekonst', 'heilkunde'],
+                'persuasion': ['persuasion', 'övertalning', 'überredung'],
+                'evade': ['evade', 'undvika', 'ausweichen']
+            }
+
+            if (skillTranslations[skillName]) {
+                for (const translation of skillTranslations[skillName]) {
+                    skill = allSkills.find(s => s.name.toLowerCase() === translation.toLowerCase())
+                    if (skill) return skill
+                }
+            }
+
+            return null
+        }
+
         _getActors() {
             return super._getActors() || []
         }
@@ -113,6 +148,7 @@ export function createActionHandler(coreModule) {
                 await this._buildAttributes()
                 await this._buildSkills()
                 await this._buildWeapons()
+                await this._buildCombatActions()
                 await this._buildSpells()
                 await this._buildAbilities()
                 await this._buildConditions()
@@ -261,7 +297,7 @@ export function createActionHandler(coreModule) {
         }
 
         /**
-         * Build weapons using cached settings
+         * Build weapons using cached settings with broken weapon styling
          */
         async _buildWeapons() {
             const allWeapons = this.actor.items.filter(item => item.type === 'weapon')
@@ -284,6 +320,9 @@ export function createActionHandler(coreModule) {
 
             for (const weapon of weapons) {
                 let name = weapon.name
+
+                // Check if weapon is broken
+                const isBroken = weapon.system?.broken === true
 
                 // Add visual indicator if showing both equipped and unequipped weapons
                 if (showUnequippedWeapons) {
@@ -321,12 +360,61 @@ export function createActionHandler(coreModule) {
                     id: `${ACTION_TYPE.weapon}>${weapon.id}`,
                     name,
                     encodedValue: [ACTION_TYPE.weapon, weapon.id].join(this.delimiter),
-                    img: weapon.img
+                    img: weapon.img,
+                    cssClass: isBroken ? 'dragonbane-weapon-broken' : ''
                 })
             }
 
             if (actions.length > 0 && this.addActions) {
                 this.addActions(actions, { id: 'weapons', type: 'system' })
+            }
+        }
+
+        /**
+         * Build combat actions
+         */
+        async _buildCombatActions() {
+            // Skip for monsters
+            if (this.actor.type === 'monster') return
+
+            const actions = []
+
+            for (const [actionKey, actionData] of Object.entries(COMBAT_ACTIONS)) {
+                let name = game.i18n.localize(`tokenActionHud.dragonbane.combatActions.${actionKey}`) || actionKey
+                let isAvailable = true
+                let skillValue = null
+
+                // Check if required skill/attribute exists and add value to name
+                if (actionData.skillName) {
+                    const skill = this._findSkillByName(actionData.skillName)
+                    if (skill) {
+                        skillValue = this._getSkillValue(skill)
+                        name = `${name} (${skillValue})`
+                    } else {
+                        isAvailable = false
+                        name = `${name} (${game.i18n.localize('tokenActionHud.dragonbane.combatActions.skillNotFound')})`
+                    }
+                } else if (actionData.attributeName) {
+                    const attribute = this.actor.system.attributes?.[actionData.attributeName]
+                    if (attribute) {
+                        const attributeValue = attribute.value || attribute.max || 0
+                        name = `${name} (${attributeValue})`
+                    } else {
+                        isAvailable = false
+                    }
+                }
+
+                actions.push({
+                    id: `${ACTION_TYPE.combatAction}>${actionKey}`,
+                    name,
+                    encodedValue: [ACTION_TYPE.combatAction, actionKey].join(this.delimiter),
+                    img: actionData.icon || 'icons/svg/sword.svg',
+                    cssClass: !isAvailable ? 'dragonbane-action-unavailable' : ''
+                })
+            }
+
+            if (actions.length > 0 && this.addActions) {
+                this.addActions(actions, { id: 'combatActions', type: 'system' })
             }
         }
 
@@ -368,12 +456,24 @@ export function createActionHandler(coreModule) {
 
             // Magic Tricks (Rank 0)
             if (spellsByRank[0].length > 0) {
-                const actions = spellsByRank[0].map(spell => ({
-                    id: `${ACTION_TYPE.spell}>${spell.id}`,
-                    name: spell.name,
-                    encodedValue: [ACTION_TYPE.spell, spell.id].join(this.delimiter),
-                    img: spell.img
-                }))
+                const actions = spellsByRank[0].map(spell => {
+                    let name = spell.name
+
+                    // Add visual indicator if showing all spells and this one is memorized
+                    if (!showOnlyMemorized && this.actor.type === 'character') {
+                        const isMemorized = spell.system.memorized === true
+                        if (isMemorized) {
+                            name = game.i18n.format('tokenActionHud.dragonbane.actions.spell.memorized', { name: spell.name }) || `✨ ${spell.name}`
+                        }
+                    }
+
+                    return {
+                        id: `${ACTION_TYPE.spell}>${spell.id}`,
+                        name,
+                        encodedValue: [ACTION_TYPE.spell, spell.id].join(this.delimiter),
+                        img: spell.img
+                    }
+                })
 
                 if (actions.length > 0 && this.addActions) {
                     this.addActions(actions, { id: 'magicTricks', type: 'system' })
@@ -383,12 +483,24 @@ export function createActionHandler(coreModule) {
             // Rank 1-3 Spells
             for (let rank = 1; rank <= 3; rank++) {
                 if (spellsByRank[rank].length > 0) {
-                    const actions = spellsByRank[rank].map(spell => ({
-                        id: `${ACTION_TYPE.spell}>${spell.id}`,
-                        name: spell.name,
-                        encodedValue: [ACTION_TYPE.spell, spell.id].join(this.delimiter),
-                        img: spell.img
-                    }))
+                    const actions = spellsByRank[rank].map(spell => {
+                        let name = spell.name
+
+                        // Add visual indicator if showing all spells and this one is memorized
+                        if (!showOnlyMemorized && this.actor.type === 'character') {
+                            const isMemorized = spell.system.memorized === true
+                            if (isMemorized) {
+                                name = game.i18n.format('tokenActionHud.dragonbane.actions.spell.memorized', { name: spell.name }) || `✨ ${spell.name}`
+                            }
+                        }
+
+                        return {
+                            id: `${ACTION_TYPE.spell}>${spell.id}`,
+                            name,
+                            encodedValue: [ACTION_TYPE.spell, spell.id].join(this.delimiter),
+                            img: spell.img
+                        }
+                    })
 
                     if (actions.length > 0 && this.addActions) {
                         this.addActions(actions, { id: `spellsRank${rank}`, type: 'system' })
@@ -661,29 +773,6 @@ export function createActionHandler(coreModule) {
 
             if (actions.length > 0 && this.addActions) {
                 this.addActions(actions, { id: 'stats', type: 'system' })
-            }
-        }
-
-        /**
-         * Build traits actions for NPCs and Monsters
-         */
-        async _buildTraits() {
-            // Only show for NPCs and Monsters that have traits
-            if ((this.actor.type !== 'npc' && this.actor.type !== 'monster') ||
-                !this.actor.system.traits || !this.actor.system.traits.trim()) {
-                return
-            }
-
-            const actions = [{
-                id: `${ACTION_TYPE.traits}>show`,
-                name: game.i18n.localize('DoD.ui.character-sheet.traits') || 'Show Traits',
-                encodedValue: [ACTION_TYPE.traits, 'show'].join(this.delimiter),
-                img: 'modules/token-action-hud-dragonbane/assets/icons/traits.webp'
-            }]
-
-            if (this.addActions) {
-                const groupId = this.actor.type === 'monster' ? 'monsterTraits' : 'npcTraits'
-                this.addActions(actions, { id: groupId, type: 'system' })
             }
         }
 
