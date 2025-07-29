@@ -23,11 +23,44 @@ export const ACTION_TYPE = {
     monsterDefend: 'monsterDefend',
     traits: 'traits',
     stats: 'stats',
-    deathRoll: 'deathRoll'
+    deathRoll: 'deathRoll',
+    combatAction: 'combatAction'
 }
 
 export const TIMEOUTS = {
     HUD_UPDATE_DELAY: 100
+}
+
+// Combat action definitions
+export const COMBAT_ACTIONS = {
+    firstAid: {
+        id: 'firstAid',
+        skillName: 'healing',
+        requiresTarget: true,
+        maxRange: 2, // meters
+        icon: 'icons/svg/regen.svg'
+    },
+    rallyOther: {
+        id: 'rallyOther', 
+        skillName: 'persuasion',
+        requiresTarget: true,
+        maxRange: 10, // meters
+        icon: 'icons/svg/upgrade.svg'
+    },
+    rallySelf: {
+        id: 'rallySelf',
+        attributeName: 'wil',
+        requiresTarget: false,
+        maxRange: 0,
+        icon: 'icons/svg/upgrade.svg'
+    },
+    dodge: {
+        id: 'dodge',
+        skillName: 'evade', 
+        requiresTarget: false,
+        maxRange: 0,
+        icon: 'icons/svg/combat.svg'
+    }
 }
 
 // Group definitions
@@ -57,9 +90,19 @@ export const GROUP = {
         name: () => game.i18n.localize('DoD.skillTypes.secondary'),
         type: 'system'
     },
+    combat: {
+        id: 'combat',
+        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.combat') || 'Combat',
+        type: 'system'
+    },
     weapons: {
         id: 'weapons',
         name: () => game.i18n.localize('DoD.ui.character-sheet.weapons'),
+        type: 'system'
+    },
+    combatActions: {
+        id: 'combatActions',
+        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.combatActions') || 'Combat Actions',
         type: 'system'
     },
     spells: {
@@ -129,7 +172,7 @@ export const GROUP = {
     },
     monsterDefend: {
         id: 'monsterDefend',
-        name: () => 'Monster Defend',
+        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.monsterDefend') || 'Monster Defend',
         type: 'system'
     },
     traits: {
