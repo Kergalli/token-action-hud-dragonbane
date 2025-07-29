@@ -409,7 +409,8 @@ export function createActionHandler(coreModule) {
                     name,
                     encodedValue: [ACTION_TYPE.combatAction, actionKey].join(this.delimiter),
                     img: actionData.icon || 'icons/svg/sword.svg',
-                    cssClass: !isAvailable ? 'dragonbane-action-unavailable' : ''
+                    cssClass: !isAvailable ? 'dragonbane-action-unavailable' : '',
+                    disabled: !isAvailable
                 })
             }
 
