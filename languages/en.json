@@ -3,7 +3,10 @@
     "dragonbane": {
       "groups": {
         "attributes": "Attributes",
+        "combat": "Combat",
+        "combatActions": "Combat Actions",
         "monsterAttacksRandom": "Random Monster Attack",
+        "monsterDefend": "Monster Defend",
         "attributeConditions": "Attribute Conditions",
         "conditions": "Status Effects",
         "conditionsParent": "Conditions",
@@ -12,6 +15,13 @@
         "spellsRank1": "Rank 1",
         "spellsRank2": "Rank 2", 
         "spellsRank3": "Rank 3"
+      },
+      "combatActions": {
+        "firstAid": "First Aid",
+        "rallyOther": "Rally Other",
+        "rallySelf": "Rally Self",
+        "dodge": "Dodge",
+        "skillNotFound": "Skill Not Found"
       },
       "actions": {
         "rest": {
@@ -22,6 +32,9 @@
         },
         "weapon": {
           "equipped": "⚔ {name}"
+        },
+        "spell": {
+          "memorized": "✨ {name}"
         },
         "stats": {
           "ferocity": "Ferocity", 
@@ -41,7 +54,8 @@
           "default": "{actor} - Stat information."
         },
         "weapons": {
-          "noSkillFound": "No associated skill found for {weapon}"
+          "noSkillFound": "No associated skill found for {weapon}",
+          "weaponBroken": "{weapon} is broken and cannot be used!"
         },
         "rest": {
           "alreadyTaken": "{actor} has already taken a {restType} this shift!",
@@ -79,7 +93,14 @@
         "noTraits": "{actor} has no traits to display",
         "noAttackTable": "Monster has no attack table",
         "attackNotFound": "Attack {attack} not found in table",
-        "conditionToggleFailed": "Failed to toggle condition: {condition}"
+        "conditionToggleFailed": "Failed to toggle condition: {condition}",
+        "combatActionNotFound": "Combat action not found",
+        "combatActionFailed": "Combat action failed",
+        "skillNotFound": "{skill} skill not found",
+        "noTargetSelected": "Select a target before using this action",
+        "tooManyTargets": "Too many targets selected",
+        "noActorToken": "Actor has no token on the scene",
+        "targetTooFar": "Target is too far away! The target must be within {maxRange}m, but the target is {distance}m away."
       },
       "settings": {
         "hideWeaponSkills": {
