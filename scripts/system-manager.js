@@ -65,7 +65,7 @@ export function createSystemManager(coreModule) {
                 },
                 {
                     nestId: 'traits',
-                    id: 'traits', 
+                    id: 'traits',
                     name: groups.traits.name(),
                     groups: [
                         { ...groups.monsterTraits, name: groups.monsterTraits.name(), nestId: 'traits_monsterTraits' },
@@ -73,10 +73,13 @@ export function createSystemManager(coreModule) {
                     ]
                 },
                 {
-                    nestId: 'weapons',
-                    id: 'weapons',
-                    name: groups.weapons.name(),
-                    groups: [{ ...groups.weapons, name: groups.weapons.name(), nestId: 'weapons_weapons' }]
+                    nestId: 'combat',
+                    id: 'combat',
+                    name: groups.combat.name(),
+                    groups: [
+                        { ...groups.weapons, name: groups.weapons.name(), nestId: 'combat_weapons' },
+                        { ...groups.combatActions, name: groups.combatActions.name(), nestId: 'combat_combatActions' }
+                    ]
                 },
                 {
                     nestId: 'monsterAttacks',
