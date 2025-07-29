@@ -2,7 +2,7 @@
  * RollHandler for Token Action HUD Dragonbane
  */
 
-import { ACTION_TYPE, TIMEOUTS, getAttributeConditionsMap } from './constants.js'
+import { ACTION_TYPE, COMBAT_ACTIONS, TIMEOUTS, getAttributeConditionsMap } from './constants.js'
 
 /**
  * Create RollHandler class that extends the core RollHandler
@@ -50,6 +50,9 @@ export function createRollHandler(coreModule) {
                 case ACTION_TYPE.deathRoll:
                     await this._handleDeathRollAction()
                     break
+                case ACTION_TYPE.combatAction:
+                    await this._handleCombatAction(actionId)
+                    break
             }
         }
 
@@ -90,6 +93,16 @@ export function createRollHandler(coreModule) {
             const weapon = this.actor.items.get(weaponId)
             if (!weapon) return
 
+            // Check if weapon is broken
+            if (weapon.system?.broken === true) {
+                ui.notifications.warn(
+                    game.i18n.format('tokenActionHud.dragonbane.messages.weapons.weaponBroken', { 
+                        weapon: weapon.name 
+                    }) || `${weapon.name} is broken and cannot be used!`
+                )
+                return
+            }
+
             try {
                 await game.dragonbane.rollItem(weapon.name, weapon.type)
             } catch (error) {
@@ -117,6 +130,189 @@ export function createRollHandler(coreModule) {
             } catch (error) {
                 console.error('Ability use failed:', error)
             }
+        }
+
+        /**
+         * Handle combat actions (First Aid, Rally Other, Rally Self, Dodge)
+         */
+        async _handleCombatAction(actionId) {
+            const combatActionData = COMBAT_ACTIONS[actionId]
+            if (!combatActionData) {
+                ui.notifications.error(game.i18n.localize('tokenActionHud.dragonbane.errors.combatActionNotFound') || 'Combat action not found')
+                return
+            }
+
+            try {
+                // Validate targeting if required
+                if (combatActionData.requiresTarget) {
+                    const validationResult = this._validateTargeting(combatActionData)
+                    if (!validationResult.valid) {
+                        ui.notifications.warn(validationResult.message)
+                        return
+                    }
+                }
+
+                // Execute the combat action
+                if (combatActionData.skillName) {
+                    await this._executeCombatSkillAction(actionId, combatActionData)
+                } else if (combatActionData.attributeName) {
+                    await this._executeCombatAttributeAction(actionId, combatActionData)
+                }
+
+            } catch (error) {
+                console.error(`Combat action ${actionId} failed:`, error)
+                ui.notifications.error(game.i18n.localize('tokenActionHud.dragonbane.errors.combatActionFailed') || 'Combat action failed')
+            }
+        }
+
+        /**
+         * Validate targeting requirements for combat actions
+         */
+        _validateTargeting(combatActionData) {
+            const targets = Array.from(game.user.targets)
+            
+            if (targets.length === 0) {
+                return {
+                    valid: false,
+                    message: game.i18n.localize('tokenActionHud.dragonbane.errors.noTargetSelected') || 'No target selected'
+                }
+            }
+
+            if (targets.length > 1) {
+                return {
+                    valid: false,
+                    message: game.i18n.localize('tokenActionHud.dragonbane.errors.tooManyTargets') || 'Too many targets selected'
+                }
+            }
+
+            const target = targets[0]
+            const actorToken = this.actor.getActiveTokens()[0]
+            
+            if (!actorToken) {
+                return {
+                    valid: false,
+                    message: game.i18n.localize('tokenActionHud.dragonbane.errors.noActorToken') || 'Actor has no token on the scene'
+                }
+            }
+
+            // Check range
+            const distance = this._calculateDistance(actorToken, target)
+            if (distance > combatActionData.maxRange) {
+                return {
+                    valid: false,
+                    message: game.i18n.format('tokenActionHud.dragonbane.errors.targetTooFar', {
+                        distance: Math.round(distance * 10) / 10,
+                        maxRange: combatActionData.maxRange
+                    }) || `Target is too far away (${Math.round(distance * 10) / 10}m, max: ${combatActionData.maxRange}m)`
+                }
+            }
+
+            return { valid: true }
+        }
+
+        /**
+         * Calculate distance between tokens in grid squares (like validation.js)
+         */
+        _calculateDistance(sourceToken, targetToken) {
+            if (!canvas.grid || !canvas.scene) return 0
+            
+            try {
+                const gridSize = canvas.grid.size;
+                const gridDistance = canvas.scene.grid.distance || 2; // Default 2m per square for Dragonbane
+                
+                // Helper function to get token bounds in grid coordinates
+                const getTokenBounds = (token) => {
+                    const doc = token.document || token;
+                    const x = Math.round(doc.x / gridSize);
+                    const y = Math.round(doc.y / gridSize);
+                    const w = doc.width || 1;
+                    const h = doc.height || 1;
+                    return { left: x, right: x + w - 1, top: y, bottom: y + h - 1 };
+                };
+                
+                const bounds1 = getTokenBounds(sourceToken);
+                const bounds2 = getTokenBounds(targetToken);
+                
+                // Calculate minimum distance between token boundaries
+                const dx = Math.max(0, bounds2.left - bounds1.right, bounds1.left - bounds2.right);
+                const dy = Math.max(0, bounds2.top - bounds1.bottom, bounds1.top - bounds2.bottom);
+                
+                // Use Chebyshev distance (8-directional movement, treats diagonal as same as orthogonal)
+                const gridSquaresAway = Math.max(dx, dy);
+                
+                // Convert to game distance - adjacent (≤1 square) = 0m, otherwise multiply by grid distance
+                const gameDistance = gridSquaresAway <= 1 ? 0 : gridSquaresAway * gridDistance;
+                
+                return gameDistance;
+                
+            } catch (error) {
+                // Fallback to simple grid measurement
+                const distance = canvas.grid.measureDistance(sourceToken, targetToken)
+                const gridDistance = canvas.scene.grid.distance || 2
+                return distance <= gridDistance ? 0 : distance
+            }
+        }
+
+        /**
+         * Execute combat action that uses a skill
+         */
+        async _executeCombatSkillAction(actionId, combatActionData) {
+            const skill = this._findSkillByName(combatActionData.skillName)
+            if (!skill) {
+                ui.notifications.error(
+                    game.i18n.format('tokenActionHud.dragonbane.errors.skillNotFound', { 
+                        skill: combatActionData.skillName 
+                    }) || `${combatActionData.skillName} skill not found`
+                )
+                return
+            }
+
+            // Use the Dragonbane system's skill roll method
+            await game.dragonbane.rollItem(skill.name, skill.type)
+        }
+
+        /**
+         * Execute combat action that uses an attribute
+         */
+        async _executeCombatAttributeAction(actionId, combatActionData) {
+            const attributeId = combatActionData.attributeName
+            
+            // Use the existing attribute roll handler
+            await this._handleAttributeAction(attributeId)
+        }
+
+        /**
+         * Find skill by name with localization support
+         */
+        _findSkillByName(skillName) {
+            const allSkills = this.actor.items.filter(item => item.type === 'skill')
+            
+            // Direct name match (case insensitive)
+            let skill = allSkills.find(s => s.name.toLowerCase() === skillName.toLowerCase())
+            if (skill) return skill
+
+            // Try localized skill names
+            const localizedSkillName = game.i18n.localize(`DoD.skills.${skillName}`)?.toLowerCase()
+            if (localizedSkillName && localizedSkillName !== `dod.skills.${skillName}`) {
+                skill = allSkills.find(s => s.name.toLowerCase() === localizedSkillName)
+                if (skill) return skill
+            }
+
+            // Try common translations
+            const skillTranslations = {
+                'healing': ['healing', 'läkekonst', 'heilkunde'],
+                'persuasion': ['persuasion', 'övertalning', 'überredung'],
+                'evade': ['evade', 'undvika', 'ausweichen']
+            }
+
+            if (skillTranslations[skillName]) {
+                for (const translation of skillTranslations[skillName]) {
+                    skill = allSkills.find(s => s.name.toLowerCase() === translation.toLowerCase())
+                    if (skill) return skill
+                }
+            }
+
+            return null
         }
 
         /**
@@ -408,63 +604,6 @@ export function createRollHandler(coreModule) {
                 console.error('Stats action error:', error)
                 ui.notifications.error(game.i18n.localize('tokenActionHud.dragonbane.errors.statsFailed') || 'Failed to display stat information')
             }
-        }
-
-        async _fallbackMonsterDefend() {
-            // Create a simple skill roll for defense
-            const roll = new Roll('1d20')
-            await roll.evaluate()
-
-            const rollResult = roll.total
-            const success = rollResult <= 15
-            const skillName = game.i18n.localize("DoD.ui.character-sheet.monsterDefendSkillFlavor") || "Dodge or Parry"
-
-            // Build tooltip for roll details - simple format like core system
-            const tooltip = `<div class="dice-tooltip">
-                <section class="tooltip-part">
-                    <div class="dice">
-                        <header class="part-header flexrow">
-                            <span class="part-formula">1d20</span>
-                            <span class="part-total">${rollResult}</span>
-                        </header>
-                        <ol class="dice-rolls">
-                            <li class="roll die d20">${rollResult}</li>
-                        </ol>
-                    </div>
-                </section>
-            </div>`
-
-            // Create chat message matching core Dragonbane format exactly
-            let content = `<div class="dice-roll" data-action="expandRoll">
-                <div class="dice-result">
-                    <div class="dice-formula">1d20</div>
-                    ${tooltip}
-                    <h4 class="dice-total">${rollResult}</h4>
-                </div>
-            </div>`
-
-            // Create the main message text with special cases for 1 and 20
-            let flavorText = ''
-
-            if (rollResult === 1) {
-                // Dragon (always success)
-                flavorText = `<span style="font-size: 14px;">Skill roll for <strong>${skillName} succeeded with a Dragon!</strong></span>`
-            } else if (rollResult === 20) {
-                // Demon (always failure)
-                flavorText = `<span style="font-size: 14px;">Skill roll for <strong>${skillName} failed with a Demon!</strong></span>`
-            } else {
-                // Normal success/failure
-                const resultText = success ? 'succeeded' : 'failed'
-                flavorText = `<span style="font-size: 14px;">Skill roll for <strong>${skillName} ${resultText}.</strong></span>`
-            }
-
-            await ChatMessage.create({
-                author: game.user.id,
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                content: content,
-                flavor: flavorText,
-                rolls: [roll]
-            })
         }
     }
     
