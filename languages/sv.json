@@ -3,7 +3,10 @@
     "dragonbane": {
       "groups": {
         "attributes": "Egenskaper",
+        "combat": "Strid",
+        "combatActions": "Stridhandlingar",
         "monsterAttacksRandom": "Slumpmässig Monsterattack",
+        "monsterDefend": "Monsterförsvar",
         "attributeConditions": "Egenskapstillstånd",
         "conditions": "Statuseffekter",
         "conditionsParent": "Tillstånd",
@@ -12,6 +15,13 @@
         "spellsRank1": "Rang 1",
         "spellsRank2": "Rang 2", 
         "spellsRank3": "Rang 3"
+      },
+      "combatActions": {
+        "firstAid": "Första Hjälpen",
+        "rallyOther": "Heja På Annan",
+        "rallySelf": "Heja På Sig Själv",
+        "dodge": "Undvika",
+        "skillNotFound": "Färdighet Ej Funnen"
       },
       "actions": {
         "rest": {
@@ -22,6 +32,9 @@
         },
         "weapon": {
           "equipped": "⚔ {name}"
+        },
+        "spell": {
+          "memorized": "✨ {name}"
         },
         "stats": {
           "ferocity": "Vildhet", 
@@ -41,7 +54,8 @@
           "default": "{actor} - Statistikinformation."
         },
         "weapons": {
-          "noSkillFound": "Ingen associerad färdighet hittades för {weapon}"
+          "noSkillFound": "Ingen associerad färdighet hittades för {weapon}",
+          "weaponBroken": "{weapon} är trasigt och kan inte användas!"
         },
         "rest": {
           "alreadyTaken": "{actor} har redan tagit en {restType} detta skift!",
@@ -79,7 +93,14 @@
         "noTraits": "{actor} har inga egenskaper att visa",
         "noAttackTable": "Monster har ingen attacktabell",
         "attackNotFound": "Attack {attack} hittades inte i tabellen",
-        "conditionToggleFailed": "Misslyckades att växla tillstånd: {condition}"
+        "conditionToggleFailed": "Misslyckades att växla tillstånd: {condition}",
+        "combatActionNotFound": "Stridhandling ej funnen",
+        "combatActionFailed": "Stridhandling misslyckades",
+        "skillNotFound": "Färdigheten {skill} hittades inte",
+        "noTargetSelected": "Välj ett mål innan du använder denna handling",
+        "tooManyTargets": "För många mål valda",
+        "noActorToken": "Aktören har ingen pjäs på scenen",
+        "targetTooFar": "Målet är för långt bort! Målet måste vara inom {maxRange}m, men målet är {distance}m bort."
       },
       "settings": {
         "hideWeaponSkills": {
