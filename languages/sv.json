@@ -1,123 +1,196 @@
 {
   "tokenActionHud": {
     "dragonbane": {
-      "groups": {
-        "attributes": "Egenskaper",
-        "combat": "Strid",
-        "combatActions": "Stridhandlingar",
-        "monsterAttacksRandom": "Slumpmässig Monsterattack",
-        "monsterDefend": "Monsterförsvar",
-        "attributeConditions": "Egenskapstillstånd",
-        "conditions": "Statuseffekter",
-        "conditionsParent": "Tillstånd",
-        "utility": "Verktyg",
-        "stats": "Statistik",
-        "spellsRank1": "Rang 1",
-        "spellsRank2": "Rang 2", 
-        "spellsRank3": "Rang 3"
-      },
-      "combatActions": {
-        "firstAid": "Första Hjälpen",
-        "rallyOther": "Heja På Annan",
-        "rallySelf": "Heja På Sig Själv",
-        "dodge": "Undvika",
-        "skillNotFound": "Färdighet Ej Funnen"
+      "helmets": "Hjälmar",
+      "items": "Föremål",
+      "magicTricks": "Trolleritrick",
+      "spellRank0": "Trolleritrick",
+      "spellRank1": "Rang 1",
+      "spellRank2": "Rang 2", 
+      "spellRank3": "Rang 3",
+      "attributes": "Egenskaper",
+      "stats": "Statistik",
+      "combatActions": "Stridhandlingar",
+      "conditions": "Tillstånd",
+      "attributeConditions": "Egenskapstillstånd", 
+      "statusEffects": "Statuseffekter",
+      "resting": "Vila",
+      "tokenActions": "Spelfigurätgärder",
+      "other": "Annat",
+      "monsterAttacksRandom": "Slumpmässig Attack",
+      "monsterAttacksSpecific": "Specifika Attacker",
+      "monsterWeaponDamage": "Vapenskada",
+      "monsterDefend": "Försvara",
+      "rest": "Vila",
+      "dodge": "Undvika",
+      "firstAid": "Första Hjälpen", 
+      "rallyOther": "Heja På Annan",
+      "rallySelf": "Heja På Sig Själv",
+      "roundRest": "Rundvila",
+      "stretchRest": "Kvartsvila", 
+      "shiftRest": "Skiftvila",
+      "passOneShift": "Låt Ett Skift Passera",
+      "lightTest": "Ljustest",
+      "severeInjury": "Svår Skada",
+      "rollSevereInjuryTest": "Slå Test för Svår Skada",
+      "deathRoll": "Dödsslag",
+      "deathRollStatus": "Dödsslag ({successes}/{failures})",
+      "attackNumber": "Attack {index}: {name}",
+      "tooltips": {
+        "roundRest": "Återställer 1T6 VP",
+        "stretchRest": "Återställer 1T6 KP (2T6 med Läkning), 1T6 VP, och tar bort 1 tillstånd",
+        "shiftRest": "Återställer alla KP, alla VP, och tar bort alla tillstånd",
+        "passOneShift": "Låter tiden gå utan vila, gör viloåtgärder tillgängliga igen"
       },
       "actions": {
-        "rest": {
-          "round": "Rundvila (1T6 VP)",
-          "stretch": "Stretchvila (1T6 KP/VP)",
-          "shift": "Skiftvila (Alla KP/VP/Tillstånd)",
-          "reset": "Låt Ett Skift Passera"
+        "stats": {
+          "encumbrance": "Bel"
+        },
+        "spell": {
+          "prepared": "⚡ {name}"
         },
         "weapon": {
           "equipped": "⚔ {name}"
-        },
-        "spell": {
-          "memorized": "✨ {name}"
-        },
-        "stats": {
-          "ferocity": "Vildhet", 
-          "encumbrance": "Bärk"
         }
       },
       "messages": {
-        "stats": {
-          "movement": "{actor} har en Rörelse på {value}.",
-          "hitPoints": "{actor} har {current}/{max} Kroppspoäng",
-          "hitPointsDamage": " ({damage} skada tagen)",
-          "ferocity": "{actor} har en Vildhet på {value}.",
-          "willPoints": "{actor} har {current}/{max} Viljepoäng",
-          "willPointsSpent": " ({spent} spenderade)",
-          "encumbrance": "{actor} bär {current}/{max} föremål",
-          "encumbranceOver": " och är överbelastad",
-          "default": "{actor} - Statistikinformation."
-        },
         "weapons": {
-          "noSkillFound": "Ingen associerad färdighet hittades för {weapon}",
           "weaponBroken": "{weapon} är trasigt och kan inte användas!"
         },
         "rest": {
-          "alreadyTaken": "{actor} har redan tagit en {restType} detta skift!",
-          "roundRestType": "rundvila",
-          "stretchRestType": "stretchvila", 
-          "shiftRestType": "skiftvila"
+          "alreadyTaken": "{actor} har redan tagit en {restType}.",
+          "unknownType": "Okänd vilotyp: {restType}",
+          "failed": "Misslyckades att utföra viloåtgärd"
+        },
+        "traits": {
+          "onlyForNpcsMonsters": "Egenskaper är endast tillgängliga för SLP och Monster",
+          "noTraits": "Denna aktör har inga egenskaper.",
+          "failed": "Misslyckades att visa egenskaper"
+        },
+        "lightTest": {
+          "notForMonsters": "Ljustest är inte tillgängligt för monster",
+          "invalidSource": "Ogiltig ljuskälla vald",
+          "failed": "Misslyckades att utföra ljustest",
+          "out": "{actor}s {lightSource} slocknar!",
+          "lit": "{actor}s {lightSource} förblir tänd."
+        },
+        "severeInjury": {
+          "onlyForCharacters": "Test för svår skada är endast tillgängligt för rollpersoner",
+          "noConAttribute": "Rollpersonen har ingen FYS-egenskap",
+          "failed": "Misslyckades att utföra test för svår skada",
+          "testLabel": "Test för Svår Skada",
+          "success": "Lyckat!",
+          "failure": "Misslyckat!",
+          "survivesWithoutInjuries": "{actor} överlever utan bestående skador.",
+          "survivesWithInjuries": "{actor} överlever döden, men skadorna kvarstår...",
+          "rollSevereInjury": "Slå Svår Skada",
+          "tableNotFound": "Tabell för svår skada hittades inte",
+          "tableFailed": "Misslyckades att slå på tabell för svår skada"
         },
         "conditions": {
-          "added": "Lade till {condition} på {actor}",
-          "removed": "Tog bort {condition} från {actor}"
+          "failed": "Misslyckades att växla tillstånd"
+        },
+        "skills": {
+          "notFound": "Färdigheten {skillName} hittades inte på {actor}",
+          "testFailed": "Kunde inte utföra färdighetstest för {skillName}"
         },
         "deathRoll": {
-          "flavor": "Dödsslag {result}"
-        },
-        "actions": {
-          "rolling": "Slår {skill}",
-          "attacking": "Attackerar med {weapon}",
-          "casting": "Kastar {spell}",
-          "using": "Använder {ability}"
+          "methodNotAvailable": "Kunde inte utföra dödsslag - arkmetod inte tillgänglig",
+          "failed": "Kunde inte utföra dödsslag"
         },
         "monster": {
-          "randomAttackFallback": "{actor} gör en slumpmässig attack!",
-          "noResultFound": "{actor} gör en slumpmässig attack (inget resultat hittades)"
+          "attacksOnlyForMonsters": "Monsterattacker kan endast användas av monster",
+          "defendOnlyForMonsters": "Monsterförsvar kan endast användas av monster",
+          "weaponDamageOnlyForMonsters": "Monstervapenskada kan endast användas av monster",
+          "attackNotFound": "Attack {attackIndex} hittades inte i tabellen",
+          "attackFailed": "Misslyckades att utföra monsterattack",
+          "defendFailed": "Misslyckades att utföra monsterförsvar",
+          "weaponDamageFailed": "Misslyckades att slå vapenskada"
+        },
+        "general": {
+          "success": "Lyckat",
+          "failure": "Misslyckat"
         }
       },
-      "errors": {
-        "monsterAttacksOnly": "Monsterattacker kan endast användas av monster",
-        "deathRollsOnly": "Dödsslag kan endast användas av rollpersoner", 
-        "monsterDefendOnly": "Monsterförsvar kan endast användas av monster",
-        "traitsOnly": "Visa Egenskaper kan endast användas av monster och SLP",
-        "monsterAttackFailed": "Misslyckades att utföra monsterattack",
-        "deathRollFailed": "Misslyckades att utföra dödsslag", 
-        "statsFailed": "Misslyckades att visa statistikinformation",
-        "traitsFailed": "Misslyckades att visa egenskaper",
-        "noTraits": "{actor} har inga egenskaper att visa",
-        "noAttackTable": "Monster har ingen attacktabell",
-        "attackNotFound": "Attack {attack} hittades inte i tabellen",
-        "conditionToggleFailed": "Misslyckades att växla tillstånd: {condition}",
-        "combatActionNotFound": "Stridhandling ej funnen",
-        "combatActionFailed": "Stridhandling misslyckades",
-        "skillNotFound": "Färdigheten {skill} hittades inte",
-        "noTargetSelected": "Välj ett mål innan du använder denna handling",
-        "tooManyTargets": "För många mål valda",
-        "noActorToken": "Aktören har ingen pjäs på scenen",
-        "targetTooFar": "Målet är för långt bort! Målet måste vara inom {maxRange}m, men målet är {distance}m bort."
+      "dialog": {
+        "lightTest": {
+          "title": "Ljustest",
+          "selectSource": "Välj Ljuskälla:",
+          "note": "Observera: Alla ljuskällor brinner i upp till ett skift. Ett slag på 1 släcker alltid ljuset.",
+          "roll": "Slå Ljustest",
+          "cancel": "Avbryt",
+          "table": {
+            "source": "Källa",
+            "radius": "Radie",
+            "test": "Test",
+            "whenToRoll": "När att Slå",
+            "onOne": "På 1",
+            "afterEachStretch": "Efter varje stretch",
+            "afterStretchOrCombat": "Efter stretch eller strid",
+            "afterStretchOrWeapon": "Efter stretch eller används som vapen",
+            "refillRelight": "Fyll på & tänd (handling)",
+            "goesOut": "Slocknar"
+          }
+        },
+        "severeInjury": {
+          "title": "Test för Svår Skada",
+          "boons": "Fördelar",
+          "banes": "Nackdelar", 
+          "roll": "Slå",
+          "cancel": "Avbryt",
+          "extra": "Extra"
+        }
+      },
+      "lightSources": {
+        "lantern": "Lykta",
+        "oilLamp": "Oljelampa", 
+        "tallowCandle": "Talgljus",
+        "torch": "Fackla"
+      },
+      "chat": {
+        "stats": {
+          "hitpoints": "<strong>{name}</strong> har {current}/{max} KP.",
+          "hitpointsDamaged": "<strong>{name}</strong> har {current}/{max} KP ({damage} skada tagen).",
+          "willpoints": "<strong>{name}</strong> har {current}/{max} VP.",
+          "willpointsSpent": "<strong>{name}</strong> har {current}/{max} VP ({spent} VP spenderade).",
+          "movement": "<strong>{name}</strong> har en Förflyttning på {movement}.",
+          "encumbrance": "<strong>{name}</strong> bär {current}/{max} föremål.",
+          "overEncumbered": "Överbelastad!",
+          "ferocity": "<strong>{name}</strong> har en Handlingskraft på {ferocity}."
+        }
       },
       "settings": {
-        "hideWeaponSkills": {
-          "name": "Dölj Vapenfärdigheter",
-          "hint": "Dölj vapenfärdigheter från Token Action HUD (Slagsmål visas alltid)"
+        "showUnequippedItems": {
+          "name": "Visa Ej Utrustade Föremål",
+          "hint": "Visa ej utrustade föremål på HUD"
         },
-        "hideSecondarySkills": {
-          "name": "Dölj Sekundära Färdigheter", 
-          "hint": "Dölj sekundära färdigheter från Token Action HUD"
+        "showAllSpells": {
+          "name": "Visa Alla Besvärjelser",
+          "hint": "Visa alla kända besvärjelser istället för endast förberedda besvärjelser. Förberedda besvärjelser markeras med ⚡"
         },
-        "showOnlyMemorizedSpells": {
-          "name": "Visa Endast Memorerade Besvärjelser",
-          "hint": "Visa endast memorerade besvärjelser i Token Action HUD. Avmarkera för att visa alla besvärjelser."
+        "showEquippedWeaponsOnly": {
+          "name": "Endast Utrustade Vapen",
+          "hint": "Visa endast utrustade/burna vapen på HUD"
         },
-        "showUnequippedWeapons": {
-          "name": "Visa Ej Utrustade Vapen",
-          "hint": "Visa vapen som inte är utrustade tillsammans med utrustade vapen"
+        "showAttributes": {
+          "name": "Visa Egenskaper",
+          "hint": "Visa egenskapsslag-åtgärder på HUD"
+        },
+        "showInjuries": {
+          "name": "Visa Skador",
+          "hint": "Visa skador och tillstånd på HUD"
+        },
+        "showDeathRoll": {
+          "name": "Visa Dödsslag Automatiskt",
+          "hint": "Visa dödsslags-åtgärd automatiskt när rollpersonen håller på att dö"
+        },
+        "showWeaponSkills": {
+          "name": "Visa Vapenfärdigheter",
+          "hint": "Visa vapenfärdigheter på HUD"
+        },
+        "showSecondarySkills": {
+          "name": "Visa Sekundära Färdigheter", 
+          "hint": "Visa sekundära färdigheter på HUD"
         }
       }
     }
