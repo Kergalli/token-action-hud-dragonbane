@@ -1,0 +1,79 @@
+/* Token Action HUD Dragonbane Style */
+
+:root {
+    /* Define CSS variables globally for stats styling */
+    --dragonbane-disabled: #e93031; /* Red color for critical/disabled states */
+    --dragonbane-injured: #ffd700; /* Gold/Yellow for injured states */
+    --dragonbane-active: #e93031; /* Red color for active conditions/statuses */
+}
+
+/* Over-Encumbered Styling - Red color but still clickable */
+.dragonbane-over-encumbered {
+    color: var(--dragonbane-disabled) !important;
+}
+.dragonbane-over-encumbered:hover {
+    color: var(--dragonbane-disabled) !important;
+    /* Normal cursor behavior - no cursor: not-allowed */
+}
+/* Ensure child elements also get the over-encumbered styling */
+.dragonbane-over-encumbered * {
+    color: var(--dragonbane-disabled) !important;
+}
+
+/* Health Status Styling - Yellow for injured, Red for critical */
+.dragonbane-stat-injured {
+    color: var(--dragonbane-injured) !important; /* Gold/Yellow for injured */
+}
+.dragonbane-stat-injured:hover {
+    color: var(--dragonbane-injured) !important;
+}
+.dragonbane-stat-injured * {
+    color: var(--dragonbane-injured) !important;
+}
+
+.dragonbane-stat-critical {
+    color: var(--dragonbane-disabled) !important; /* Red for critical */
+}
+.dragonbane-stat-critical:hover {
+    color: var(--dragonbane-disabled) !important;
+}
+.dragonbane-stat-critical * {
+    color: var(--dragonbane-disabled) !important;
+}
+
+/* Broken Weapon Styling - Red color with not-allowed cursor */
+.dragonbane-weapon-broken {
+    color: var(--dragonbane-disabled) !important; /* Red for broken weapons */
+}
+.dragonbane-weapon-broken:hover {
+    color: var(--dragonbane-disabled) !important;
+    cursor: not-allowed !important; /* Show not-allowed cursor */
+}
+/* Ensure child elements also get the broken weapon styling */
+.dragonbane-weapon-broken * {
+    color: var(--dragonbane-disabled) !important;
+}
+
+/* Unavailable Rest Action Styling - Match broken weapon styling exactly */
+.dragonbane-rest-unavailable {
+    color: var(--dragonbane-disabled) !important; /* Red for unavailable rest */
+}
+.dragonbane-rest-unavailable:hover {
+    color: var(--dragonbane-disabled) !important;
+    cursor: not-allowed !important; /* Show not-allowed cursor */
+}
+/* Ensure child elements also get the unavailable rest styling */
+.dragonbane-rest-unavailable * {
+    color: var(--dragonbane-disabled) !important;
+}
+
+/* Active Condition Styling - Green color for active conditions/effects */
+.dragonbane-condition-active {
+    color: var(--dragonbane-active) !important;
+    font-weight: bold !important;
+    opacity: 1 !important;
+}
+.dragonbane-condition-active * {
+    color: var(--dragonbane-active) !important;
+    font-weight: bold !important;
+}
