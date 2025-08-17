@@ -12,6 +12,8 @@
       "stats": "Stats",
       "combatActions": "Combat Actions",
       "conditions": "Conditions",
+      "attributeConditions": "Attribute Conditions", 
+      "statusEffects": "Status Effects",
       "resting": "Resting",
       "tokenActions": "Token Actions",
       "other": "Other",
