@@ -1,216 +1,91 @@
 /**
- * Token Action HUD Dragonbane - Constants and Shared Utilities
- * Compatible with Token Action HUD Core v1.5.7
+ * Module-based constants
  */
-
-// Module constants
 export const MODULE = {
     ID: 'token-action-hud-dragonbane'
 }
 
-export const REQUIRED_CORE_MODULE_VERSION = '1.5'
+/**
+ * Core module version required by the system module
+ */
+export const REQUIRED_CORE_MODULE_VERSION = '2.0'
 
-// Action types
-export const ACTION_TYPE = {
-    attribute: 'attribute',
-    skill: 'skill',
-    weapon: 'weapon',
-    spell: 'spell',
-    ability: 'ability',
-    condition: 'condition',
-    utility: 'utility',
-    monsterAttack: 'monsterAttack',
-    monsterDefend: 'monsterDefend',
-    traits: 'traits',
-    stats: 'stats',
-    deathRoll: 'deathRoll',
-    combatAction: 'combatAction'
-}
-
-export const TIMEOUTS = {
-    HUD_UPDATE_DELAY: 100
-}
-
-// Combat action definitions
-export const COMBAT_ACTIONS = {
-    firstAid: {
-        id: 'firstAid',
-        skillName: 'healing',
-        requiresTarget: true,
-        maxRange: 2, // meters
-        icon: 'icons/svg/regen.svg'
-    },
-    rallyOther: {
-        id: 'rallyOther', 
-        skillName: 'persuasion',
-        requiresTarget: true,
-        maxRange: 10, // meters
-        icon: 'icons/svg/upgrade.svg'
-    },
-    rallySelf: {
-        id: 'rallySelf',
-        attributeName: 'wil',
-        requiresTarget: false,
-        maxRange: 0,
-        icon: 'icons/svg/upgrade.svg'
-    },
-    dodge: {
-        id: 'dodge',
-        skillName: 'evade', 
-        requiresTarget: false,
-        maxRange: 0,
-        icon: 'icons/svg/combat.svg'
-    }
-}
-
-// Group definitions
+/**
+ * Groups - All localization keys properly defined in en.json
+ */
 export const GROUP = {
-    attributes: {
-        id: 'attributes',
-        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.attributes') || 'Attributes',
-        type: 'system'
-    },
-    skills: {
-        id: 'skills',
-        name: () => game.i18n.localize('DoD.ui.character-sheet.skills'),
-        type: 'system'
-    },
-    coreSkills: {
-        id: 'coreSkills',
-        name: () => game.i18n.localize('DoD.skillTypes.core'),
-        type: 'system'
-    },
-    weaponSkills: {
-        id: 'weaponSkills',
-        name: () => game.i18n.localize('DoD.skillTypes.weapon'),
-        type: 'system'
-    },
-    secondarySkills: {
-        id: 'secondarySkills',
-        name: () => game.i18n.localize('DoD.skillTypes.secondary'),
-        type: 'system'
-    },
-    combat: {
-        id: 'combat',
-        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.combat') || 'Combat',
-        type: 'system'
-    },
-    weapons: {
-        id: 'weapons',
-        name: () => game.i18n.localize('DoD.ui.character-sheet.weapons'),
-        type: 'system'
-    },
-    combatActions: {
-        id: 'combatActions',
-        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.combatActions') || 'Combat Actions',
-        type: 'system'
-    },
-    spells: {
-        id: 'spells',
-        name: () => game.i18n.localize('DoD.ui.character-sheet.spells'),
-        type: 'system'
-    },
-    magicTricks: {
-        id: 'magicTricks',
-        name: () => game.i18n.localize('DoD.ui.character-sheet.tricks'),
-        type: 'system'
-    },
-    spellsRank1: {
-        id: 'spellsRank1',
-        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.spellsRank1') || 'Rank 1',
-        type: 'system'
-    },
-    spellsRank2: {
-        id: 'spellsRank2',
-        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.spellsRank2') || 'Rank 2',
-        type: 'system'
-    },
-    spellsRank3: {
-        id: 'spellsRank3',
-        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.spellsRank3') || 'Rank 3',
-        type: 'system'
-    },
-    abilities: {
-        id: 'abilities',
-        name: () => game.i18n.localize('DoD.ui.character-sheet.abilities'),
-        type: 'system'
-    },
-    attributeConditions: {
-        id: 'attributeConditions',
-        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.attributeConditions') || 'Attribute Conditions',
-        type: 'system'
-    },
-    conditions: {
-        id: 'conditions',
-        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.conditions') || 'Status Effects',
-        type: 'system'
-    },
-    conditionsParent: {
-        id: 'conditionsParent',
-        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.conditionsParent') || 'Conditions',
-        type: 'system'
-    },
-    utility: {
-        id: 'utility',
-        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.utility') || 'Utility',
-        type: 'system'
-    },
-    monsterAttacks: {
-        id: 'monsterAttacks',
-        name: () => game.i18n.localize('DoD.ui.character-sheet.monsterAttackTooltip'),
-        type: 'system'
-    },
-    monsterAttacksRandom: {
-        id: 'monsterAttacksRandom',
-        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.monsterAttacksRandom') || 'Random Monster Attack',
-        type: 'system'
-    },
-    monsterAttacksSpecific: {
-        id: 'monsterAttacksSpecific',
-        name: () => game.i18n.localize('DoD.ui.character-sheet.monsterAttackTooltip'),
-        type: 'system'
-    },
-    monsterDefend: {
-        id: 'monsterDefend',
-        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.monsterDefend') || 'Monster Defend',
-        type: 'system'
-    },
-    traits: {
-        id: 'traits',
-        name: () => game.i18n.localize('DoD.ui.character-sheet.traits') || 'Traits',
-        type: 'system'
-    },
-    monsterTraits: {
-        id: 'monsterTraits',
-        name: () => game.i18n.localize('DoD.ui.character-sheet.traits'),
-        type: 'system'
-    },
-    npcTraits: {
-        id: 'npcTraits',
-        name: () => game.i18n.localize('DoD.ui.character-sheet.traits'),
-        type: 'system'
-    },
-    stats: {
-        id: 'stats',
-        name: () => game.i18n.localize('tokenActionHud.dragonbane.groups.stats') || 'Stats',
-        type: 'system'
-    }
+    // Stats group (always first)
+    stats: { id: 'stats', name: 'tokenActionHud.dragonbane.stats', type: 'system' },
+    
+    // Equipment groups
+    weapons: { id: 'weapons', name: 'DoD.ui.character-sheet.weapons', type: 'system' },
+    armor: { id: 'armor', name: 'DoD.ui.character-sheet.armor', type: 'system' },
+    helmets: { id: 'helmets', name: 'tokenActionHud.dragonbane.helmets', type: 'system' },
+    items: { id: 'items', name: 'tokenActionHud.dragonbane.items', type: 'system' },
+    
+    // Magic groups  
+    spells: { id: 'spells', name: 'DoD.ui.character-sheet.spells', type: 'system' },
+    spellRank0: { id: 'spellRank0', name: 'tokenActionHud.dragonbane.spellRank0', type: 'system' },
+    spellRank1: { id: 'spellRank1', name: 'tokenActionHud.dragonbane.spellRank1', type: 'system' },
+    spellRank2: { id: 'spellRank2', name: 'tokenActionHud.dragonbane.spellRank2', type: 'system' },
+    spellRank3: { id: 'spellRank3', name: 'tokenActionHud.dragonbane.spellRank3', type: 'system' },
+    
+    // Character groups
+    abilities: { id: 'abilities', name: 'DoD.ui.character-sheet.abilities', type: 'system' },
+    attributes: { id: 'attributes', name: 'tokenActionHud.dragonbane.attributes', type: 'system' },
+    
+    // Conditions groups
+    conditions: { id: 'conditions', name: 'tokenActionHud.dragonbane.conditions', type: 'system' },
+    attributeConditions: { id: 'attributeConditions', name: 'tokenActionHud.dragonbane.attributeConditions', type: 'system' },
+    statusEffects: { id: 'statusEffects', name: 'tokenActionHud.dragonbane.statusEffects', type: 'system' },
+    
+    // Skills groups
+    coreSkills: { id: 'coreSkills', name: 'DoD.ui.character-sheet.coreSkills', type: 'system' },
+    weaponSkills: { id: 'weaponSkills', name: 'DoD.ui.character-sheet.weaponSkills', type: 'system' },
+    secondarySkills: { id: 'secondarySkills', name: 'DoD.ui.character-sheet.secondarySkills', type: 'system' },
+    
+    // Monster groups
+    monsterAttacksRandom: { id: 'monsterAttacksRandom', name: 'tokenActionHud.dragonbane.monsterAttacksRandom', type: 'system' },
+    monsterAttacksSpecific: { id: 'monsterAttacksSpecific', name: 'tokenActionHud.dragonbane.monsterAttacksSpecific', type: 'system' },
+    monsterWeaponDamage: { id: 'monsterWeaponDamage', name: 'tokenActionHud.dragonbane.monsterWeaponDamage', type: 'system' },
+    monsterDefend: { id: 'monsterDefend', name: 'tokenActionHud.dragonbane.monsterDefend', type: 'system' },
+    
+    // Combat groups
+    combat: { id: 'combat', name: 'DoD.ui.character-sheet.combat', type: 'system' },
+    combatActions: { id: 'combatActions', name: 'tokenActionHud.dragonbane.combatActions', type: 'system' },
+    injuries: { id: 'injuries', name: 'DoD.ui.character-sheet.injuries', type: 'system' },
+    traits: { id: 'traits', name: 'DoD.ui.character-sheet.traits', type: 'system' },
+    
+    // Utility groups
+    resting: { id: 'resting', name: 'tokenActionHud.dragonbane.resting', type: 'system' },
+    tokenActions: { id: 'tokenActions', name: 'tokenActionHud.dragonbane.tokenActions', type: 'system' },
+    other: { id: 'other', name: 'tokenActionHud.dragonbane.other', type: 'system' },
+    token: { id: 'token', name: 'tokenActionHud.token', type: 'system' },
+    utility: { id: 'utility', name: 'tokenActionHud.utility', type: 'system' }
 }
 
 /**
- * Helper function to map condition effects to attribute keys
- * @returns {Object} Mapping of localized condition names to attribute keys
+ * Item types
  */
-export const getAttributeConditionsMap = () => {
-    const mapping = {}
-    Object.entries(CONFIG.DoD.conditionEffects).forEach(([key, value]) => {
-        // Extract attribute from key like "system.conditions.str.value" -> "str"
-        const match = key.match(/system\.conditions\.(\w+)\.value/)
-        if (match) {
-            const attributeKey = match[1]  // "str", "con", etc.
-            const localizedName = game.i18n.localize(value.name)  // "Exhausted", "Sickly", etc.
-            mapping[localizedName] = attributeKey
-        }
-    })
-    return mapping
+export const ITEM_TYPE = {
+    ability: { groupId: 'abilities' },
+    armor: { groupId: 'armor' },
+    helmet: { groupId: 'helmets' },
+    injury: { groupId: 'injuries' },
+    item: { groupId: 'items' },
+    skill: { groupId: 'skills' },
+    spell: { groupId: 'spells' },
+    weapon: { groupId: 'weapons' }
+}
+
+/**
+ * Attributes for Dragonbane
+ */
+export const ATTRIBUTES = {
+    str: { id: 'str', name: 'DoD.attributes.str' },
+    con: { id: 'con', name: 'DoD.attributes.con' },
+    agl: { id: 'agl', name: 'DoD.attributes.agl' },
+    int: { id: 'int', name: 'DoD.attributes.int' },
+    wil: { id: 'wil', name: 'DoD.attributes.wil' },
+    cha: { id: 'cha', name: 'DoD.attributes.cha' }
 }
