@@ -1,25 +1,27 @@
 {
   "id": "token-action-hud-dragonbane",
-  "title": "Token Action HUD for Dragonbane",
-  "description": "Token Action HUD extension for the Dragonbane system.",
+  "title": "Token Action HUD Dragonbane",
+  "description": "Token Action HUD system module for the Dragonbane RPG system. Some icons from game-icons.net (CC BY 3.0).",
   "authors": [
     {
-      "name": "Matthias Weeks"
+      "name": "Matthias Weeks",
+      "url": "https://github.com/Kergalli"
     }
   ],
-  "version": "1.2.0",
+  "url": "https://github.com/kergalli/token-action-hud-dragonbane",
+  "flags": {},
+  "version": "2.0.0",
   "compatibility": {
-    "minimum": "12",
-    "verified": "12.343"
+    "minimum": "12.331",
+    "verified": "13.347"
   },
   "esmodules": [
-    "./scripts/constants.js",
-    "./scripts/init.js",
-    "./scripts/action-handler.js",
-    "./scripts/system-manager.js",
-    "./scripts/roll-handler.js"
+    "./scripts/init.js"
   ],
-  "styles": ["./styles/dragonbane.css"],
+  "scripts": [],
+  "styles": [
+    "./styles/tah-dragonbane-style.css"
+  ],
   "languages": [
     {
       "lang": "en",
@@ -32,22 +34,51 @@
       "path": "languages/sv.json"
     }
   ],
+  "packs": [],
   "relationships": {
     "systems": [
       {
         "id": "dragonbane",
-        "type": "system"
+        "type": "system",
+        "compatibility": [
+          {
+            "minimum": "2.0",
+            "verified": "2.5"
+          }
+        ]
       }
     ],
     "requires": [
       {
         "id": "token-action-hud-core",
-        "type": "module"
+        "type": "module",
+        "compatibility": [
+          {
+            "minimum": "2.0.0",
+            "verified": "2.0.16"
+          }
+        ]
+      },
+      {
+        "id": "socketlib"
       }
-    ]
+    ],
+    "optional": [
+      {
+        "id": "color-picker",
+        "reason": "To enable color pickers in the module settings"
+      }
+    ],
+    "flags": {
+      "optional": [
+        {
+          "id": "color-picker",
+          "reason": "To enable color pickers in the module settings"
+        }
+      ]
+    }
   },
   "socket": false,
-  "url": "https://github.com/kergalli/token-action-hud-dragonbane",
   "manifest": "https://github.com/kergalli/token-action-hud-dragonbane/releases/latest/download/module.json",
   "download": "https://github.com/kergalli/token-action-hud-dragonbane/releases/latest/download/module.zip",
   "readme": "https://github.com/kergalli/token-action-hud-dragonbane/blob/main/README.md",
