@@ -1,123 +1,196 @@
 {
   "tokenActionHud": {
     "dragonbane": {
-      "groups": {
-        "attributes": "Attributes",
-        "combat": "Combat",
-        "combatActions": "Combat Actions",
-        "monsterAttacksRandom": "Random Monster Attack",
-        "monsterDefend": "Monster Defend",
-        "attributeConditions": "Attribute Conditions",
-        "conditions": "Status Effects",
-        "conditionsParent": "Conditions",
-        "utility": "Utility",
-        "stats": "Stats",
-        "spellsRank1": "Rank 1",
-        "spellsRank2": "Rank 2", 
-        "spellsRank3": "Rank 3"
-      },
-      "combatActions": {
-        "firstAid": "First Aid",
-        "rallyOther": "Rally Other",
-        "rallySelf": "Rally Self",
-        "dodge": "Dodge",
-        "skillNotFound": "Skill Not Found"
+      "helmets": "Helmets",
+      "items": "Items",
+      "magicTricks": "Magic Tricks",
+      "spellRank0": "Magic Tricks",
+      "spellRank1": "Rank 1",
+      "spellRank2": "Rank 2", 
+      "spellRank3": "Rank 3",
+      "attributes": "Attributes",
+      "stats": "Stats",
+      "combatActions": "Combat Actions",
+      "conditions": "Conditions",
+      "attributeConditions": "Attribute Conditions", 
+      "statusEffects": "Status Effects",
+      "resting": "Resting",
+      "tokenActions": "Token Actions",
+      "other": "Other",
+      "monsterAttacksRandom": "Random Attack",
+      "monsterAttacksSpecific": "Specific Attacks",
+      "monsterWeaponDamage": "Weapon Damage",
+      "monsterDefend": "Defend",
+      "rest": "Rest",
+      "dodge": "Dodge",
+      "firstAid": "First Aid", 
+      "rallyOther": "Rally Other",
+      "rallySelf": "Rally Self",
+      "roundRest": "Round Rest",
+      "stretchRest": "Stretch Rest", 
+      "shiftRest": "Shift Rest",
+      "passOneShift": "Pass One Shift of Time",
+      "lightTest": "Light Test",
+      "severeInjury": "Severe Injury",
+      "rollSevereInjuryTest": "Roll Severe Injury Test",
+      "deathRoll": "Death Roll",
+      "deathRollStatus": "Death Roll ({successes}/{failures})",
+      "attackNumber": "Attack {index}: {name}",
+      "tooltips": {
+        "roundRest": "Restores 1D6 WP",
+        "stretchRest": "Restores 1D6 HP (2D6 with Healing), 1D6 WP, and removes 1 condition",
+        "shiftRest": "Restores all HP, all WP, and removes all conditions",
+        "passOneShift": "Advances time without resting, making rest actions available again"
       },
       "actions": {
-        "rest": {
-          "round": "Round Rest (1D6 WP)",
-          "stretch": "Stretch Rest (1D6* HP/WP/1 Condition)",
-          "shift": "Shift Rest (All HP/WP/Conditions)",
-          "reset": "Pass One Shift of Time"
+        "stats": {
+          "encumbrance": "Enc"
+        },
+        "spell": {
+          "prepared": "⚡ {name}"
         },
         "weapon": {
           "equipped": "⚔ {name}"
-        },
-        "spell": {
-          "memorized": "✨ {name}"
-        },
-        "stats": {
-          "ferocity": "Ferocity", 
-          "encumbrance": "Enc"
         }
       },
       "messages": {
-        "stats": {
-          "movement": "{actor} has a Movement of {value}.",
-          "hitPoints": "{actor} has {current}/{max} Hit Points",
-          "hitPointsDamage": " ({damage} damage taken)",
-          "ferocity": "{actor} has a Ferocity of {value}.",
-          "willPoints": "{actor} has {current}/{max} Will Points",
-          "willPointsSpent": " ({spent} spent)",
-          "encumbrance": "{actor} is carrying {current}/{max} items",
-          "encumbranceOver": " and is over-encumbered",
-          "default": "{actor} - Stat information."
-        },
         "weapons": {
-          "noSkillFound": "No associated skill found for {weapon}",
           "weaponBroken": "{weapon} is broken and cannot be used!"
         },
         "rest": {
-          "alreadyTaken": "{actor} has already taken a {restType} this shift!",
-          "roundRestType": "round rest",
-          "stretchRestType": "stretch rest", 
-          "shiftRestType": "shift rest"
+          "alreadyTaken": "{actor} has already taken a {restType}.",
+          "unknownType": "Unknown rest type: {restType}",
+          "failed": "Failed to perform rest action"
+        },
+        "traits": {
+          "onlyForNpcsMonsters": "Traits are only available for NPCs and Monsters",
+          "noTraits": "This actor has no traits.",
+          "failed": "Failed to display traits"
+        },
+        "lightTest": {
+          "notForMonsters": "Light tests are not available for monsters",
+          "invalidSource": "Invalid light source selected",
+          "failed": "Failed to perform light test",
+          "out": "{actor}'s {lightSource} goes out!",
+          "lit": "{actor}'s {lightSource} remains lit."
+        },
+        "severeInjury": {
+          "onlyForCharacters": "Severe injury tests are only available for characters",
+          "noConAttribute": "Character has no CON attribute",
+          "failed": "Failed to perform severe injury test",
+          "testLabel": "Severe Injury Test",
+          "success": "Success!",
+          "failure": "Failure!",
+          "survivesWithoutInjuries": "{actor} survives without lasting injuries.",
+          "survivesWithInjuries": "{actor} survives death, but injuries remain...",
+          "rollSevereInjury": "Roll Severe Injury",
+          "tableNotFound": "Severe Injury roll table not found",
+          "tableFailed": "Failed to roll severe injury table"
         },
         "conditions": {
-          "added": "Added {condition} to {actor}",
-          "removed": "Removed {condition} from {actor}"
+          "failed": "Failed to toggle condition"
+        },
+        "skills": {
+          "notFound": "{skillName} skill not found on {actor}",
+          "testFailed": "Could not perform {skillName} skill test"
         },
         "deathRoll": {
-          "flavor": "Death Roll {result}"
-        },
-        "actions": {
-          "rolling": "Rolling {skill}",
-          "attacking": "Attacking with {weapon}",
-          "casting": "Casting {spell}",
-          "using": "Using {ability}"
+          "methodNotAvailable": "Could not perform death roll - sheet method not available",
+          "failed": "Could not perform death roll"
         },
         "monster": {
-          "randomAttackFallback": "{actor} makes a random attack!",
-          "noResultFound": "{actor} makes a random attack (no result found)"
+          "attacksOnlyForMonsters": "Monster attacks can only be used by monsters",
+          "defendOnlyForMonsters": "Monster defend can only be used by monsters",
+          "weaponDamageOnlyForMonsters": "Monster weapon damage can only be used by monsters",
+          "attackNotFound": "Attack {attackIndex} not found in table",
+          "attackFailed": "Failed to execute monster attack",
+          "defendFailed": "Failed to execute monster defend",
+          "weaponDamageFailed": "Failed to roll weapon damage"
+        },
+        "general": {
+          "success": "Success",
+          "failure": "Failure"
         }
       },
-      "errors": {
-        "monsterAttacksOnly": "Monster attacks can only be used by monsters",
-        "deathRollsOnly": "Death rolls can only be used by characters", 
-        "monsterDefendOnly": "Monster defend can only be used by monsters",
-        "traitsOnly": "Show Traits can only be used by monsters and NPCs",
-        "monsterAttackFailed": "Failed to execute monster attack",
-        "deathRollFailed": "Failed to execute death roll", 
-        "statsFailed": "Failed to display stat information",
-        "traitsFailed": "Failed to show traits",
-        "noTraits": "{actor} has no traits to display",
-        "noAttackTable": "Monster has no attack table",
-        "attackNotFound": "Attack {attack} not found in table",
-        "conditionToggleFailed": "Failed to toggle condition: {condition}",
-        "combatActionNotFound": "Combat action not found",
-        "combatActionFailed": "Combat action failed",
-        "skillNotFound": "{skill} skill not found",
-        "noTargetSelected": "Select a target before using this action",
-        "tooManyTargets": "Too many targets selected",
-        "noActorToken": "Actor has no token on the scene",
-        "targetTooFar": "Target is too far away! The target must be within {maxRange}m, but the target is {distance}m away."
+      "dialog": {
+        "lightTest": {
+          "title": "Light Test",
+          "selectSource": "Select Light Source:",
+          "note": "Note: All light sources burn for up to one shift of time. Roll of 1 always extinguishes the light.",
+          "roll": "Roll Light Test",
+          "cancel": "Cancel",
+          "table": {
+            "source": "Source",
+            "radius": "Radius", 
+            "test": "Test",
+            "whenToRoll": "When to Roll",
+            "onOne": "On 1",
+            "afterEachStretch": "After each stretch",
+            "afterStretchOrCombat": "After stretch or combat",
+            "afterStretchOrWeapon": "After stretch or used as weapon",
+            "refillRelight": "Refill & relight (action)",
+            "goesOut": "Goes out"
+          }
+        },
+        "severeInjury": {
+          "title": "Severe Injury Test",
+          "boons": "Boons", 
+          "banes": "Banes",
+          "roll": "Roll",
+          "cancel": "Cancel",
+          "extra": "Extra"
+        }
+      },
+      "lightSources": {
+        "lantern": "Lantern",
+        "oilLamp": "Oil Lamp", 
+        "tallowCandle": "Tallow Candle",
+        "torch": "Torch"
+      },
+      "chat": {
+        "stats": {
+          "hitpoints": "<strong>{name}</strong> has {current}/{max} HP.",
+          "hitpointsDamaged": "<strong>{name}</strong> has {current}/{max} HP ({damage} damage taken).",
+          "willpoints": "<strong>{name}</strong> has {current}/{max} WP.",
+          "willpointsSpent": "<strong>{name}</strong> has {current}/{max} WP ({spent} WP spent).",
+          "movement": "<strong>{name}</strong> has a Movement of {movement}.",
+          "encumbrance": "<strong>{name}</strong> is carrying {current}/{max} items.",
+          "overEncumbered": "Over-encumbered!",
+          "ferocity": "<strong>{name}</strong> has a Ferocity of {ferocity}."
+        }
       },
       "settings": {
-        "hideWeaponSkills": {
-          "name": "Hide Weapon Skills",
-          "hint": "Hide weapon skills from the Token Action HUD (Brawling is always shown)"
+        "showAttributes": {
+          "name": "Show Attributes",
+          "hint": "Display attribute roll actions on the HUD"
         },
-        "hideSecondarySkills": {
-          "name": "Hide Secondary Skills", 
-          "hint": "Hide secondary skills from the Token Action HUD"
+        "showInjuries": {
+          "name": "Show Injuries",
+          "hint": "Display injuries and conditions on the HUD"
         },
-        "showOnlyMemorizedSpells": {
-          "name": "Show Only Memorized Spells",
-          "hint": "Only show memorized spells in the Token Action HUD. Uncheck to show all spells."
+        "showEquippedWeaponsOnly": {
+          "name": "Show Equipped Weapons Only",
+          "hint": "Only show equipped/held weapons on the HUD"
         },
-        "showUnequippedWeapons": {
-          "name": "Show Unequipped Weapons",
-          "hint": "Show weapons that are not currently equipped in addition to equipped weapons"
+        "showDeathRoll": {
+          "name": "Show Death Roll",
+          "hint": "Automatically show death roll action when character is dying"
+        },
+        "showAllSpells": {
+          "name": "Show All Spells",
+          "hint": "Show all known spells instead of only prepared spells. Prepared spells will be marked with ⚡"
+        },
+        "showWeaponSkills": {
+          "name": "Show Weapon Skills", 
+          "hint": "Display weapon skills on the HUD"
+        },
+        "showSecondarySkills": {
+          "name": "Show Secondary Skills", 
+          "hint": "Display secondary skills on the HUD"
+        },
+        "showUnequippedItems": {
+          "name": "Show Unequipped Items",
+          "hint": "Show unequipped armor, helmets, and items on the HUD"
         }
       }
     }
