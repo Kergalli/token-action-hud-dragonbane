@@ -110,7 +110,7 @@ export function createActionUtilities(coreModule) {
          * @returns {object} Action object
          */
         _createConditionAction: function (effect, isActive, attributeKey = null) {
-            const effectId = effect.id || effect.icon
+            const effectId = effect.id || effect.img || effect.icon  // Try img first (modern), then icon (deprecated)
             const effectName = effect.name || effect.label || effectId
             const localizedName = game.i18n.localize(effectName) || effectName
 
@@ -118,7 +118,7 @@ export function createActionUtilities(coreModule) {
                 id: `condition_${effectId}`,
                 name: localizedName,
                 listName: localizedName,
-                img: effect.icon || 'icons/svg/anchor.svg', // Add fallback icon for effects without icons
+                img: effect.img || effect.icon || 'icons/svg/cancel.svg', // Try img first (modern), then icon (deprecated)
                 cssClass: isActive ? 'dragonbane-condition-active' : '',
                 selected: isActive,
                 encodedValue: ['condition', effectId].join(this.delimiter),
