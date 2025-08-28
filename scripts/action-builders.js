@@ -256,15 +256,47 @@ export function createActionBuilders(coreModule) {
         },
 
         /**
-         * Build ability actions
+         * Build ability actions - grouped by name with count
          */
         buildAbilities: async function () {
             const abilities = this._collectItemsByType('ability')
             if (!abilities || abilities.size === 0) return
 
-            const actions = [...abilities].map(([itemId, itemData]) => {
-                return this._createItemAction(itemId, itemData.name, itemData, 'ability', 'handleAbilityAction')
-            })
+            // Group abilities by name
+            const abilityGroups = new Map()
+            
+            for (const [itemId, itemData] of abilities) {
+                const abilityName = itemData.name
+                
+                if (!abilityGroups.has(abilityName)) {
+                    abilityGroups.set(abilityName, [])
+                }
+                abilityGroups.get(abilityName).push({ itemId, itemData })
+            }
+
+            const actions = []
+            
+            // Create actions for each grouped ability
+            for (const [abilityName, abilityInstances] of abilityGroups) {
+                const count = abilityInstances.length
+                const firstInstance = abilityInstances[0] // Use first instance for the action
+                
+                // Create display name with count if multiple instances
+                const displayName = count > 1 ? `${abilityName} x${count}` : abilityName
+                
+                const action = this._createItemAction(
+                    firstInstance.itemId, 
+                    displayName, 
+                    firstInstance.itemData, 
+                    'ability', 
+                    'handleAbilityAction'
+                )
+                
+                actions.push(action)
+            }
+
+            // Sort actions alphabetically by name
+            actions.sort((a, b) => a.name.localeCompare(b.name))
 
             this.addActions(actions, { id: 'abilities', type: 'system' })
         },
