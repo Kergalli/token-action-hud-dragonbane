@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.0.1] - 2025-08-28
+
+### 🔧 Quality of Life Improvements
+
+#### ⭐ Enhanced Abilities Display
+- **Grouped Abilities**: Multiple instances of the same ability now display as "Robust x4" instead of showing separate entries
+
+#### 🛡️ Status Effects Compatibility
+- **Custom Icon Support**: Fixed display issues with custom status effect modules
+- **Modern Property Support**: Updated to use Foundry v12+ standard properties
+
+#### 🔄 Technical Updates
+- **Future-Proofing**: Enhanced compatibility with upcoming Foundry versions
+- **Performance**: Minor optimizations for better responsiveness
+
+---
+
 ## [2.0.0] - 2025-08-16
 
 ### 🚀 MAJOR RELEASE - Complete Rebuild
