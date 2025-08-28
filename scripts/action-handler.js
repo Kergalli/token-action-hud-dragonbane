@@ -163,9 +163,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
             // Process each status effect
             for (const effect of statusEffects) {
-                if (!effect.id && !effect.icon) continue
+                // Check for either id, img (modern), or icon (deprecated) property
+                if (!effect.id && !effect.img && !effect.icon) continue
 
-                const effectId = effect.id || effect.icon
+                const effectId = effect.id || effect.img || effect.icon  // Try img first (modern), then icon (deprecated)
                 const effectName = effect.name || effect.label || effectId
 
                 // Skip YZE action tracking statuses
@@ -453,9 +454,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                             activeEffects.add(status)
                         }
                     }
-                    // Add from icon
-                    if (effect.icon) {
-                        activeEffects.add(effect.icon)
+                    // Add from img (modern) or icon (deprecated)
+                    const effectIcon = effect.img || effect.icon
+                    if (effectIcon) {
+                        activeEffects.add(effectIcon)
                     }
                 }
             }
