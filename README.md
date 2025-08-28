@@ -35,6 +35,10 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
   - Equipped weapons and armor clearly marked
 - **Smart Filtering**: Separate options for equipped weapons only vs. showing all equipment
 
+### ⭐ **Abilities Management (Enhanced in v2.0.1)**
+- **Grouped Display**: Abilities taken multiple times show as "Robust x4" instead of separate entries
+- **Clean Interface**: Reduces clutter while maintaining full functionality
+
 ### 👹 **Monster & NPC Features (Enhanced in v2.0)**
 - **Monster Attack System**: 
   - Random attacks from monster attack tables
@@ -50,11 +54,12 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
 - **Comprehensive Rest Options**: Round Rest, Stretch Rest, Shift Rest, Pass One Shift of Time
 - **Usage Prevention**: Disabled styling and informative messages for already-used rest types
 
-### 🏥 **Health & Condition Management (Improved in v2.0)**
+### 🏥 **Health & Condition Management (Improved in v2.0.1)**
 - **Death Rolls**: Automatic death roll button shown under Combat when a character is a zero HP
 - **Condition Toggles**: Visual management of attribute conditions and status effects
 - **Active State Indicators**: Conditions highlighted when active with red styling
-- **Injury Tracking**: SHows current injuries undet Stats
+- **Custom Status Effects**: Full compatibility with status effect modules and custom icons
+- **Injury Tracking**: Shows current injuries under Stats
 
 ### 🔧 **Utility Actions (New in v2.0)**
 - **Light Test**: Interactive light source selection with duration rules and light roll test
@@ -72,7 +77,7 @@ The HUD is organized into logical sections that can be collapsed or repositioned
 3. **🧙‍♂️ Spells**: Magic Tricks, Rank 1-3 spells with preparation status
 4. **👹 Monster**: Random/Specific Attacks, Weapon Damage, Defend (Monster actors only)
 5. **🎯 Skills**: Core, Weapon, and Secondary skills (configurable display)
-6. **⭐ Abilities**: Character abilities and special powers
+6. **⭐ Abilities**: Character abilities and special powers with grouped display for multiples
 7. **🛡️ Conditions**: Attribute conditions and status effects with active indicators
 8. **🎒 Inventory**: Armor, Helmets, Items organized by type
 9. **🔧 Utility**: Rest actions, Light Test, Severe Injury, and other tools
@@ -142,6 +147,7 @@ https://github.com/kergalli/token-action-hud-dragonbane/releases/latest/download
 See [CHANGELOG.md](CHANGELOG.md) for detailed version history and feature updates.
 
 ### Recent Major Changes:
+- **v2.0.1**: Improved ability grouping and status effect compatibility
 - **v2.0.0**: Complete rebuild for Foundry v13 and TAH Core 2.0+ with Swedish translation
 - **v1.2.0**: Enhanced combat actions and targeting system
 - **v1.1.1**: Initial stable release with core Dragonbane integration
