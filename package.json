@@ -1,0 +1,26 @@
+{
+  "name": "token-action-hud-dragonbane",
+  "version": "1.0.0",
+  "description": "![Foundry Version](https://img.shields.io/badge/foundry-v12.331%20to%20v13.347-green) ![GitHub release](https://img.shields.io/github/v/release/kergalli/token-action-hud-dragonbane) ![Token Action HUD Core](https://img.shields.io/badge/TAH%20Core-v2.0.0%2B-blue)",
+  "main": "index.js",
+  "scripts": {
+    "link": "node scripts/link-module.js",
+    "build": "npm run link",
+    "dev": "echo 'Development mode - module linked to Foundry'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kergalli/token-action-hud-dragonbane.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kergalli/token-action-hud-dragonbane/issues"
+  },
+  "homepage": "https://github.com/kergalli/token-action-hud-dragonbane#readme",
+  "devDependencies": {
+    "fvtt-types": "npm:@league-of-foundry-developers/foundry-vtt-types@^13.346.0-beta.20250812191140"
+  }
+}
