@@ -165,16 +165,52 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       });
       if (!use) return;
 
-      // ADDED: Auto-target personal spells (same logic as Combat Assistant)
+      // ADDED: Auto-target personal spells (v12/v13 compatible with UI fix)
       if (item.system?.rangeType === "personal") {
         const casterToken =
           canvas.tokens.controlled[0] || actor.getActiveTokens()[0];
         if (casterToken) {
-          // Clear targets and auto-target the caster
-          game.user.updateTokenTargets([casterToken.id]);
-          console.log(
-            `Auto-targeting ${actor.name} for personal spell: ${item.name}`
-          );
+          try {
+            // Properly clear existing targets with UI update
+            if (game.user.targets.size > 0) {
+              const currentTargets = Array.from(game.user.targets);
+              currentTargets.forEach((t) => {
+                if (t.setTarget) {
+                  t.setTarget(false, { user: game.user });
+                }
+              });
+              game.user.targets.clear();
+            }
+
+            // Small delay for UI update
+            await new Promise((resolve) => setTimeout(resolve, 50));
+
+            // v13: Use the new targeting method
+            if (casterToken.object) {
+              casterToken.object.setTarget(true, {
+                user: game.user,
+                releaseOthers: true,
+              });
+            } else if (casterToken.setTarget) {
+              // v12: Direct setTarget
+              casterToken.setTarget(true, {
+                user: game.user,
+                releaseOthers: true,
+              });
+            } else if (game.user.updateTokenTargets) {
+              // Older v12 fallback
+              game.user.updateTokenTargets([casterToken.id]);
+            }
+
+            console.log(
+              `Token Action HUD: Auto-targeted ${actor.name} for personal spell: ${item.name}`
+            );
+          } catch (error) {
+            console.warn(
+              `Token Action HUD: Auto-targeting failed for ${item.name}:`,
+              error
+            );
+          }
         }
       }
 
