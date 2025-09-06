@@ -163,8 +163,20 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         };
         new Dialog(data, null).render(true);
       });
-
       if (!use) return;
+
+      // ADDED: Auto-target personal spells (same logic as Combat Assistant)
+      if (item.system?.rangeType === "personal") {
+        const casterToken =
+          canvas.tokens.controlled[0] || actor.getActiveTokens()[0];
+        if (casterToken) {
+          // Clear targets and auto-target the caster
+          game.user.updateTokenTargets([casterToken.id]);
+          console.log(
+            `Auto-targeting ${actor.name} for personal spell: ${item.name}`
+          );
+        }
+      }
 
       // Handle WP spending and chat message exactly like character sheet
       try {
@@ -192,7 +204,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
                     )}:</b> ${oldWP} <i class="fa-solid fa-arrow-right"></i> ${newWP}<br>
                 </div>
             </div>`;
-
           ChatMessage.create({
             content: content,
             speaker: ChatMessage.getSpeaker({ actor: actor }),
@@ -207,7 +218,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
               uuid: item.uuid,
             }) +
             "</p>";
-
           ChatMessage.create({
             content: content,
             speaker: ChatMessage.getSpeaker({ actor: actor }),
