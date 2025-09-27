@@ -6,13 +6,13 @@
       "magicTricks": "Magic Tricks",
       "spellRank0": "Magic Tricks",
       "spellRank1": "Rank 1",
-      "spellRank2": "Rank 2", 
+      "spellRank2": "Rank 2",
       "spellRank3": "Rank 3",
       "attributes": "Attributes",
       "stats": "Stats",
       "combatActions": "Combat Actions",
       "conditions": "Conditions",
-      "attributeConditions": "Attribute Conditions", 
+      "attributeConditions": "Attribute Conditions",
       "statusEffects": "Status Effects",
       "resting": "Resting",
       "tokenActions": "Token Actions",
@@ -23,11 +23,16 @@
       "monsterDefend": "Defend",
       "rest": "Rest",
       "dodge": "Dodge",
-      "firstAid": "First Aid", 
+      "firstAid": "First Aid",
+      "skillNames": {
+        "evade": "Evade",
+        "healing": "Healing",
+        "persuasion": "Persuasion"
+      },
       "rallyOther": "Rally Other",
       "rallySelf": "Rally Self",
       "roundRest": "Round Rest",
-      "stretchRest": "Stretch Rest", 
+      "stretchRest": "Stretch Rest",
       "shiftRest": "Shift Rest",
       "passOneShift": "Pass One Shift of Time",
       "lightTest": "Light Test",
@@ -121,7 +126,7 @@
           "cancel": "Cancel",
           "table": {
             "source": "Source",
-            "radius": "Radius", 
+            "radius": "Radius",
             "test": "Test",
             "whenToRoll": "When to Roll",
             "onOne": "On 1",
@@ -134,7 +139,7 @@
         },
         "severeInjury": {
           "title": "Severe Injury Test",
-          "boons": "Boons", 
+          "boons": "Boons",
           "banes": "Banes",
           "roll": "Roll",
           "cancel": "Cancel",
@@ -143,7 +148,7 @@
       },
       "lightSources": {
         "lantern": "Lantern",
-        "oilLamp": "Oil Lamp", 
+        "oilLamp": "Oil Lamp",
         "tallowCandle": "Tallow Candle",
         "torch": "Torch"
       },
@@ -181,11 +186,11 @@
           "hint": "Show all known spells instead of only prepared spells. Prepared spells will be marked with ⚡"
         },
         "showWeaponSkills": {
-          "name": "Show Weapon Skills", 
+          "name": "Show Weapon Skills",
           "hint": "Display weapon skills on the HUD"
         },
         "showSecondarySkills": {
-          "name": "Show Secondary Skills", 
+          "name": "Show Secondary Skills",
           "hint": "Display secondary skills on the HUD"
         },
         "showUnequippedItems": {

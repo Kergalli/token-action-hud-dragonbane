@@ -6,13 +6,13 @@
       "magicTricks": "Trolleritrick",
       "spellRank0": "Trolleritrick",
       "spellRank1": "Rang 1",
-      "spellRank2": "Rang 2", 
+      "spellRank2": "Rang 2",
       "spellRank3": "Rang 3",
       "attributes": "Egenskaper",
       "stats": "Statistik",
       "combatActions": "Stridhandlingar",
       "conditions": "Tillstånd",
-      "attributeConditions": "Egenskapstillstånd", 
+      "attributeConditions": "Egenskapstillstånd",
       "statusEffects": "Statuseffekter",
       "resting": "Vila",
       "tokenActions": "Spelfigurätgärder",
@@ -23,11 +23,16 @@
       "monsterDefend": "Försvara",
       "rest": "Vila",
       "dodge": "Undvika",
-      "firstAid": "Första Hjälpen", 
+      "firstAid": "Första Hjälpen",
       "rallyOther": "Heja På Annan",
       "rallySelf": "Heja På Sig Själv",
+      "skillNames": {
+        "evade": "Undvika",
+        "healing": "Läkekonst",
+        "persuasion": "Övertala"
+      },
       "roundRest": "Rundvila",
-      "stretchRest": "Kvartsvila", 
+      "stretchRest": "Kvartsvila",
       "shiftRest": "Skiftvila",
       "passOneShift": "Låt Ett Skift Passera",
       "lightTest": "Ljustest",
@@ -135,7 +140,7 @@
         "severeInjury": {
           "title": "Test för Svår Skada",
           "boons": "Fördelar",
-          "banes": "Nackdelar", 
+          "banes": "Nackdelar",
           "roll": "Slå",
           "cancel": "Avbryt",
           "extra": "Extra"
@@ -143,7 +148,7 @@
       },
       "lightSources": {
         "lantern": "Lykta",
-        "oilLamp": "Oljelampa", 
+        "oilLamp": "Oljelampa",
         "tallowCandle": "Talgljus",
         "torch": "Fackla"
       },
@@ -189,7 +194,7 @@
           "hint": "Visa vapenfärdigheter på HUD"
         },
         "showSecondarySkills": {
-          "name": "Visa Sekundära Färdigheter", 
+          "name": "Visa Sekundära Färdigheter",
           "hint": "Visa sekundära färdigheter på HUD"
         }
       }

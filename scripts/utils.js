@@ -73,6 +73,19 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
     }
 
     /**
+     * Get localized skill name from language files
+     * @param {string} skillKey The skill key (e.g., 'evade', 'healing', 'persuasion')
+     * @returns {string} The localized skill name
+     */
+    static getLocalizedSkillName(skillKey) {
+      return (
+        coreModule.api.Utils.i18n(
+          `tokenActionHud.dragonbane.skillNames.${skillKey}`
+        ) || skillKey
+      );
+    }
+
+    /**
      * Get stat status CSS class based on current vs max values
      * @param {number} current Current value
      * @param {number} max Maximum value
