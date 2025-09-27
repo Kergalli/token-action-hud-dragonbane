@@ -29,6 +29,14 @@
         "healing": "Healing",
         "persuasion": "Persuasion"
       },
+      "attributeAbbreviations": {
+        "str": "STR",
+        "con": "CON",
+        "agl": "AGL",
+        "int": "INT",
+        "wil": "WIL",
+        "cha": "CHA"
+      },
       "rallyOther": "Rally Other",
       "rallySelf": "Rally Self",
       "roundRest": "Round Rest",

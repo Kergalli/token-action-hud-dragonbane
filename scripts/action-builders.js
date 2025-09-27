@@ -433,7 +433,8 @@ export function createActionBuilders(coreModule) {
         ([attrKey, attrConfig]) => ({
           id: attrKey,
           name: () => {
-            const attrAbbreviation = attrKey.toUpperCase(); // STR, CON, AGL, etc.
+            const attrAbbreviation =
+              Utils.getLocalizedAttributeAbbreviation(attrKey);
             const value = this.actor.system.attributes[attrKey]?.value || 0;
             return `${attrAbbreviation} (${value})`;
           },

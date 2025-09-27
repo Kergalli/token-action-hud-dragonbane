@@ -86,6 +86,19 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
     }
 
     /**
+     * Get localized attribute abbreviation from language files
+     * @param {string} attributeKey The attribute key (e.g., 'str', 'con', 'agl')
+     * @returns {string} The localized attribute abbreviation
+     */
+    static getLocalizedAttributeAbbreviation(attributeKey) {
+      return (
+        coreModule.api.Utils.i18n(
+          `tokenActionHud.dragonbane.attributeAbbreviations.${attributeKey}`
+        ) || attributeKey.toUpperCase()
+      );
+    }
+
+    /**
      * Get stat status CSS class based on current vs max values
      * @param {number} current Current value
      * @param {number} max Maximum value

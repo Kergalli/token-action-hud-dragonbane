@@ -31,6 +31,14 @@
         "healing": "Läkekonst",
         "persuasion": "Övertala"
       },
+      "attributeAbbreviations": {
+        "str": "STY",
+        "con": "FYS",
+        "agl": "SMI",
+        "int": "INT",
+        "wil": "PSY",
+        "cha": "KAR"
+      },
       "roundRest": "Rundvila",
       "stretchRest": "Kvartsvila",
       "shiftRest": "Skiftvila",
