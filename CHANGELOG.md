@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.0.3] - 2025-09-27
+
+### 🌍 Localization Improvements
+
+#### 🇸🇪 Swedish Language Support Enhanced
+
+- **Combat Actions Fixed**: Dodge, First Aid, and Rally Other actions now work correctly in Swedish Dragonbane
+- **Attribute Abbreviations Localized**: Attributes under Stats now show Swedish abbreviations
+- **Abilities Display Improved**: Abilities section now displays correctly in Swedish
+
+#### 🔧 Technical Implementation
+
+- **Skill Name Mapping**: Added `skillNames` localization keys for combat action skills
+- **Attribute Localization**: Added `attributeAbbreviations` for proper language-specific display
+- **Utility Methods**: New localization helpers `getLocalizedSkillName()` and `getLocalizedAttributeAbbreviation()`
+- **Language File Structure**: Enhanced English and Swedish language files with new localization keys
+
+---
+
 ## [2.0.2] - 2025-09-05
 
 ### 🐛 Bug Fixes
