@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.0.4] - 2025-09-27
+
+#### 🐛 Bug Fixes
+
+- **Ability Actions Fixed**: Resolved "Spell [AbilityName] not found" errors when clicking abilities
+  - Solution: Use `rollItem()` method for abilities instead, which works correctly
+
+---
+
 ## [2.0.3] - 2025-09-27
 
 ### 🌍 Localization Improvements

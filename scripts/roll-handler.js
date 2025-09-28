@@ -83,7 +83,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
               }
 
             case "ability":
-              return game.dragonbane.useItem(item.name, item.type);
+              return game.dragonbane.rollItem(item.name, item.type);
 
             case "skill":
               return game.dragonbane.rollItem(item.name, item.type);

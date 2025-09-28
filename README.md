@@ -1,6 +1,6 @@
 # Token Action HUD Dragonbane
 
-![Foundry Version](https://img.shields.io/badge/foundry-v12.331%20to%20v13.347-green) ![GitHub release](https://img.shields.io/github/v/release/kergalli/token-action-hud-dragonbane) ![Token Action HUD Core](https://img.shields.io/badge/TAH%20Core-v2.0.3%2B-blue)
+![Foundry Version](https://img.shields.io/badge/foundry-v12.331%20to%20v13.347-green) ![GitHub release](https://img.shields.io/github/v/release/kergalli/token-action-hud-dragonbane) ![Token Action HUD Core](https://img.shields.io/badge/TAH%20Core-v2.0.4%2B-blue)
 
 Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifically designed for the Dragonbane RPG system by Free League Publishing. **Version 2.0 represents a complete rebuild** optimized for Foundry VTT v13 and Token Action HUD Core 2.0+.
 
