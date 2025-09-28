@@ -1,5 +1,29 @@
 # Changelog
 
+## [2.1.0] - 2025-09-28
+
+### ✨ Enhanced Condition System
+
+#### 🛡️ Categorized Status Effects (v13+ Required)
+
+- **Effect Categorization**: Status effects now automatically organize into groups that match Dragonbane Status Effects:
+  - Attribute Conditions, General Effects, Spell Effects, Heroic Abilities
+  - Undefined effects will be shown under a generic Status Effects category
+
+#### 🔗 Dragonbane Status Effects Integration
+
+- **Module Compatibility**: Full integration with the Dragonbane Status Effects module
+- **Auto-Detection**: Automatically reads effect categories from `dragonbane-status-effects` flags
+- **Seamless Organization**: Effects from the module are automatically sorted into appropriate categories
+- **Respects Hidden Categories**: Hidden DSE catregories will no longer show in the Token Action HUD
+
+#### ⚙️ Version-Specific Features
+
+- **Foundry v13+ Optimized**: Enhanced categorization system requires Foundry VTT v13 or higher
+- **v12 Compatibility Maintained**: Fallback support for Foundry v12 users with simplified categorization
+
+---
+
 ## [2.0.4] - 2025-09-27
 
 #### 🐛 Bug Fixes

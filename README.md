@@ -1,6 +1,6 @@
 # Token Action HUD Dragonbane
 
-![Foundry Version](https://img.shields.io/badge/foundry-v12.331%20to%20v13.347-green) ![GitHub release](https://img.shields.io/github/v/release/kergalli/token-action-hud-dragonbane) ![Token Action HUD Core](https://img.shields.io/badge/TAH%20Core-v2.0.4%2B-blue)
+![Foundry Version](https://img.shields.io/badge/foundry-v12.331%20to%20v13.347-green) ![GitHub release](https://img.shields.io/github/v/release/kergalli/token-action-hud-dragonbane) ![Token Action HUD Core](https://img.shields.io/badge/TAH%20Core-v2.1.0%2B-blue)
 
 Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifically designed for the Dragonbane RPG system by Free League Publishing. **Version 2.0 represents a complete rebuild** optimized for Foundry VTT v13 and Token Action HUD Core 2.0+.
 
@@ -62,12 +62,14 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
 - **Comprehensive Rest Options**: Round Rest, Stretch Rest, Shift Rest, Pass One Shift of Time
 - **Usage Prevention**: Disabled styling and informative messages for already-used rest types
 
-### 🏥 **Health & Condition Management (Improved in v2.0.1)**
+### 🏥 **Health & Condition Management (Enhanced in v2.1.0)**
 
-- **Death Rolls**: Automatic death roll button shown under Combat when a character is a zero HP
-- **Condition Toggles**: Visual management of attribute conditions and status effects
+- **Dragonbane Status Effects Integration**: **NEW v2.1.0, v13 only** - Seamless compatibility with the Dragonbane Status Effects module
+  - **Categorized Conditions** - Organization of status effects into the defined DSE categories
+  - **Respects DSE Settings** - Hidden DSE catregories will no longer show in the Token Action HUD
 - **Active State Indicators**: Conditions highlighted when active with red styling
 - **Custom Status Effects**: Full compatibility with status effect modules and custom icons
+- **Death Rolls**: Automatic death roll button shown under Combat when a character is a zero HP
 - **Injury Tracking**: Shows current injuries under Stats
 
 ### 🔧 **Utility Actions (New in v2.0)**
@@ -134,22 +136,37 @@ https://github.com/kergalli/token-action-hud-dragonbane/releases/latest/download
 
 ## 📋 Requirements
 
-### **Required Modules**
+### **Foundry Compatibility**
 
-- **[Token Action HUD Core](https://foundryvtt.com/packages/token-action-hud-core) v2.0.0+** - Essential for functionality
+- **Foundry VTT**: v13.345+ **required** for full v2.1.0 features (v12.331+ for basic functionality)
+- **Optimized for**: Foundry VTT v13+ with enhanced condition categorization and module integration
 
 ### **System Compatibility**
 
 - **[Dragonbane System](https://foundryvtt.com/packages/dragonbane) v2.0+** - Official Free League system
 
-### **Foundry Compatibility**
+### **Required Modules**
 
-- **Foundry VTT**: v12.331 minimum, verified through v13.345
-- **Optimized for**: Foundry VTT v13+ with modern features
+- **[Token Action HUD Core](https://foundryvtt.com/packages/token-action-hud-core) v2.0.0+** - Essential for functionality
+
+### **Optional Modules for Enhanced Experience**
+
+- **[Dragonbane Status Effects](https://foundryvtt.com/packages/dragonbane-status-effects)**: **NEW v2.1.0** - Unlocks categorized condition display and enhanced status effect management
 
 ---
 
-## 🔄 Migration from v1.x
+## Migration Section Update
+
+### 🔄 Migration from v2.0.x to v2.1.0
+
+**✨ v2.1.0 introduces enhanced features optimized for Foundry VTT v13+:**
+
+1. **Foundry Version Check**: Ensure you're running Foundry VTT v13.345+ for full v2.1.0 features
+2. **Optional Module**: Consider installing Dragonbane Status Effects module for enhanced categorization
+3. **Condition Display**: Enjoy improved organization of status effects in categorized groups
+4. **Backward Compatibility**: v12 users maintain existing functionality with simplified condition display
+
+### 🔄 Migration from v1.x
 
 **⚠️ Version 2.0 includes breaking changes requiring attention:**
 
@@ -166,6 +183,8 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and feature update
 
 ### Recent Major Changes:
 
+- **v2.1.0**: Categorized condition system with Dragonbane Status Effects integration (v13+ required)
+- **v2.0.4**: Fixed ability action errors with improved rollItem() method
 - **v2.0.3**: Enhanced Swedish localization with proper skill names and attribute abbreviations
 - **v2.0.2**: Fixed multiple token selection compatibility and magic tricks display
 - **v2.0.1**: Improved ability grouping and status effect compatibility
