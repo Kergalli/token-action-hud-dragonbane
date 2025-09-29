@@ -189,6 +189,11 @@ export const GROUP = {
     name: "tokenActionHud.dragonbane.other",
     type: "system",
   },
+  journeyActions: {
+    id: "journeyActions",
+    name: "tokenActionHud.dragonbane.journeyActions",
+    type: "system",
+  },
   token: { id: "token", name: "tokenActionHud.token", type: "system" },
   utility: { id: "utility", name: "tokenActionHud.utility", type: "system" },
 };

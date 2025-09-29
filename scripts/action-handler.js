@@ -461,6 +461,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         buildInventory: actionBuilders.buildInventory.bind(this),
         buildInjuries: actionBuilders.buildInjuries.bind(this),
         buildCombatActions: actionBuilders.buildCombatActions.bind(this),
+        buildJourneyActions: actionBuilders.buildJourneyActions.bind(this),
         buildMonsterAttacks: actionBuilders.buildMonsterAttacks.bind(this),
         buildMonsterWeaponDamage:
           actionBuilders.buildMonsterWeaponDamage.bind(this),
@@ -493,6 +494,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       this.buildInventory();
       if (this.showInjuries) this.buildInjuries();
       this.buildCombatActions();
+      this.buildJourneyActions();
     }
 
     /**
@@ -507,6 +509,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       this.buildInventory();
       if (this.showInjuries) this.buildInjuries();
       this.buildCombatActions();
+      this.buildJourneyActions();
     }
 
     /**

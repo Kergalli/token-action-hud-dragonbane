@@ -11,6 +11,13 @@
       "attributes": "Egenskaper",
       "stats": "Statistik",
       "combatActions": "Stridhandlingar",
+      "journeyActions": "Resehandlingar",
+      "pathfinder": "Vägvisare",
+      "makeCamp": "Slå Läger",
+      "hunt": "Jaga",
+      "fish": "Fiska",
+      "forage": "Samla",
+      "cook": "Laga Mat",
       "conditions": "Tillstånd",
       "attributeConditions": "Egenskapstillstånd",
       "statusEffects": "Statuseffekter",
@@ -32,7 +39,9 @@
       "skillNames": {
         "evade": "Undvika",
         "healing": "Läkekonst",
-        "persuasion": "Övertala"
+        "persuasion": "Övertala",
+        "bushcraft": "Bushcraft",
+        "huntingfishing": "Jakt & Fiske"
       },
       "attributeAbbreviations": {
         "str": "STY",

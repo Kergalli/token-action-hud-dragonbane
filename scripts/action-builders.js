@@ -670,6 +670,149 @@ export function createActionBuilders(coreModule) {
     },
 
     /**
+     * Build journey actions (pathfinder, make camp, hunt, fish, forage, cook)
+     */
+    buildJourneyActions: async function () {
+      const actions = [];
+
+      // Helper function to get skill value by name from core skills
+      const getSkillValueByName = (skillKey) => {
+        if (!this.actor?.system?.coreSkills) return 0;
+        const localizedSkillName = Utils.getLocalizedSkillName(skillKey);
+        const skill = this.actor.system.coreSkills.find(
+          (s) => s.name === localizedSkillName
+        );
+        return skill?.system?.value || skill?.value || 0;
+      };
+
+      // Define journey action configurations
+      const journeyConfigs = [
+        {
+          id: "pathfinder",
+          condition: () =>
+            this.actorType === "character" || this.actorType === "npc",
+          name: () => {
+            const baseName = coreModule.api.Utils.i18n(
+              "tokenActionHud.dragonbane.pathfinder"
+            );
+            const skillValue = getSkillValueByName("bushcraft");
+            return `${baseName} (${skillValue})`;
+          },
+          img: "modules/token-action-hud-dragonbane/assets/path-distance.svg",
+          actionType: "journeyAction",
+          handler: "handleCombatSkillAction",
+          handlerArgs: ["bushcraft"],
+        },
+        {
+          id: "makeCamp",
+          condition: () =>
+            this.actorType === "character" || this.actorType === "npc",
+          name: () => {
+            const baseName = coreModule.api.Utils.i18n(
+              "tokenActionHud.dragonbane.makeCamp"
+            );
+            const skillValue = getSkillValueByName("bushcraft");
+            return `${baseName} (${skillValue})`;
+          },
+          img: "icons/svg/fire.svg",
+          actionType: "journeyAction",
+          handler: "handleCombatSkillAction",
+          handlerArgs: ["bushcraft"],
+        },
+        {
+          id: "hunt",
+          condition: () =>
+            this.actorType === "character" || this.actorType === "npc",
+          name: () => {
+            const baseName = coreModule.api.Utils.i18n(
+              "tokenActionHud.dragonbane.hunt"
+            );
+            const skillValue = getSkillValueByName("huntingfishing");
+            return `${baseName} (${skillValue})`;
+          },
+          img: "icons/svg/pawprint.svg",
+          actionType: "journeyAction",
+          handler: "handleCombatSkillAction",
+          handlerArgs: ["huntingfishing"],
+        },
+        {
+          id: "fish",
+          condition: () =>
+            this.actorType === "character" || this.actorType === "npc",
+          name: () => {
+            const baseName = coreModule.api.Utils.i18n(
+              "tokenActionHud.dragonbane.fish"
+            );
+            const skillValue = getSkillValueByName("huntingfishing");
+            return `${baseName} (${skillValue})`;
+          },
+          img: "modules/token-action-hud-dragonbane/assets/fishing-pole.svg",
+          actionType: "journeyAction",
+          handler: "handleCombatSkillAction",
+          handlerArgs: ["huntingfishing"],
+        },
+        {
+          id: "forage",
+          condition: () =>
+            this.actorType === "character" || this.actorType === "npc",
+          name: () => {
+            const baseName = coreModule.api.Utils.i18n(
+              "tokenActionHud.dragonbane.forage"
+            );
+            const skillValue = getSkillValueByName("bushcraft");
+            return `${baseName} (${skillValue})`;
+          },
+          img: "modules/token-action-hud-dragonbane/assets/plant-seed.svg",
+          actionType: "journeyAction",
+          handler: "handleCombatSkillAction",
+          handlerArgs: ["bushcraft"],
+        },
+        {
+          id: "cook",
+          condition: () =>
+            this.actorType === "character" || this.actorType === "npc",
+          name: () => {
+            const baseName = coreModule.api.Utils.i18n(
+              "tokenActionHud.dragonbane.cook"
+            );
+            const skillValue = getSkillValueByName("bushcraft");
+            return `${baseName} (${skillValue})`;
+          },
+          img: "modules/token-action-hud-dragonbane/assets/camp-cooking-pot.svg",
+          actionType: "journeyAction",
+          handler: "handleCombatSkillAction",
+          handlerArgs: ["bushcraft"],
+        },
+      ];
+
+      // Build standard journey actions
+      for (const config of journeyConfigs) {
+        if (config.condition()) {
+          const action = this._createSimpleAction(
+            config.id,
+            config.name(),
+            config.img,
+            config.actionType,
+            config.handler
+          );
+
+          // Override onClick for actions that need custom arguments
+          if (config.handlerArgs) {
+            action.onClick = async (event) => {
+              await this[config.handler](event, ...config.handlerArgs);
+            };
+          }
+
+          actions.push(action);
+        }
+      }
+
+      if (actions.length > 0) {
+        this.addActions(actions, { id: "journeyActions", type: "system" });
+      }
+    },
+
+    /**
      * Build monster attacks
      */
     buildMonsterAttacks: async function () {

@@ -11,6 +11,13 @@
       "attributes": "Attributes",
       "stats": "Stats",
       "combatActions": "Combat Actions",
+      "journeyActions": "Journey Actions",
+      "pathfinder": "Pathfinder",
+      "makeCamp": "Make Camp",
+      "hunt": "Hunt",
+      "fish": "Fish",
+      "forage": "Forage",
+      "cook": "Cook",
       "conditions": "Conditions",
       "attributeConditions": "Attribute Conditions",
       "statusEffects": "Status Effects",
@@ -30,7 +37,9 @@
       "skillNames": {
         "evade": "Evade",
         "healing": "Healing",
-        "persuasion": "Persuasion"
+        "persuasion": "Persuasion",
+        "bushcraft": "Bushcraft",
+        "huntingfishing": "Hunting & Fishing"
       },
       "attributeAbbreviations": {
         "str": "STR",
