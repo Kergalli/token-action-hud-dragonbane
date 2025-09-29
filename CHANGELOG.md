@@ -2,6 +2,12 @@
 
 ## [2.1.0] - 2025-09-28
 
+### ✨ New Features
+
+#### 🛡️ New Utility Actions
+
+- **Journey Actions**: Simple buttons for various Journey Actions have been added under Utilities
+
 ### ✨ Enhanced Condition System
 
 #### 🛡️ Categorized Status Effects (v13+ Required)

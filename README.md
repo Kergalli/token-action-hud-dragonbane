@@ -74,6 +74,7 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
 
 ### 🔧 **Utility Actions (New in v2.0)**
 
+- **Journey Actions**: Simple buttons for various Journey Actions
 - **Light Test**: Interactive light source selection with duration rules and light roll test
 - **Severe Injury**: CON-based survival tests with automatic table rolling
 - **Stats Display**: Click any stat to show detailed information in chat
@@ -92,7 +93,7 @@ The HUD is organized into logical sections that can be collapsed or repositioned
 6. **⭐ Abilities**: Character abilities and special powers with grouped display for multiples
 7. **🛡️ Conditions**: Attribute conditions and status effects with active indicators
 8. **🎒 Inventory**: Armor, Helmets, Items organized by type
-9. **🔧 Utility**: Rest actions, Light Test, Severe Injury, and other tools
+9. **🔧 Utility**: Rest actions, Journey actions, Light Test, Severe Injury, and other tools
 
 ---
 
