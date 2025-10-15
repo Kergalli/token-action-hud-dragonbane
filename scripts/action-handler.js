@@ -177,7 +177,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           img: "icons/svg/terror.svg",
           encodedValue: ["fearTest", "fearTest"].join(this.delimiter),
           onClick: async (event) => {
-            await this.handleAttributeAction(event, "wil");
+            await this.handleFearTestAction(event);
           },
         });
       }
@@ -455,6 +455,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         handleRestUnavailableAction:
           actionHandlers.handleRestUnavailableAction.bind(this),
         handleLightTestAction: actionHandlers.handleLightTestAction.bind(this),
+        handleFearTestAction: actionHandlers.handleFearTestAction.bind(this),
         handleSevereInjuryAction:
           actionHandlers.handleSevereInjuryAction.bind(this),
         handleCombatSkillAction:

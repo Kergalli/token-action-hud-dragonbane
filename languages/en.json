@@ -100,6 +100,20 @@
           "out": "{actor}'s {lightSource} goes out!",
           "lit": "{actor}'s {lightSource} remains lit."
         },
+        "fearTest": {
+          "notForMonsters": "Fear tests are not available for monsters",
+          "failed": "Failed to perform fear test"
+        },
+        "fearEffect": {
+          "instruction": "If the <strong>WIL</strong> roll fails, you must roll on the fear table:",
+          "rollButton": "Roll Fear Effect",
+          "rolled": "Fear Effect Rolled",
+          "actorNotFound": "Actor not found",
+          "noPermission": "You do not have permission to roll for this character",
+          "tableNotFound": "Fear effect table not found",
+          "tableFailed": "Failed to roll fear effect table",
+          "rollFailed": "Failed to roll fear effect"
+        },
         "severeInjury": {
           "testLabel": "Severe Injury Test",
           "success": "Success!",

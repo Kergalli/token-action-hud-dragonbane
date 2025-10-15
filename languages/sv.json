@@ -100,6 +100,20 @@
           "out": "{actor}s {lightSource} slocknar!",
           "lit": "{actor}s {lightSource} förblir tänd."
         },
+        "fearTest": {
+          "notForMonsters": "Fruktan tester är inte tillgängliga för monster",
+          "failed": "Misslyckades med att utföra fruktan test"
+        },
+        "fearEffect": {
+          "instruction": "Om <strong>VIL-slaget</strong> misslyckas, måste du slå på fruktan tabellen:",
+          "rollButton": "Slå Fruktan Effekt",
+          "rolled": "Fruktan Effekt Slagen",
+          "actorNotFound": "Aktör inte hittad",
+          "noPermission": "Du har inte behörighet att slå för denna karaktär",
+          "tableNotFound": "Fruktan effekt tabell inte hittad",
+          "tableFailed": "Misslyckades med att slå fruktan effekt tabell",
+          "rollFailed": "Misslyckades med att slå fruktan effekt"
+        },
         "severeInjury": {
           "testLabel": "Test för Svår Skada",
           "onlyForCharacters": "Test för svår skada är endast tillgängligt för rollpersoner",

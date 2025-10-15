@@ -489,7 +489,7 @@ export function createActionDialogs(coreModule) {
                             data-actor-id="${speaker?.actor || actor.id}"
                             data-scene-id="${speaker?.scene || ""}"
                             data-token-id="${speaker?.token || ""}"
-                            style="background: #dc3545; color: #fff; border: 1px solid #b5b3a4; padding: 8px 6px; border-radius: 3px; cursor: pointer; margin-top: 8px; height: 32px; width: 100%; text-align: center; display: block;">
+                            style="background: #dc3545; color: #fff; border: 1px solid #b5b3a4; padding: 8px 8px; border-radius: 3px; cursor: pointer; margin-top: 8px; height: 32px; width: 100%; text-align: center; display: block;">
                         ${rollSevereInjuryButton}
                     </button>
                     </div>

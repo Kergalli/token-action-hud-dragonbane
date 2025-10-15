@@ -140,6 +140,62 @@ export function createActionHandlers(coreModule) {
       }
     },
 
+    handleFearTestAction: async function (event) {
+      const actor = this.actor;
+
+      // Block monsters
+      if (actor.type === "monster") {
+        const message =
+          coreModule.api.Utils.i18n(
+            "tokenActionHud.dragonbane.messages.fearTest.notForMonsters"
+          ) || "Fear tests are not available for monsters";
+        ui.notifications.warn(message);
+        return;
+      }
+
+      try {
+        // Set flag to track this fear test
+        await game.user.setFlag(
+          "token-action-hud-dragonbane",
+          "fearTestInProgress",
+          {
+            actorId: actor.id,
+            actorUuid: actor.uuid,
+            tokenId: this.token?.id,
+            sceneId: canvas.scene?.id,
+            speaker: ChatMessage.getSpeaker({ actor: actor }),
+            timestamp: Date.now(),
+          }
+        );
+
+        // Clear flag after 5 seconds (safety timeout)
+        setTimeout(async () => {
+          await game.user.unsetFlag(
+            "token-action-hud-dragonbane",
+            "fearTestInProgress"
+          );
+        }, 5000);
+
+        // Perform the WIL test
+        await this.handleAttributeAction(event, "wil");
+      } catch (error) {
+        console.error(
+          "Token Action HUD Dragonbane: Error with fear test:",
+          error
+        );
+        await game.user.unsetFlag(
+          "token-action-hud-dragonbane",
+          "fearTestInProgress"
+        );
+
+        const message =
+          coreModule.api.Utils.i18n(
+            "tokenActionHud.dragonbane.messages.fearTest.failed"
+          ) || "Failed to perform fear test";
+        ui.notifications.error(message);
+      }
+    },
+
     handleItemAction: async function (event, item) {
       const actor = this.actor;
 
