@@ -100,17 +100,20 @@
           "lit": "{actor}s {lightSource} förblir tänd."
         },
         "severeInjury": {
+          "testLabel": "Test för Svår Skada",
           "onlyForCharacters": "Test för svår skada är endast tillgängligt för rollpersoner",
           "noConAttribute": "Rollpersonen har ingen FYS-egenskap",
-          "failed": "Misslyckades att utföra test för svår skada",
-          "testLabel": "Test för Svår Skada",
           "success": "Lyckat!",
           "failure": "Misslyckat!",
           "survivesWithoutInjuries": "{actor} överlever utan bestående skador.",
           "survivesWithInjuries": "{actor} överlever döden, men skadorna kvarstår...",
           "rollSevereInjury": "Slå Svår Skada",
           "tableNotFound": "Tabell för svår skada hittades inte",
-          "tableFailed": "Misslyckades att slå på tabell för svår skada"
+          "tableFailed": "Misslyckades att slå på tabell för svår skada",
+          "failed": "Misslyckades att utföra test för svår skada",
+          "actorNotFound": "Rollpersonen hittades inte",
+          "noPermission": "Du har inte behörighet att slå för denna rollperson",
+          "tableRolled": "Svår skada slagen"
         },
         "conditions": {
           "failed": "Misslyckades att växla tillstånd"

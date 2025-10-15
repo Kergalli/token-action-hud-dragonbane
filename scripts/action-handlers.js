@@ -392,31 +392,19 @@ export function createActionHandlers(coreModule) {
         );
 
         // Build enhanced chat content
+        const speaker = ChatMessage.getSpeaker({ actor: actor });
         const content = await this.buildSevereInjuryChatContent(
           actor,
-          rollResult
+          rollResult,
+          speaker
         );
 
         const msg = await ChatMessage.create({
           author: game.user.id,
-          speaker: ChatMessage.getSpeaker({ actor: actor }),
+          speaker: speaker,
           content: content,
           rolls: [rollResult.roll],
         });
-
-        // Add button listener for failures
-        if (!rollResult.isSuccess) {
-          setTimeout(() => {
-            const button = document.querySelector(
-              `[data-message-id="${msg.id}"] .severe-injury-roll-btn`
-            );
-            if (button) {
-              button.addEventListener("click", () =>
-                this.rollSevereInjuryTable()
-              );
-            }
-          }, 100);
-        }
       } catch (error) {
         console.error(
           "Token Action HUD Dragonbane: Error with severe injury test:",

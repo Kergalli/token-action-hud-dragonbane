@@ -100,9 +100,6 @@
           "lit": "{actor}'s {lightSource} remains lit."
         },
         "severeInjury": {
-          "onlyForCharacters": "Severe injury tests are only available for characters",
-          "noConAttribute": "Character has no CON attribute",
-          "failed": "Failed to perform severe injury test",
           "testLabel": "Severe Injury Test",
           "success": "Success!",
           "failure": "Failure!",
@@ -110,7 +107,13 @@
           "survivesWithInjuries": "{actor} survives death, but injuries remain...",
           "rollSevereInjury": "Roll Severe Injury",
           "tableNotFound": "Severe Injury roll table not found",
-          "tableFailed": "Failed to roll severe injury table"
+          "tableFailed": "Failed to roll severe injury table",
+          "failed": "Failed to perform severe injury test",
+          "onlyForCharacters": "Severe injury tests are only available for characters",
+          "noConAttribute": "Character has no CON attribute",
+          "actorNotFound": "Actor not found",
+          "noPermission": "You don't have permission to roll for this character",
+          "tableRolled": "Severe Injury Rolled"
         },
         "conditions": {
           "failed": "Failed to toggle condition"

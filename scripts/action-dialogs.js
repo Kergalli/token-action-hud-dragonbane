@@ -401,7 +401,11 @@ export function createActionDialogs(coreModule) {
      * @param {object} rollResult The roll result object
      * @returns {string} HTML content for chat message
      */
-    buildSevereInjuryChatContent: async function (actor, rollResult) {
+    buildSevereInjuryChatContent: async function (
+      actor,
+      rollResult,
+      speaker = null
+    ) {
       const {
         roll,
         isSuccess,
@@ -462,7 +466,7 @@ export function createActionDialogs(coreModule) {
 
         content += `
                     <div style="border: 2px solid #28a745; padding: 10px; background: rgba(40,167,69,.1); margin: 5px 0;">
-                        <h4 style="margin-top: 0; margin-bottom: 0; color: #28a745;"><strong>${successLabel}</strong></h4>
+                        <h5 style="margin-top: 0; margin-bottom: 0; color: #28a745;"><strong>${successLabel}</strong></h5>
                         <p style="margin: 0;">${survivesMessage}</p>
                     </div>
                 `;
@@ -479,11 +483,15 @@ export function createActionDialogs(coreModule) {
 
         content += `
                     <div style="border: 2px solid #dc3545; padding: 10px; background: rgba(220,53,69,.1); margin: 5px 0;">
-                        <h4 style="margin-top: 0; margin-bottom: 0; color: #dc3545;"><strong>${failureLabel}</strong></h4>
+                        <h5 style="margin-top: 0; margin-bottom: 0; color: #dc3545;"><strong>${failureLabel}</strong></h5>
                         <p style="margin: 0;">${survivesWithInjuries}</p>
-                        <button class="severe-injury-roll-btn" style="background: #dc3545; color: #fff; border: 1px solid #b5b3a4; padding: 1px 6px; border-radius: 3px; cursor: pointer; margin-top: 8px; height: 32px;">
-                            ${rollSevereInjuryButton}
-                        </button>
+                    <button class="severe-injury-roll-btn" 
+                            data-actor-id="${speaker?.actor || actor.id}"
+                            data-scene-id="${speaker?.scene || ""}"
+                            data-token-id="${speaker?.token || ""}"
+                            style="background: #dc3545; color: #fff; border: 1px solid #b5b3a4; padding: 8px 6px; border-radius: 3px; cursor: pointer; margin-top: 8px; height: 32px; width: 100%; text-align: center; display: block;">
+                        ${rollSevereInjuryButton}
+                    </button>
                     </div>
                 `;
       }
