@@ -27,15 +27,43 @@ function getActorFromSpeakerData(speakerData) {
 
 /**
  * Roll on the severe injury table
+ * Uses UUID from settings if available, falls back to name-based detection
+ * @returns {Promise<void>}
  */
 async function rollSevereInjuryTable() {
   try {
-    const table = game.tables.contents.find(
-      (tbl) =>
-        tbl.name.toLowerCase().includes("severe injury") ||
-        tbl.name.toLowerCase().includes("svår skada") ||
-        tbl.name.toLowerCase().includes("allvarlig skada")
+    let table = null;
+
+    // Try UUID from settings first
+    const tableUuid = game.settings.get(
+      "token-action-hud-dragonbane",
+      "severeInjuryTableUuid"
     );
+
+    if (tableUuid) {
+      try {
+        table = await fromUuid(tableUuid);
+        if (!table) {
+          console.warn(
+            `Token Action HUD Dragonbane: Severe Injury table UUID "${tableUuid}" not found, falling back to name detection`
+          );
+        }
+      } catch (error) {
+        console.warn(
+          `Token Action HUD Dragonbane: Error loading Severe Injury table from UUID "${tableUuid}":`,
+          error
+        );
+      }
+    }
+
+    // Fallback to name-based detection
+    if (!table) {
+      table = game.tables.contents.find(
+        (tbl) =>
+          tbl.name.toLowerCase().includes("severe injury") ||
+          tbl.name.toLowerCase().includes("svår skada")
+      );
+    }
 
     if (!table) {
       const message =
@@ -46,6 +74,7 @@ async function rollSevereInjuryTable() {
       return;
     }
 
+    // Draw from table (this creates its own chat message)
     await table.draw({ displayChat: true });
   } catch (error) {
     console.error(
@@ -62,15 +91,43 @@ async function rollSevereInjuryTable() {
 
 /**
  * Roll on the fear effect table
+ * Uses UUID from settings if available, falls back to name-based detection
+ * @returns {Promise<void>}
  */
 async function rollFearEffectTable() {
   try {
-    const table = game.tables.contents.find(
-      (tbl) =>
-        tbl.name.toLowerCase().includes("fear") ||
-        tbl.name.toLowerCase().includes("fruktan") ||
-        tbl.name.toLowerCase().includes("rädsla")
+    let table = null;
+
+    // Try UUID from settings first
+    const tableUuid = game.settings.get(
+      "token-action-hud-dragonbane",
+      "fearEffectTableUuid"
     );
+
+    if (tableUuid) {
+      try {
+        table = await fromUuid(tableUuid);
+        if (!table) {
+          console.warn(
+            `Token Action HUD Dragonbane: Fear Effect table UUID "${tableUuid}" not found, falling back to name detection`
+          );
+        }
+      } catch (error) {
+        console.warn(
+          `Token Action HUD Dragonbane: Error loading Fear Effect table from UUID "${tableUuid}":`,
+          error
+        );
+      }
+    }
+
+    // Fallback to name-based detection
+    if (!table) {
+      table = game.tables.contents.find(
+        (tbl) =>
+          tbl.name.toLowerCase().includes("fear") ||
+          tbl.name.toLowerCase().includes("skräck")
+      );
+    }
 
     if (!table) {
       const message =
@@ -81,6 +138,7 @@ async function rollFearEffectTable() {
       return;
     }
 
+    // Draw from table (this creates its own chat message)
     await table.draw({ displayChat: true });
   } catch (error) {
     console.error(

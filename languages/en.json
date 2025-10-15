@@ -234,6 +234,14 @@
         "showUnequippedItems": {
           "name": "Show Unequipped Items",
           "hint": "Show unequipped armor, helmets, and items on the HUD"
+        },
+        "severeInjuryTableUuid": {
+          "name": "Severe Injury Table UUID",
+          "hint": "UUID of the Severe Injury roll table (e.g., RollTable.4wZ2sIWqV3tw8eKL). Leave blank to auto-detect by table name (English or Swedish)."
+        },
+        "fearEffectTableUuid": {
+          "name": "Fear Effect Table UUID",
+          "hint": "UUID of the Fear effect roll table (e.g., RollTable.wHTr9HuHkpVv7ccX). Leave blank to auto-detect by table name (English or Swedish)."
         }
       }
     }

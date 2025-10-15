@@ -234,6 +234,14 @@
         "showSecondarySkills": {
           "name": "Visa Sekundära Färdigheter",
           "hint": "Visa sekundära färdigheter på HUD"
+        },
+        "severeInjuryTableUuid": {
+          "name": "Svår Skada Tabell UUID",
+          "hint": "UUID för Svår Skada tärningstabell (t.ex., RollTable.mnblh90YZemYRb0G). Lämna tomt för automatisk upptäckt efter tabellnamn (Engelska eller Svenska)."
+        },
+        "fearEffectTableUuid": {
+          "name": "Skräck Effekt Tabell UUID",
+          "hint": "UUID för Skräck effekt tärningstabell (t.ex., RollTable.YBHWSmNrv6gZ5LfB). Lämna tomt för automatisk upptäckt efter tabellnamn (Engelska eller Svenska)."
         }
       }
     }
