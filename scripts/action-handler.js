@@ -163,6 +163,25 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         });
       }
 
+      // Fear Test (for characters and NPCs only)
+      if (this.actorType === "character" || this.actorType === "npc") {
+        const wilValue = this.actor?.system?.attributes?.wil?.value || 0;
+        const baseName =
+          coreModule.api.Utils.i18n("tokenActionHud.dragonbane.fearTest") ||
+          "Fear Test";
+
+        actions.push({
+          id: "fearTest",
+          name: `${baseName} (${wilValue})`,
+          listName: `${baseName} (${wilValue})`,
+          img: "icons/svg/terror.svg",
+          encodedValue: ["fearTest", "fearTest"].join(this.delimiter),
+          onClick: async (event) => {
+            await this.handleAttributeAction(event, "wil");
+          },
+        });
+      }
+
       // Severe Injury (for characters only)
       if (this.actorType === "character") {
         actions.push({
