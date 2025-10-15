@@ -1,5 +1,35 @@
 # Changelog
 
+## [2.2.0] - 2025-10-15
+
+### 🎯 New Features
+
+#### 😰 Fear Test System
+
+- **Fear Tests**: New Fear test actions available from the HUD for WIL-based fear resistance
+- **Automatic Follow-up**: Failed Fear tests now automatically display instructions and roll buttons for Fear Effect tables
+
+#### 🎲 Enhanced Table Integration
+
+- **Custom Table UUIDs**: New settings for Fear Effect Table and Severe Injury Table UUIDs - great for homebrew tables!
+  - **Fear Effect Table UUID**: Configure custom Fear effect roll tables
+  - **Severe Injury Table UUID**: Configure custom Severe Injury roll tables
+- **Automatic Fallback**: Falls back to name-based detection for standard tables (English/Swedish)
+
+### 🔧 Improvements
+
+#### 🛡️ Severe Injury Enhancements
+
+- **Permission Validation**: Enhanced permission checking for Severe Injury table roll buttons (only initiating player and GM can roll)
+- **Improved Styling**: Better visual feedback with disabled button states after rolling
+
+#### 🎨 UI/UX Improvements
+
+- **Button States**: Roll buttons now disable and show "Rolled" state after use
+- **Permission Awareness**: Clear permission error messages for unauthorized roll attempts
+
+---
+
 ## [2.1.0] - 2025-09-28
 
 ### ✨ New Features

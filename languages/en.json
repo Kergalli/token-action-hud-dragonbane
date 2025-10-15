@@ -128,7 +128,7 @@
           "noConAttribute": "Character has no CON attribute",
           "actorNotFound": "Actor not found",
           "noPermission": "You don't have permission to roll for this character",
-          "tableRolled": "Severe Injury Rolled"
+          "rolled": "Severe Injury Rolled"
         },
         "conditions": {
           "failed": "Failed to toggle condition"

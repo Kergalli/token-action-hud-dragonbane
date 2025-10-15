@@ -72,10 +72,11 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
 - **Death Rolls**: Automatic death roll button shown under Combat when a character is a zero HP
 - **Injury Tracking**: Shows current injuries under Stats
 
-### 🔧 **Utility Actions (New in v2.0)**
+### 🔧 **Utility Actions (New in v2.2)**
 
 - **Journey Actions**: Simple buttons for various Journey Actions
 - **Light Test**: Interactive light source selection with duration rules and light roll test
+- **Fear Test**: WIL-based resistance rolls against fear effects
 - **Severe Injury**: CON-based survival tests with automatic table rolling
 - **Stats Display**: Click any stat to show detailed information in chat
 
@@ -93,7 +94,7 @@ The HUD is organized into logical sections that can be collapsed or repositioned
 6. **⭐ Abilities**: Character abilities and special powers with grouped display for multiples
 7. **🛡️ Conditions**: Attribute conditions and status effects with active indicators
 8. **🎒 Inventory**: Armor, Helmets, Items organized by type
-9. **🔧 Utility**: Rest actions, Journey actions, Light Test, Severe Injury, and other tools
+9. **🔧 Utility**: Rest actions, Journey actions, Light Test, Fear Test, Severe Injury, and other tools
 
 ---
 
@@ -112,6 +113,13 @@ The HUD is organized into logical sections that can be collapsed or repositioned
 - **Show Weapon Skills**: Toggle weapon skills section (Brawling always shown)
 - **Show Secondary Skills**: Toggle secondary skills section
 - **Show Death Roll**: Automatically display death roll when character is dying
+
+### 🎲 **Table Configuration**
+
+- **Fear Effect Table UUID**: Specify UUID for custom Fear effect roll tables (e.g., RollTable.wHTr9HuHkpVv7ccX)
+- **Severe Injury Table UUID**: Specify UUID for custom Severe Injury roll tables (e.g., RollTable.4wZ2sIWqV3tw8eKL)
+- **Homebrew Tables**: Allows for custom/homebrew tables via UUID
+- **Note**: _Leave UUID settings blank to use automatic detection by table name (supports English and Swedish)_
 
 ---
 
@@ -152,13 +160,13 @@ https://github.com/kergalli/token-action-hud-dragonbane/releases/latest/download
 
 ### **Optional Modules for Enhanced Experience**
 
-- **[Dragonbane Status Effects](https://foundryvtt.com/packages/dragonbane-status-effects)**: **NEW v2.1.0** - Unlocks categorized condition display and enhanced status effect management
+- **[Dragonbane Status Effects](https://foundryvtt.com/packages/dragonbane-status-effects)**: **NEW v2.1.0** - Unlocks categorized condition display and enhanced status effect management (Foundry v13+ required)
 
 ---
 
 ## Migration Section Update
 
-### 🔄 Migration from v2.0.x to v2.1.0
+### 🔄 Migration from v2.0.x to v2.x.0
 
 **✨ v2.1.0 introduces enhanced features optimized for Foundry VTT v13+:**
 
@@ -184,6 +192,7 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and feature update
 
 ### Recent Major Changes:
 
+- **v2.2.0**: Severe Injury enhancements and addition of Fear test
 - **v2.1.0**: Categorized condition system with Dragonbane Status Effects integration (v13+ required)
 - **v2.0.4**: Fixed ability action errors with improved rollItem() method
 - **v2.0.3**: Enhanced Swedish localization with proper skill names and attribute abbreviations

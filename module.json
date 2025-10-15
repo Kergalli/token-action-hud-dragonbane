@@ -10,10 +10,10 @@
   ],
   "url": "https://github.com/kergalli/token-action-hud-dragonbane",
   "flags": {},
-  "version": "2.1.0",
+  "version": "2.2.0",
   "compatibility": {
-    "minimum": "12.331",
-    "verified": "13.347"
+    "minimum": "12",
+    "verified": "13"
   },
   "esmodules": ["./scripts/init.js"],
   "scripts": [],
@@ -54,22 +54,19 @@
             "verified": "2.0.16"
           }
         ]
-      },
-      {
-        "id": "socketlib"
       }
     ],
     "optional": [
       {
-        "id": "color-picker",
-        "reason": "To enable color pickers in the module settings"
+        "id": "dragonbane-status-effects",
+        "reason": "Enhanced categorized condition display and status effect management (v13+ required)"
       }
     ],
     "flags": {
       "optional": [
         {
-          "id": "color-picker",
-          "reason": "To enable color pickers in the module settings"
+          "id": "dragonbane-status-effects",
+          "reason": "Enhanced categorized condition display and status effect management (v13+ required)"
         }
       ]
     }

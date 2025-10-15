@@ -128,7 +128,7 @@
           "failed": "Misslyckades att utföra test för svår skada",
           "actorNotFound": "Rollpersonen hittades inte",
           "noPermission": "Du har inte behörighet att slå för denna rollperson",
-          "tableRolled": "Svår skada slagen"
+          "rolled": "Svår skada slagen"
         },
         "conditions": {
           "failed": "Misslyckades att växla tillstånd"
