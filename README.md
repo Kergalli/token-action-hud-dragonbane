@@ -17,7 +17,7 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
 - **Contextual Actions**: Different actions available based on actor type (Character/NPC/Monster)
 - **Localized Content**: All buttons, tooltips, messages, and settings in both English and Swedish
 
-### ⚔️ **Enhanced Combat Actions (Redesigned in v2.0)**
+### ⚔️ **Enhanced Combat Actions**
 
 - **Combat Actions Group**: Dedicated section for tactical combat options
   - **First Aid**: Healing skill roll
@@ -27,25 +27,26 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
   - **Death Rolls**: Show when at zero HP
 - **Weapon Management**: Visual indicators for equipped (⚔) and broken weapons (red styling)
 
-### 🧙‍♂️ **Magic & Spell System (Enhanced in v2.0)**
+### 🧙‍♂️ **Magic & Spell System**
 
 - **Organized by Rank**: Magic Tricks (Rank 0), Rank 1, Rank 2, Rank 3 spells
 - **Preparation Indicators**: Memorized spells marked with ⚡ when showing all spells
 - **Flexible Display**: Toggle between showing only memorized spells or all known spells
 - **Skill Integration**: Displays spell skill values with school-based calculations, including General spells (highest magic skill)
 
-### 🛡️ **Equipment & Inventory (Improved in v2.0)**
+### 🛡️ **Equipment & Inventory**
 
 - **Visual Status Indicators**:
   - Equipped weapons and armor clearly marked
 - **Smart Filtering**: Separate options for equipped weapons only vs. showing all equipment
+- **Quick Currency Access**: Gold, Silver, and Copper buttons show current amounts directly on the HUD
 
-### ⭐ **Abilities Management (Enhanced in v2.0.1)**
+### ⭐ **Abilities Management**
 
 - **Grouped Display**: Abilities taken multiple times show as "Robust x4" instead of separate entries
 - **Clean Interface**: Reduces clutter while maintaining full functionality
 
-### 👹 **Monster & NPC Features (Enhanced in v2.0)**
+### 👹 **Monster & NPC Features**
 
 - **Monster Attack System**:
   - Random attacks from monster attack tables
@@ -56,13 +57,13 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
 - **Traits Display**: GM-only whispered trait information for NPCs and Monsters
 - **Simplified Interface**: Streamlined actions appropriate for each actor type
 
-### 💤 **Advanced Rest System (Redesigned in v2.0)**
+### 💤 **Advanced Rest System**
 
 - **Rest Availability Tracking**: Visual indicators showing which rest types are available
 - **Comprehensive Rest Options**: Round Rest, Stretch Rest, Shift Rest, Pass One Shift of Time
 - **Usage Prevention**: Disabled styling and informative messages for already-used rest types
 
-### 🏥 **Health & Condition Management (Enhanced in v2.1.0)**
+### 🏥 **Health & Condition Management**
 
 - **Dragonbane Status Effects Integration**: **NEW v2.1.0, v13 only** - Seamless compatibility with the Dragonbane Status Effects module
   - **Categorized Conditions** - Organization of status effects into the defined DSE categories
@@ -72,7 +73,7 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
 - **Death Rolls**: Automatic death roll button shown under Combat when a character is a zero HP
 - **Injury Tracking**: Shows current injuries under Stats
 
-### 🔧 **Utility Actions (New in v2.2)**
+### 🔧 **Utility Actions**
 
 - **Journey Actions**: Simple buttons for various Journey Actions
 - **Light Test**: Interactive light source selection with duration rules and light roll test
@@ -82,7 +83,7 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
 
 ---
 
-## 📐 HUD Layout (Redesigned in v2.0)
+## 📐 HUD Layout
 
 The HUD is organized into logical sections that can be collapsed or repositioned:
 
@@ -93,7 +94,7 @@ The HUD is organized into logical sections that can be collapsed or repositioned
 5. **🎯 Skills**: Core, Weapon, and Secondary skills (configurable display)
 6. **⭐ Abilities**: Character abilities and special powers with grouped display for multiples
 7. **🛡️ Conditions**: Attribute conditions and status effects with active indicators
-8. **🎒 Inventory**: Armor, Helmets, Items organized by type
+8. **🎒 Inventory**: Armor, Helmets, Items organized by type, currency
 9. **🔧 Utility**: Rest actions, Journey actions, Light Test, Fear Test, Severe Injury, and other tools
 
 ---
@@ -107,6 +108,7 @@ The HUD is organized into logical sections that can be collapsed or repositioned
 - **Show Equipped Weapons Only**: Filter to display only equipped/held weapons
 - **Show Attributes**: Toggle attribute roll actions on the HUD
 - **Show Conditions**: Toggle injury and condition management sections
+- **Show Currency**: Display currency (gold, silver, copper)
 
 ### 🎯 **Skill Display Options**
 
@@ -164,34 +166,13 @@ https://github.com/kergalli/token-action-hud-dragonbane/releases/latest/download
 
 ---
 
-## Migration Section Update
-
-### 🔄 Migration from v2.0.x to v2.x.0
-
-**✨ v2.1.0 introduces enhanced features optimized for Foundry VTT v13+:**
-
-1. **Foundry Version Check**: Ensure you're running Foundry VTT v13.345+ for full v2.1.0 features
-2. **Optional Module**: Consider installing Dragonbane Status Effects module for enhanced categorization
-3. **Condition Display**: Enjoy improved organization of status effects in categorized groups
-4. **Backward Compatibility**: v12 users maintain existing functionality with simplified condition display
-
-### 🔄 Migration from v1.x
-
-**⚠️ Version 2.0 includes breaking changes requiring attention:**
-
-1. **Update Dependencies**: Ensure Token Action HUD Core is v2.0.0+
-2. **Backup Settings**: Export current TAH layout before updating
-3. **Reconfigure Module**: Review and adjust all module settings after installation
-4. **Test Functionality**: Verify all features work correctly in your specific game setup
-
----
-
 ## 📝 Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for detailed version history and feature updates.
 
 ### Recent Major Changes:
 
+- **v2.3.0**: Currency display system, enhanced Severe Injury with CON value, Fear Test refinements
 - **v2.2.0**: Severe Injury enhancements and addition of Fear test
 - **v2.1.0**: Categorized condition system with Dragonbane Status Effects integration (v13+ required)
 - **v2.0.4**: Fixed ability action errors with improved rollItem() method
@@ -215,5 +196,3 @@ Some icons used in this module are from [game-icons.net](https://game-icons.net)
 - Free League Publishing for the excellent Dragonbane RPG system
 - Token Action HUD Core team for the foundational framework
 - The Foundry VTT community for feedback and support
-
----

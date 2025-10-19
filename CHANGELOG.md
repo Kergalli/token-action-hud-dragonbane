@@ -1,5 +1,31 @@
 # Changelog
 
+## [2.3.0] - 2025-10-19
+
+### ✨ New Features
+
+#### 💰 Currency Display System
+
+- **Currency Buttons**: Added Gold, Silver, and Copper currency display buttons under Inventory section for Characters and NPCs
+- **Chat Integration**: Clicking currency buttons sends formatted chat messages (e.g., "**Eldara** has 8 gold.")
+- **Module Setting**: New "Show Currency" option (enabled by default) to toggle currency display
+
+#### 🎯 Enhanced Action Display
+
+- **Severe Injury Improvements**: Severe Injury button now displays CON attribute value in parentheses (e.g., "Severe Injury (15)")
+
+### 🐛 Bug Fixes & Improvements
+
+#### 🎭 Actor Type Restrictions
+
+- **Fear Test Limitation**: Removed Fear Test action from NPCs - now only available for Characters
+
+#### 🎨 UI Refinements
+
+- **Traits Display**: Reduced header size in traits display for better visual hierarchy
+
+---
+
 ## [2.2.0] - 2025-10-15
 
 ### 🎯 New Features
