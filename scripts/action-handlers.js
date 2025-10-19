@@ -54,9 +54,9 @@ export function createActionHandlers(coreModule) {
         // Build styled HTML card
         const content = `
                     <div style="border: 2px solid #00604d; padding: 10px; background: #f0e9de; margin: 5px 0;">
-                        <h3 style="color: #00604d; border-bottom: 1px solid #00604d; padding-bottom: 5px; margin-top: 0;">
+                        <h5 style="color: #00604d; border-bottom: 1px solid #00604d; padding-bottom: 5px; margin-top: 0;">
                             ${actor.name} — ${traitsLabel}
-                        </h3>
+                        </h5>
                         <div style="font-size: 14px;">
                             ${traits}
                         </div>

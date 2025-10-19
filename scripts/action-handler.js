@@ -163,8 +163,8 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         });
       }
 
-      // Fear Test (for characters and NPCs only)
-      if (this.actorType === "character" || this.actorType === "npc") {
+      // Fear Test (for characters only)
+      if (this.actorType === "character") {
         const wilValue = this.actor?.system?.attributes?.wil?.value || 0;
         const baseName =
           coreModule.api.Utils.i18n("tokenActionHud.dragonbane.fearTest") ||
