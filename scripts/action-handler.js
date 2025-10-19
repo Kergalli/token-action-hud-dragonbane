@@ -184,14 +184,15 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
       // Severe Injury (for characters only)
       if (this.actorType === "character") {
+        const conValue = this.actor?.system?.attributes?.con?.value || 0;
+        const baseName =
+          coreModule.api.Utils.i18n("tokenActionHud.dragonbane.severeInjury") ||
+          "Severe Injury";
+
         actions.push({
           id: "severeInjury",
-          name: coreModule.api.Utils.i18n(
-            "tokenActionHud.dragonbane.severeInjury"
-          ),
-          listName: coreModule.api.Utils.i18n(
-            "tokenActionHud.dragonbane.severeInjury"
-          ),
+          name: `${baseName} (${conValue})`,
+          listName: `${baseName} (${conValue})`,
           img: "icons/svg/blood.svg",
           encodedValue: ["severeInjury", "severeInjury"].join(this.delimiter),
           onClick: async (event) => {
