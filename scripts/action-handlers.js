@@ -19,6 +19,19 @@ export function createActionHandlers(coreModule) {
     },
 
     /**
+     * Handle currency action
+     * @param {object} event The event
+     * @param {string} currencyType The type of currency (gold, silver, copper)
+     */
+    handleCurrencyAction: async function (event, currencyType) {
+      const actor = this.actor;
+      if (!actor) return;
+
+      // Use utility function to create and send chat message
+      await Utils.createCurrencyChatMessage(actor, currencyType);
+    },
+
+    /**
      * Handle traits action
      */
     handleTraitsAction: async function (event) {

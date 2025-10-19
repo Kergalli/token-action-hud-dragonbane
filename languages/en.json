@@ -3,6 +3,7 @@
     "dragonbane": {
       "helmets": "Helmets",
       "items": "Items",
+      "currency": "Currency",
       "magicTricks": "Magic Tricks",
       "spellRank0": "Magic Tricks",
       "spellRank1": "Rank 1",
@@ -200,6 +201,11 @@
           "encumbrance": "<strong>{name}</strong> is carrying {current}/{max} items.",
           "overEncumbered": "Over-encumbered!",
           "ferocity": "<strong>{name}</strong> has a Ferocity of {ferocity}."
+        },
+        "currency": {
+          "gold": "<strong>{name}</strong> has {amount} gold.",
+          "silver": "<strong>{name}</strong> has {amount} silver.",
+          "copper": "<strong>{name}</strong> has {amount} copper."
         }
       },
       "settings": {
@@ -234,6 +240,10 @@
         "showUnequippedItems": {
           "name": "Show Unequipped Items",
           "hint": "Show unequipped armor, helmets, and items on the HUD"
+        },
+        "showCurrency": {
+          "name": "Show Currency",
+          "hint": "Display currency (gold, silver, copper) buttons on the HUD"
         },
         "severeInjuryTableUuid": {
           "name": "Severe Injury Table UUID",

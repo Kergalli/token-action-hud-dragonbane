@@ -509,6 +509,68 @@ export function createActionBuilders(coreModule) {
     },
 
     /**
+     * Build currency actions (gold, silver, copper)
+     */
+    buildCurrency: async function () {
+      // Check if currency display is enabled
+      if (!this.showCurrency) return;
+
+      if (!this.actor?.system?.currency) return;
+
+      const currency = this.actor.system.currency;
+      const actions = [];
+
+      // Currency configurations
+      const currencyConfigs = [
+        {
+          id: "gold",
+          key: "gc",
+          name: () => currency.gc?.toString() || "0",
+          img: "icons/commodities/currency/coin-engraved-tail-gold.webp",
+          statKey: "gold",
+        },
+        {
+          id: "silver",
+          key: "sc",
+          name: () => currency.sc?.toString() || "0",
+          img: "icons/commodities/currency/coin-embossed-unicorn-silver.webp",
+          statKey: "silver",
+        },
+        {
+          id: "copper",
+          key: "cc",
+          name: () => currency.cc?.toString() || "0",
+          img: "icons/commodities/currency/coin-inset-copper-axe.webp",
+          statKey: "copper",
+        },
+      ];
+
+      // Build currency actions
+      for (const config of currencyConfigs) {
+        const value = currency[config.key] || 0;
+
+        const action = this._createSimpleAction(
+          config.id,
+          config.name(),
+          config.img,
+          "currency",
+          "handleCurrencyAction"
+        );
+
+        // Override onClick to pass currency type
+        action.onClick = async (event) => {
+          await this.handleCurrencyAction(event, config.statKey);
+        };
+
+        actions.push(action);
+      }
+
+      if (actions.length > 0) {
+        this.addActions(actions, { id: "currency", type: "system" });
+      }
+    },
+
+    /**
      * Build injuries
      */
     buildInjuries: async function () {

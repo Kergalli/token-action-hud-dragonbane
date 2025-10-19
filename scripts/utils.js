@@ -271,6 +271,72 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
     }
 
     /**
+     * Create currency chat message
+     * @param {object} actor The actor
+     * @param {string} currencyType The currency type (gold, silver, copper)
+     * @returns {Promise} The chat message promise
+     */
+    static async createCurrencyChatMessage(actor, currencyType) {
+      if (!actor) return null;
+
+      const actorName = actor.name;
+      const currency = actor.system?.currency;
+      if (!currency) return null;
+
+      let content = "";
+
+      try {
+        switch (currencyType) {
+          case "gold": {
+            const gold = currency.gc || 0;
+            content =
+              game.i18n.format("tokenActionHud.dragonbane.chat.currency.gold", {
+                name: actorName,
+                amount: gold,
+              }) || `<strong>${actorName}</strong> has ${gold} gold.`;
+            break;
+          }
+
+          case "silver": {
+            const silver = currency.sc || 0;
+            content =
+              game.i18n.format(
+                "tokenActionHud.dragonbane.chat.currency.silver",
+                { name: actorName, amount: silver }
+              ) || `<strong>${actorName}</strong> has ${silver} silver.`;
+            break;
+          }
+
+          case "copper": {
+            const copper = currency.cc || 0;
+            content =
+              game.i18n.format(
+                "tokenActionHud.dragonbane.chat.currency.copper",
+                { name: actorName, amount: copper }
+              ) || `<strong>${actorName}</strong> has ${copper} copper.`;
+            break;
+          }
+
+          default:
+            console.warn(`Unknown currency type: ${currencyType}`);
+            return null;
+        }
+
+        return await ChatMessage.create({
+          user: game.user.id,
+          speaker: ChatMessage.getSpeaker({ actor: actor }),
+          content: content,
+        });
+      } catch (error) {
+        console.error(
+          "Token Action HUD Dragonbane: Error creating currency chat message:",
+          error
+        );
+        return null;
+      }
+    }
+
+    /**
      * Check if an item is equipped
      * @param {object} item The item
      * @returns {boolean}   Whether the item is equipped

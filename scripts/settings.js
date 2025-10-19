@@ -141,28 +141,42 @@ export function register(coreUpdate) {
       coreUpdate(value);
     },
   });
-  // Table UUID Settings
-  game.settings.register(
-    "token-action-hud-dragonbane",
-    "severeInjuryTableUuid",
-    {
-      name:
-        game.i18n.localize(
-          "tokenActionHud.dragonbane.settings.severeInjuryTableUuid.name"
-        ) || "Severe Injury Table",
-      hint:
-        game.i18n.localize(
-          "tokenActionHud.dragonbane.settings.severeInjuryTableUuid.hint"
-        ) ||
-        "UUID of the Severe Injury roll table. Leave blank to auto-detect by name.",
-      scope: "world",
-      config: true,
-      type: String,
-      default: "",
-    }
-  );
 
-  game.settings.register("token-action-hud-dragonbane", "fearEffectTableUuid", {
+  // 9. Show Currency
+  game.settings.register(MODULE.ID, "showCurrency", {
+    name: game.i18n.localize(
+      "tokenActionHud.dragonbane.settings.showCurrency.name"
+    ),
+    hint: game.i18n.localize(
+      "tokenActionHud.dragonbane.settings.showCurrency.hint"
+    ),
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true,
+    onChange: (value) => {
+      coreUpdate(value);
+    },
+  });
+
+  // 10. Severe Injury Table UUID
+  game.settings.register(MODULE.ID, "severeInjuryTableUuid", {
+    name:
+      game.i18n.localize(
+        "tokenActionHud.dragonbane.settings.severeInjuryTableUuid.name"
+      ) || "Severe Injury Table",
+    hint:
+      game.i18n.localize(
+        "tokenActionHud.dragonbane.settings.severeInjuryTableUuid.hint"
+      ) ||
+      "UUID of the Severe Injury roll table. Leave blank to auto-detect by name.",
+    scope: "world",
+    config: true,
+    type: String,
+    default: "",
+  });
+
+  game.settings.register(MODULE.ID, "fearEffectTableUuid", {
     name:
       game.i18n.localize(
         "tokenActionHud.dragonbane.settings.fearEffectTableUuid.name"

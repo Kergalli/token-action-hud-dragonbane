@@ -3,6 +3,7 @@
     "dragonbane": {
       "helmets": "Hjälmar",
       "items": "Föremål",
+      "currency": "Valuta",
       "magicTricks": "Trolleritrick",
       "spellRank0": "Trolleritrick",
       "spellRank1": "Rang 1",
@@ -200,6 +201,11 @@
           "encumbrance": "<strong>{name}</strong> bär {current}/{max} föremål.",
           "overEncumbered": "Överbelastad!",
           "ferocity": "<strong>{name}</strong> har en Handlingskraft på {ferocity}."
+        },
+        "currency": {
+          "gold": "<strong>{name}</strong> har {amount} guld.",
+          "silver": "<strong>{name}</strong> har {amount} silver.",
+          "copper": "<strong>{name}</strong> har {amount} koppar."
         }
       },
       "settings": {
@@ -234,6 +240,10 @@
         "showSecondarySkills": {
           "name": "Visa Sekundära Färdigheter",
           "hint": "Visa sekundära färdigheter på HUD"
+        },
+        "showCurrency": {
+          "name": "Visa Valuta",
+          "hint": "Visa valuta-knappar (guld, silver, koppar) på HUD:en"
         },
         "severeInjuryTableUuid": {
           "name": "Svår Skada Tabell UUID",

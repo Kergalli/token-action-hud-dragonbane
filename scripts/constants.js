@@ -38,6 +38,11 @@ export const GROUP = {
     name: "tokenActionHud.dragonbane.items",
     type: "system",
   },
+  currency: {
+    id: "currency",
+    name: "tokenActionHud.dragonbane.currency",
+    type: "system",
+  },
 
   // Magic groups
   spells: {
@@ -210,6 +215,7 @@ export const ITEM_TYPE = {
   skill: { groupId: "skills" },
   spell: { groupId: "spells" },
   weapon: { groupId: "weapons" },
+  currency: { groupId: "currency" },
 };
 
 /**

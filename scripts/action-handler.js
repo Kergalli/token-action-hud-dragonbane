@@ -403,6 +403,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       this.showDeathRoll = Utils.getSetting("showDeathRoll");
       this.showWeaponSkills = Utils.getSetting("showWeaponSkills");
       this.showSecondarySkills = Utils.getSetting("showSecondarySkills");
+      this.showCurrency = Utils.getSetting("showCurrency");
 
       // Set items variable
       if (this.actor) {
@@ -465,6 +466,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         handleMonsterDefend: actionHandlers.handleMonsterDefend.bind(this),
         handleMonsterWeaponDamage:
           actionHandlers.handleMonsterWeaponDamage.bind(this),
+        handleCurrencyAction: actionHandlers.handleCurrencyAction.bind(this),
       });
 
       // PHASE 4: Bind builder methods
@@ -486,6 +488,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         buildMonsterWeaponDamage:
           actionBuilders.buildMonsterWeaponDamage.bind(this),
         buildMonsterDefend: actionBuilders.buildMonsterDefend.bind(this),
+        buildCurrency: actionBuilders.buildCurrency.bind(this),
       });
 
       if (this.actorType === "character") {
@@ -512,6 +515,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       this.buildSkills();
       if (this.showAttributes) this.buildAttributes();
       this.buildInventory();
+      if (this.showCurrency) this.buildCurrency();
       if (this.showInjuries) this.buildInjuries();
       this.buildCombatActions();
       this.buildJourneyActions();
@@ -527,6 +531,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       this.buildSkills();
       if (this.showAttributes) this.buildAttributes();
       this.buildInventory();
+      if (this.showCurrency) this.buildCurrency();
       if (this.showInjuries) this.buildInjuries();
       this.buildCombatActions();
       this.buildJourneyActions();
