@@ -252,6 +252,18 @@
         "fearEffectTableUuid": {
           "name": "Fear Effect Table UUID",
           "hint": "UUID of the Fear effect roll table (e.g., RollTable.wHTr9HuHkpVv7ccX). Leave blank to auto-detect by table name (English or Swedish)."
+        },
+        "hudAboveWindows": {
+          "name": "Show HUD Above Other Windows",
+          "hint": "Optional: Force the Token Action HUD to appear above other Foundry elements like Journal entries and character sheets. This is not core Token Action HUD functionality and may cause visual issues in some cases."
+        },
+        "buttonBackgroundColor": {
+          "name": "Button Background Color",
+          "hint": "Hex color code for button backgrounds (e.g., #00604d)"
+        },
+        "buttonBackgroundOpacity": {
+          "name": "Button Background Opacity",
+          "hint": "Opacity of button backgrounds (0 = transparent, 1 = solid)"
         }
       }
     }

@@ -7,6 +7,18 @@
     --dragonbane-active: #e93031; /* Red color for active conditions/statuses */
 }
 
+/* Use CSS variable for customizable button background */
+#token-action-hud .tah-button-box {
+    background-color: var(--tah-dragonbane-button-bg, rgba(0, 96, 77, 0.75)) !important;
+}
+
+/* Keep hover effect */
+#token-action-hud .tah-button-box:hover {
+    background-color: var(--tah-button-hover-background-color) !important;
+    border: var(--tah-button-hover-border) !important;
+    box-shadow: var(--tah-button-hover-box-shadow) !important;
+}
+
 /* Over-Encumbered Styling - Red color but still clickable */
 .dragonbane-over-encumbered {
     color: var(--dragonbane-disabled) !important;
@@ -67,7 +79,7 @@
     color: var(--dragonbane-disabled) !important;
 }
 
-/* Active Condition Styling - Green color for active conditions/effects */
+/* Active Condition Styling - Red color for active conditions/effects */
 .dragonbane-condition-active {
     color: var(--dragonbane-active) !important;
     font-weight: bold !important;

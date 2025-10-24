@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.3.1] - 2025-10-24
+
+### 🎨 Added
+
+#### Enhanced Customization Options
+- **HUD Z-Index Override**: New optional setting "Show HUD Above Other Windows" allows GMs to force the Token Action HUD above Foundry journals and character sheets
+- **Custom Button Styling**: Added user-configurable button background color and opacity settings
+  - **Button Background Color**: Hex color picker for button backgrounds (default Dragonbane green: #00604d)
+  - **Button Background Opacity**: Slider control from 0-100% opacity (default: 75%)
+  - **Live Preview**: Changes apply immediately without requiring reload
+
+---
+
 ## [2.3.0] - 2025-10-19
 
 ### ✨ New Features

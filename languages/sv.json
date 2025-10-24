@@ -252,6 +252,18 @@
         "fearEffectTableUuid": {
           "name": "Skräck Effekt Tabell UUID",
           "hint": "UUID för Skräck effekt tärningstabell (t.ex., RollTable.YBHWSmNrv6gZ5LfB). Lämna tomt för automatisk upptäckt efter tabellnamn (Engelska eller Svenska)."
+        },
+        "hudAboveWindows": {
+          "name": "Visa HUD Ovanför Andra Fönster",
+          "hint": "Valfritt: Tvinga Token Action HUD att visas ovanför andra Foundry-element som journaler och rollformulär. Detta är inte kärnfunktionalitet för Token Action HUD och kan orsaka visuella problem i vissa fall."
+        },
+        "buttonBackgroundColor": {
+          "name": "Knapp Bakgrundsfärg",
+          "hint": "Hex färgkod för knapp bakgrunder (t.ex., #00604d)"
+        },
+        "buttonBackgroundOpacity": {
+          "name": "Knapp Bakgrund Opacitet",
+          "hint": "Opacitet för knapp bakgrunder (0 = transparent, 1 = solid)"
         }
       }
     }

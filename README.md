@@ -81,6 +81,13 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
 - **Severe Injury**: CON-based survival tests with automatic table rolling
 - **Stats Display**: Click any stat to show detailed information in chat
 
+### 🎨 **Enhanced Customization**
+
+- **Custom Button Styling**: Personalize button appearance with configurable background colors and opacity
+- **Z-Index Control**: Optional setting to force HUD above other Foundry windows (journals, character sheets)
+- **Live Updates**: All customization changes apply immediately without requiring reload
+- **Per-Client Settings**: Each user can configure their own visual preferences
+
 ---
 
 ## 📐 HUD Layout
@@ -122,6 +129,16 @@ The HUD is organized into logical sections that can be collapsed or repositioned
 - **Severe Injury Table UUID**: Specify UUID for custom Severe Injury roll tables (e.g., RollTable.4wZ2sIWqV3tw8eKL)
 - **Homebrew Tables**: Allows for custom/homebrew tables via UUID
 - **Note**: _Leave UUID settings blank to use automatic detection by table name (supports English and Swedish)_
+
+### 🎨 Visual Customization
+
+#### Advanced Options
+- **Show HUD Above Other Windows**: Optional setting to force Token Action HUD above journals and character sheets
+
+#### Button Styling
+- **Button Background Color**: Choose any hex color for button backgrounds (default: Dragonbane green #00604d)
+- **Button Background Opacity**: Adjust transparency from 0-100% (default: 75%)
+- **Live Preview**: Changes appear instantly as you adjust settings
 
 ---
 

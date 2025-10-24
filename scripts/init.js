@@ -1,6 +1,7 @@
 import { registerChatHooks } from "./chat-hooks.js";
 import { MODULE, REQUIRED_CORE_MODULE_VERSION } from "./constants.js";
 import { SystemManager } from "./system-manager.js";
+import { initializeZIndexHandling } from "./z-index-handler.js";
 
 Hooks.on("tokenActionHudCoreApiReady", async () => {
   const module = game.modules.get(MODULE.ID);
@@ -10,6 +11,6 @@ Hooks.on("tokenActionHudCoreApiReady", async () => {
   };
   Hooks.call("tokenActionHudSystemReady", module);
 
-  // Register chat message hooks
   registerChatHooks();
+  initializeZIndexHandling();
 });

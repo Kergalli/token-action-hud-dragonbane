@@ -1,4 +1,5 @@
 import { MODULE } from "./constants.js";
+import { handleZIndexSettingChange } from "./z-index-handler.js";
 
 /**
  * Register module settings
@@ -190,5 +191,91 @@ export function register(coreUpdate) {
     config: true,
     type: String,
     default: "",
+  });
+
+  // 11. Show HUD Above Other Windows (Z-Index Override)
+  game.settings.register(MODULE.ID, "hudAboveWindows", {
+    name: game.i18n.localize(
+      "tokenActionHud.dragonbane.settings.hudAboveWindows.name"
+    ),
+    hint: game.i18n.localize(
+      "tokenActionHud.dragonbane.settings.hudAboveWindows.hint"
+    ),
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: false,
+    onChange: (value) => {
+      handleZIndexSettingChange(value);
+      coreUpdate(value);
+    },
+  });
+
+  // 12. Button Background Color
+  game.settings.register(MODULE.ID, "buttonBackgroundColor", {
+    name: game.i18n.localize(
+      "tokenActionHud.dragonbane.settings.buttonBackgroundColor.name"
+    ),
+    hint: game.i18n.localize(
+      "tokenActionHud.dragonbane.settings.buttonBackgroundColor.hint"
+    ),
+    scope: "client",
+    config: true,
+    type: String,
+    default: "#00604d",
+    onChange: (value) => {
+      applyButtonStyling();
+      coreUpdate(value);
+    },
+  });
+
+  // 13. Button Background Opacity
+  game.settings.register(MODULE.ID, "buttonBackgroundOpacity", {
+    name: game.i18n.localize(
+      "tokenActionHud.dragonbane.settings.buttonBackgroundOpacity.name"
+    ),
+    hint: game.i18n.localize(
+      "tokenActionHud.dragonbane.settings.buttonBackgroundOpacity.hint"
+    ),
+    scope: "client",
+    config: true,
+    type: Number,
+    range: {
+      min: 0,
+      max: 1,
+      step: 0.05,
+    },
+    default: 0.75,
+    onChange: (value) => {
+      applyButtonStyling();
+      coreUpdate(value);
+    },
+  });
+
+  // Function to apply button styling
+  const applyButtonStyling = () => {
+    const color = game.settings.get(MODULE.ID, "buttonBackgroundColor");
+    const opacity = game.settings.get(MODULE.ID, "buttonBackgroundOpacity");
+
+    // Convert hex to RGB
+    const hex = color.replace("#", "");
+    const r = parseInt(hex.substr(0, 2), 16);
+    const g = parseInt(hex.substr(2, 2), 16);
+    const b = parseInt(hex.substr(4, 2), 16);
+
+    // Set CSS variable
+    document.documentElement.style.setProperty(
+      "--tah-dragonbane-button-bg",
+      `rgba(${r}, ${g}, ${b}, ${opacity})`
+    );
+  };
+
+  // Apply styling on startup
+  Hooks.once("ready", () => {
+    setTimeout(applyButtonStyling, 1000);
+  });
+
+  Hooks.on("tokenActionHudReady", () => {
+    applyButtonStyling();
   });
 }
