@@ -11,13 +11,13 @@
       "spellRank3": "Rang 3",
       "attributes": "Egenskaper",
       "stats": "Statistik",
-      "combatActions": "Stridhandlingar",
-      "journeyActions": "Resehandlingar",
-      "pathfinder": "Vägvisare",
+      "combatActions": "Stridshandlingar",
+      "journeyActions": "Utfärdshandlingar",
+      "pathfinder": "Stigfinnare",
       "makeCamp": "Slå Läger",
       "hunt": "Jaga",
       "fish": "Fiska",
-      "forage": "Samla",
+      "forage": "Samla växter",
       "cook": "Laga Mat",
       "conditions": "Tillstånd",
       "attributeConditions": "Egenskapstillstånd",
@@ -26,7 +26,7 @@
       "spellEffects": "Besvärjelseeffekter",
       "heroicAbilities": "Hjälteförmågor",
       "resting": "Vila",
-      "tokenActions": "Spelfigurätgärder",
+      "tokenActions": "Spelfiguråtgärder",
       "other": "Annat",
       "monsterAttacksRandom": "Slumpmässig Attack",
       "monsterAttacksSpecific": "Specifika Attacker",
@@ -35,8 +35,8 @@
       "rest": "Vila",
       "dodge": "Undvika",
       "firstAid": "Första Hjälpen",
-      "rallyOther": "Heja På Annan",
-      "rallySelf": "Heja På Sig Själv",
+      "rallyOther": "Kämpa på (Annan)",
+      "rallySelf": "Kämpa på (Sig själv)",
       "skillNames": {
         "evade": "Undvika",
         "healing": "Läkekonst",
@@ -52,9 +52,9 @@
         "wil": "PSY",
         "cha": "KAR"
       },
-      "roundRest": "Rundvila",
-      "stretchRest": "Kvartsvila",
-      "shiftRest": "Skiftvila",
+      "roundRest": "Snabb vila",
+      "stretchRest": "Kort vila",
+      "shiftRest": "Lång vila",
       "passOneShift": "Låt Ett Skift Passera",
       "lightTest": "Ljustest",
       "fearTest": "Fruktan Test",
@@ -65,9 +65,9 @@
       "attackNumber": "Attack {index}: {name}",
       "tooltips": {
         "roundRest": "Återställer 1T6 VP",
-        "stretchRest": "Återställer 1T6 KP (2T6 med Läkning), 1T6 VP, och tar bort 1 tillstånd",
+        "stretchRest": "Återställer 1T6 KP (2T6 med Läkekonst), 1T6 VP, och tar bort 1 tillstånd",
         "shiftRest": "Återställer alla KP, alla VP, och tar bort alla tillstånd",
-        "passOneShift": "Låter tiden gå utan vila, gör viloåtgärder tillgängliga igen"
+        "passOneShift": "Låter tiden gå utan vila, gör vilohandlingar tillgängliga igen"
       },
       "actions": {
         "stats": {
@@ -87,7 +87,7 @@
         "rest": {
           "alreadyTaken": "{actor} har redan tagit en {restType}.",
           "unknownType": "Okänd vilotyp: {restType}",
-          "failed": "Misslyckades att utföra viloåtgärd"
+          "failed": "Misslyckades att utföra vilohandling"
         },
         "traits": {
           "onlyForNpcsMonsters": "Egenskaper är endast tillgängliga för SLP och Monster",
@@ -167,11 +167,11 @@
             "source": "Källa",
             "radius": "Radie",
             "test": "Test",
-            "whenToRoll": "När att Slå",
+            "whenToRoll": "När ska man slå",
             "onOne": "På 1",
-            "afterEachStretch": "Efter varje stretch",
-            "afterStretchOrCombat": "Efter stretch eller strid",
-            "afterStretchOrWeapon": "Efter stretch eller används som vapen",
+            "afterEachStretch": "Efter varje skift",
+            "afterStretchOrCombat": "Efter skift eller strid",
+            "afterStretchOrWeapon": "Efter skift eller den använts som vapen",
             "refillRelight": "Fyll på & tänd (handling)",
             "goesOut": "Slocknar"
           }
@@ -223,7 +223,7 @@
         },
         "showAttributes": {
           "name": "Visa Egenskaper",
-          "hint": "Visa egenskapsslag-åtgärder på HUD"
+          "hint": "Visa grundegenskapsslagshandlingar på HUD"
         },
         "showInjuries": {
           "name": "Visa Skador",
