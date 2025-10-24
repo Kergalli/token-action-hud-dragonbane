@@ -189,6 +189,7 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and feature update
 
 ### Recent Major Changes:
 
+- **v2.3.1**: Added customizable button styling and z-index override settings
 - **v2.3.0**: Currency display system, enhanced Severe Injury with CON value, Fear Test refinements
 - **v2.2.0**: Severe Injury enhancements and addition of Fear test
 - **v2.1.0**: Categorized condition system with Dragonbane Status Effects integration (v13+ required)
