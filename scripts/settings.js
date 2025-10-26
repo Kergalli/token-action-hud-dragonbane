@@ -306,7 +306,7 @@ export function register(coreUpdate) {
     scope: "client",
     config: true,
     type: String,
-    default: "#ffffff",
+    default: "#808080",
     onChange: (value) => {
       applyButtonStyling();
       coreUpdate(value);
