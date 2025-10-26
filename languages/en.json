@@ -264,6 +264,18 @@
         "buttonBackgroundOpacity": {
           "name": "Button Background Opacity",
           "hint": "Opacity of button backgrounds (0 = transparent, 1 = solid)"
+        },
+        "buttonBorderColor": {
+          "name": "Button Border Color",
+          "hint": "Hex color code for button borders (e.g., #808080)"
+        },
+        "buttonBorderSize": {
+          "name": "Button Border Size",
+          "hint": "Width of button borders in pixels (0 = no border, 5 = thick border)"
+        },
+        "buttonBorderOpacity": {
+          "name": "Button Border Opacity",
+          "hint": "Opacity of button borders (0 = transparent, 1 = solid)"
         }
       }
     }

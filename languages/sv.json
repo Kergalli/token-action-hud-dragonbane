@@ -264,6 +264,18 @@
         "buttonBackgroundOpacity": {
           "name": "Knapp Bakgrund Opacitet",
           "hint": "Opacitet för knapp bakgrunder (0 = transparent, 1 = solid)"
+        },
+        "buttonBorderColor": {
+          "name": "Knapp Kantfärg",
+          "hint": "Hex färgkod för knapp kanter (t.ex., #808080)"
+        },
+        "buttonBorderSize": {
+          "name": "Knapp Kantstorlek",
+          "hint": "Bredd på knapp kanter i pixlar (0 = ingen kant, 5 = tjock kant)"
+        },
+        "buttonBorderOpacity": {
+          "name": "Knapp Kant Opacitet",
+          "hint": "Opacitet för knapp kanter (0 = transparent, 1 = solid)"
         }
       }
     }

@@ -1,6 +1,6 @@
 {
   "name": "token-action-hud-dragonbane",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "![Foundry Version](https://img.shields.io/badge/foundry-v12.331%20to%20v13.347-green) ![GitHub release](https://img.shields.io/github/v/release/kergalli/token-action-hud-dragonbane) ![Token Action HUD Core](https://img.shields.io/badge/TAH%20Core-v2.0.2%2B-blue)",
   "main": "index.js",
   "scripts": {

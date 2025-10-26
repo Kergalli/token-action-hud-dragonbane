@@ -254,19 +254,36 @@ export function register(coreUpdate) {
 
   // Function to apply button styling
   const applyButtonStyling = () => {
-    const color = game.settings.get(MODULE.ID, "buttonBackgroundColor");
-    const opacity = game.settings.get(MODULE.ID, "buttonBackgroundOpacity");
+    // Background settings
+    const bgColor = game.settings.get(MODULE.ID, "buttonBackgroundColor");
+    const bgOpacity = game.settings.get(MODULE.ID, "buttonBackgroundOpacity");
 
-    // Convert hex to RGB
-    const hex = color.replace("#", "");
-    const r = parseInt(hex.substr(0, 2), 16);
-    const g = parseInt(hex.substr(2, 2), 16);
-    const b = parseInt(hex.substr(4, 2), 16);
+    // Border settings
+    const borderColor = game.settings.get(MODULE.ID, "buttonBorderColor");
+    const borderSize = game.settings.get(MODULE.ID, "buttonBorderSize");
+    const borderOpacity = game.settings.get(MODULE.ID, "buttonBorderOpacity");
 
-    // Set CSS variable
+    // Convert background hex to RGB
+    const bgHex = bgColor.replace("#", "");
+    const bgR = parseInt(bgHex.substr(0, 2), 16);
+    const bgG = parseInt(bgHex.substr(2, 2), 16);
+    const bgB = parseInt(bgHex.substr(4, 2), 16);
+
+    // Convert border hex to RGB
+    const borderHex = borderColor.replace("#", "");
+    const borderR = parseInt(borderHex.substr(0, 2), 16);
+    const borderG = parseInt(borderHex.substr(2, 2), 16);
+    const borderB = parseInt(borderHex.substr(4, 2), 16);
+
+    // Set CSS variables
     document.documentElement.style.setProperty(
       "--tah-dragonbane-button-bg",
-      `rgba(${r}, ${g}, ${b}, ${opacity})`
+      `rgba(${bgR}, ${bgG}, ${bgB}, ${bgOpacity})`
+    );
+
+    document.documentElement.style.setProperty(
+      "--tah-dragonbane-button-border",
+      `${borderSize}px solid rgba(${borderR}, ${borderG}, ${borderB}, ${borderOpacity})`
     );
   };
 
@@ -277,5 +294,68 @@ export function register(coreUpdate) {
 
   Hooks.on("tokenActionHudReady", () => {
     applyButtonStyling();
+  });
+  // 14. Button Border Color
+  game.settings.register(MODULE.ID, "buttonBorderColor", {
+    name: game.i18n.localize(
+      "tokenActionHud.dragonbane.settings.buttonBorderColor.name"
+    ),
+    hint: game.i18n.localize(
+      "tokenActionHud.dragonbane.settings.buttonBorderColor.hint"
+    ),
+    scope: "client",
+    config: true,
+    type: String,
+    default: "#ffffff",
+    onChange: (value) => {
+      applyButtonStyling();
+      coreUpdate(value);
+    },
+  });
+
+  // 15. Button Border Size
+  game.settings.register(MODULE.ID, "buttonBorderSize", {
+    name: game.i18n.localize(
+      "tokenActionHud.dragonbane.settings.buttonBorderSize.name"
+    ),
+    hint: game.i18n.localize(
+      "tokenActionHud.dragonbane.settings.buttonBorderSize.hint"
+    ),
+    scope: "client",
+    config: true,
+    type: Number,
+    range: {
+      min: 0,
+      max: 5,
+      step: 0.5,
+    },
+    default: 1,
+    onChange: (value) => {
+      applyButtonStyling();
+      coreUpdate(value);
+    },
+  });
+
+  // 16. Button Border Opacity
+  game.settings.register(MODULE.ID, "buttonBorderOpacity", {
+    name: game.i18n.localize(
+      "tokenActionHud.dragonbane.settings.buttonBorderOpacity.name"
+    ),
+    hint: game.i18n.localize(
+      "tokenActionHud.dragonbane.settings.buttonBorderOpacity.hint"
+    ),
+    scope: "client",
+    config: true,
+    type: Number,
+    range: {
+      min: 0,
+      max: 1,
+      step: 0.05,
+    },
+    default: 0.8,
+    onChange: (value) => {
+      applyButtonStyling();
+      coreUpdate(value);
+    },
   });
 }

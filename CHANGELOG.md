@@ -1,10 +1,33 @@
 # Changelog
 
+## [2.3.2] - 2025-10-26
+
+### 🎨 Added
+
+#### Enhanced Button Customization
+
+- **Custom Border Controls**: Added comprehensive border styling options for HUD buttons
+  - **Button Border Color**: Hex color picker for border colors (default: 50% grey #808080)
+  - **Button Border Size**: Range slider from 0-5px with 0.5px increments (default: 1px)
+  - **Button Border Opacity**: Range slider from 0-100% with 5% increments (default: 80%)
+  - **Live Preview**: All border changes apply immediately without requiring reload
+  - **Per-Client Settings**: Each user can configure their own border preferences independently
+
+### 🌍 Localization Improvements
+
+#### 🇸🇪 Swedish Language Enhancements
+
+- **Swedish Language Fixes**: Various improvements and corrections to Swedish translations (courtesy of **xdy**)
+- **Enhanced Localization**: Better language support and more accurate translations throughout the module
+
+---
+
 ## [2.3.1] - 2025-10-24
 
 ### 🎨 Added
 
 #### Enhanced Customization Options
+
 - **HUD Z-Index Override**: New optional setting "Show HUD Above Other Windows" allows GMs to force the Token Action HUD above Foundry journals and character sheets
 - **Custom Button Styling**: Added user-configurable button background color and opacity settings
   - **Button Background Color**: Hex color picker for button backgrounds (default Dragonbane green: #00604d)

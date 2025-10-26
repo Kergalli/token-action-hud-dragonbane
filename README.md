@@ -133,12 +133,17 @@ The HUD is organized into logical sections that can be collapsed or repositioned
 ### 🎨 Visual Customization
 
 #### Advanced Options
+
 - **Show HUD Above Other Windows**: Optional setting to force Token Action HUD above journals and character sheets
 
 #### Button Styling
+
 - **Button Background Color**: Choose any hex color for button backgrounds (default: Dragonbane green #00604d)
 - **Button Background Opacity**: Adjust transparency from 0-100% (default: 75%)
-- **Live Preview**: Changes appear instantly as you adjust settings
+- **Button Border Color**: Choose any hex color for button borders (default: 50% grey #808080)
+- **Button Border Size**: Adjust border thickness from 0-5px (default: 1px)
+- **Button Border Opacity**: Adjust border transparency from 0-100% (default: 80%)
+- **Live Preview**: All styling changes appear instantly as you adjust settings
 
 ---
 
@@ -189,6 +194,7 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and feature update
 
 ### Recent Major Changes:
 
+- **v2.3.2**: Enhanced button border customization and Swedish language improvements
 - **v2.3.1**: Added customizable button styling and z-index override settings
 - **v2.3.0**: Currency display system, enhanced Severe Injury with CON value, Fear Test refinements
 - **v2.2.0**: Severe Injury enhancements and addition of Fear test
@@ -208,6 +214,10 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and feature update
 ### Icons
 
 Some icons used in this module are from [game-icons.net](https://game-icons.net), created by delapouite, lorc, and skoll. Available under [Creative Commons 3.0 BY license](https://creativecommons.org/licenses/by/3.0/).
+
+### Community Contributors
+
+- **xdy** - Swedish language improvements and localization fixes
 
 ### Acknowledgments
 
