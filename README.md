@@ -40,7 +40,7 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
 - **Visual Status Indicators**:
   - Equipped weapons and armor clearly marked
 - **Smart Filtering**: Separate options for equipped weapons only vs. showing all equipment
-- **Smart Torch Placement**: Torches automatically appear in the most logical HUD section (under weapons when equipped, under items when not)
+- **Smart Torch Placement**: When "Show Equipped Weapons Only" setting to be enabled, torches automatically appear in the most logical HUD section (under weapons when equipped, under items when not)
 - **Quick Currency Access**: Gold, Silver, and Copper buttons show current amounts directly on the HUD
 
 ### ⭐ **Abilities Management**

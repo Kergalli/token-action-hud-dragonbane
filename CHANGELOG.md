@@ -18,6 +18,7 @@
   - **Equipped torches**: Display in Weapons section for combat use
   - **Unequipped torches**: Display in Inventory → Items section when "Show Equipped Weapons Only" is enabled
   - **Prevents item disappearance**: Ensures torches remain accessible regardless of equipment settings
+  - **⚠️ Important**: Requires "Show Equipped Weapons Only" setting to be enabled for dual-purpose behavior. When disabled, torches will appear in Weapons regardless of equipped status.
 
 ---
 
