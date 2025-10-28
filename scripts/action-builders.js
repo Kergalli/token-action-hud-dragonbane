@@ -178,9 +178,20 @@ export function createActionBuilders(coreModule) {
         const canUse = Utils.canUseWeapon(this.actor, itemData);
 
         // If showEquippedWeaponsOnly is true, only show equipped/usable weapons
-        if (this.showEquippedWeaponsOnly && !canUse) return false;
+        if (this.showEquippedWeaponsOnly && !canUse) {
+          return false;
+        }
 
-        // Otherwise show all weapons regardless of equipped status
+        // Special case: exclude unequipped torches when showing equipped only
+        // (they'll appear in inventory instead)
+        if (
+          this.showEquippedWeaponsOnly &&
+          !equipped &&
+          Utils.isTorch(itemData)
+        ) {
+          return false;
+        }
+
         return true;
       };
 
@@ -482,6 +493,29 @@ export function createActionBuilders(coreModule) {
         );
         if (items.size > 0) {
           inventoryMap.set(type, items);
+        }
+      }
+
+      // Add unequipped torches to inventory when showEquippedWeaponsOnly is true
+      if (this.showEquippedWeaponsOnly && this.items) {
+        const unequippedTorches = [];
+
+        for (const [itemId, itemData] of this.items) {
+          if (Utils.isTorch(itemData) && !Utils.isItemEquipped(itemData)) {
+            const name = Utils.toTitleCase(itemData.name);
+            const action = this._createItemAction(
+              itemId,
+              name,
+              itemData,
+              "weapon", // Keep as weapon for proper right-click/left-click handling
+              "handleWeaponAction"
+            );
+            unequippedTorches.push(action);
+          }
+        }
+
+        if (unequippedTorches.length > 0) {
+          this.addActions(unequippedTorches, { id: "items", type: "system" });
         }
       }
 

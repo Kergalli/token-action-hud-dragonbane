@@ -40,6 +40,7 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
 - **Visual Status Indicators**:
   - Equipped weapons and armor clearly marked
 - **Smart Filtering**: Separate options for equipped weapons only vs. showing all equipment
+- **Smart Torch Placement**: Torches automatically appear in the most logical HUD section (under weapons when equipped, under items when not)
 - **Quick Currency Access**: Gold, Silver, and Copper buttons show current amounts directly on the HUD
 
 ### ⭐ **Abilities Management**
@@ -196,7 +197,7 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and feature update
 
 ### Recent Major Changes:
 
-- **v2.3.3**: Right-click rules summaries for Combat and Journey actions
+- **v2.3.3**: Right-click rules summaries for Combat and Journey actions, torch dual-purpose item handling
 - **v2.3.2**: Enhanced button border customization and Swedish language improvements
 - **v2.3.1**: Added customizable button styling and z-index override settings
 - **v2.3.0**: Currency display system, enhanced Severe Injury with CON value, Fear Test refinements

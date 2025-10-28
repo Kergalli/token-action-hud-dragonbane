@@ -429,6 +429,20 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
     }
 
     /**
+     * Check if weapon is a torch by name (English/Swedish)
+     * @param {object} itemData - Item data
+     * @returns {boolean} True if item is a torch
+     */
+    static isTorch(itemData) {
+      if (itemData.type !== "weapon") return false;
+
+      const itemName = (itemData.name || "").toLowerCase();
+
+      // Check for torch names in English and Swedish
+      return itemName.includes("torch") || itemName.includes("fackla");
+    }
+
+    /**
      * Get death roll status for characters
      * @param {object} actor The actor (must be character type)
      * @returns {object} Death roll successes and failures

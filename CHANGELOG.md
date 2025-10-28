@@ -12,6 +12,13 @@
   - **Whispered Display**: Rules appear as private chat messages to the triggering player
   - **Structured Format**: Bullet-point summaries matching Dragonbane Combat Assistant styling for consistency
 
+#### 🔦 Dual-Purpose Item Handling
+
+- **Torch Visibility Fix**: Torches now intelligently appear in appropriate sections based on equipped status
+  - **Equipped torches**: Display in Weapons section for combat use
+  - **Unequipped torches**: Display in Inventory → Items section when "Show Equipped Weapons Only" is enabled
+  - **Prevents item disappearance**: Ensures torches remain accessible regardless of equipment settings
+
 ---
 
 ## [2.3.2] - 2025-10-26
