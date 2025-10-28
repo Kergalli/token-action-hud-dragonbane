@@ -16,6 +16,26 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
     async handleActionClick(event, encodedValue) {
       const [actionTypeId, actionId] = encodedValue.split("|");
 
+      // Combat Actions Handler - MUST BE BEFORE RENDERABLE ITEMS CHECK
+      if (actionTypeId === "combatAction") {
+        if (this.isRenderItem()) {
+          return this.whisperCombatActionRules(actionId);
+        } else {
+          return this.performCombatAction(actionId);
+        }
+      }
+
+      // Journey Actions Handler
+      if (actionTypeId === "journeyAction") {
+        if (this.isRenderItem()) {
+          // Right-click: whisper rules summary
+          return this.whisperJourneyActionRules(actionId);
+        } else {
+          // Left-click: perform action
+          return this.performJourneyAction(actionId);
+        }
+      }
+
       // Handle right-click sheet rendering for items
       const renderable = [
         "weapon",
@@ -28,22 +48,11 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         "skill",
       ];
       if (renderable.includes(actionTypeId) && this.isRenderItem()) {
-        console.log(
-          "Token Action HUD Dragonbane: Right-click detected, opening sheet for:",
-          actionTypeId,
-          actionId
-        );
         return this.renderItem(this.actor, actionId);
       }
 
       // Handle left-click actions for items
       if (renderable.includes(actionTypeId)) {
-        console.log(
-          "Token Action HUD Dragonbane: Left-click detected, performing action for:",
-          actionTypeId,
-          actionId
-        );
-
         // Get the item from the actor
         const item = this.actor.items.get(actionId);
         if (!item) {
@@ -201,10 +210,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
               // Older v12 fallback
               game.user.updateTokenTargets([casterToken.id]);
             }
-
-            console.log(
-              `Token Action HUD: Auto-targeted ${actor.name} for personal spell: ${item.name}`
-            );
           } catch (error) {
             console.warn(
               `Token Action HUD: Auto-targeting failed for ${item.name}:`,
@@ -265,6 +270,353 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           error
         );
         ui.notifications.error("Failed to cast magic trick");
+      }
+    }
+
+    /**
+     * Handle group click
+     * Called by Token Action HUD Core when a group is right-clicked while the HUD is locked
+     * @override
+     * @param {object} event The event
+     * @param {object} group The group
+     */
+    async handleGroupClick(event, group) {
+      // No group click behavior needed
+    }
+
+    /**
+     * Whisper combat action rules to the triggering player
+     */
+    async whisperCombatActionRules(actionId) {
+      const rulesKey = `tokenActionHud.dragonbane.combatActionRules.${actionId}`;
+      const title = game.i18n.localize(`${rulesKey}.title`);
+
+      if (
+        !title ||
+        title.includes("tokenActionHud.dragonbane.combatActionRules")
+      ) {
+        ui.notifications.warn(`Rules not found for combat action: ${actionId}`);
+        return;
+      }
+
+      // Build content from individual rule keys (same as Combat Assistant)
+      let content = "";
+      const ruleKeys = this.getCombatActionRuleKeys(actionId);
+
+      for (const ruleKey of ruleKeys) {
+        const ruleText = game.i18n.localize(`${rulesKey}.${ruleKey}`);
+        if (
+          ruleText &&
+          !ruleText.includes("tokenActionHud.dragonbane.combatActionRules")
+        ) {
+          content += `<li>${ruleText}</li>`; // Build as <li> elements like Combat Assistant
+        }
+      }
+
+      if (!content) {
+        ui.notifications.warn(`No rules found for combat action: ${actionId}`);
+        return;
+      }
+
+      // Use the same structure as Combat Assistant
+      const chatContent = `<div class="dragonbane-action-rules"><ul>${content}</ul></div>`;
+
+      // Create speaker alias like Combat Assistant does
+      const speakerName =
+        game.i18n.format("tokenActionHud.dragonbane.speakers.combatAction", {
+          action: title,
+        }) || `${title} Rules`;
+
+      await ChatMessage.create({
+        content: chatContent,
+        speaker: { alias: speakerName },
+        whisper: [game.user.id],
+        flags: {
+          "token-action-hud-dragonbane": {
+            combatActionRules: true,
+          },
+        },
+      });
+    }
+
+    /**
+     * Get the rule keys for each combat action
+     */
+    getCombatActionRuleKeys(actionId) {
+      const ruleKeyMap = {
+        dodge: [
+          "skill",
+          "reaction",
+          "declaration",
+          "roll",
+          "cannotCombine",
+          "proneAllowed",
+          "initiative",
+          "successMovement",
+          "monsterAttacks",
+        ],
+        firstAid: [
+          "skill",
+          "target",
+          "range",
+          "action",
+          "equipment",
+          "attempts",
+          "success",
+          "cannotSelfHeal",
+          "limitation",
+        ],
+        rallySelf: ["skill", "penalty", "target", "action", "success"],
+        rallyOther: [
+          "skill",
+          "target",
+          "range",
+          "action",
+          "success",
+          "limitation",
+        ],
+        deathRoll: [
+          "skill",
+          "when",
+          "roll",
+          "incapacitated",
+          "successCondition",
+          "failureCondition",
+          "dragonBonus",
+          "demonPenalty",
+          "additionalDamage",
+          "combatEnds",
+          "recovery",
+        ],
+      };
+
+      return ruleKeyMap[actionId] || [];
+    }
+
+    /**
+     * Perform combat action (left-click)
+     */
+    async performCombatAction(actionId) {
+      const actor = this.actor;
+
+      try {
+        switch (actionId) {
+          case "dodge":
+            return this.callSkillAction(actor, "evade");
+
+          case "firstAid":
+            return this.callSkillAction(actor, "healing");
+
+          case "rallyOther":
+            return this.callSkillAction(actor, "persuasion");
+
+          case "rallySelf":
+            return this.callAttributeAction(actor, "wil");
+
+          case "deathRoll":
+            return this.callDeathRollAction(actor);
+
+          default:
+            ui.notifications.warn(`Unknown combat action: ${actionId}`);
+        }
+      } catch (error) {
+        console.error("Error performing combat action:", error);
+        ui.notifications.error(`Failed to perform ${actionId} action`);
+      }
+    }
+
+    /**
+     * Call skill action directly
+     */
+    async callSkillAction(actor, skillKey) {
+      const localizedSkillName = game.i18n.localize(
+        `tokenActionHud.dragonbane.skillNames.${skillKey}`
+      );
+
+      const skill = actor.system.coreSkills.find(
+        (s) => s.name === localizedSkillName
+      );
+
+      if (skill) {
+        return game.dragonbane.rollItem(skill.name, "skill");
+      } else {
+        ui.notifications.warn(
+          `${localizedSkillName} skill not found on ${actor.name}`
+        );
+      }
+    }
+
+    /**
+     * Call attribute action directly
+     */
+    async callAttributeAction(actor, attributeKey) {
+      if (actor.sheet && typeof actor.sheet._onAttributeRoll === "function") {
+        const fakeEvent = {
+          currentTarget: {
+            dataset: { attribute: attributeKey },
+          },
+          preventDefault: () => {},
+        };
+        return actor.sheet._onAttributeRoll(fakeEvent);
+      } else {
+        ui.notifications.error(
+          "Could not perform attribute roll - sheet method not available"
+        );
+      }
+    }
+
+    /**
+     * Call death roll action directly
+     */
+    async callDeathRollAction(actor) {
+      try {
+        if (actor.sheet && typeof actor.sheet._onDeathRoll === "function") {
+          const fakeEvent = {
+            preventDefault: () => {},
+            stopPropagation: () => {},
+            currentTarget: null,
+            target: null,
+            type: "click",
+          };
+          return actor.sheet._onDeathRoll(fakeEvent);
+        } else {
+          ui.notifications.error(
+            "Could not perform death roll - method not available"
+          );
+        }
+      } catch (error) {
+        console.error("Error performing death roll:", error);
+        ui.notifications.error("Failed to perform death roll");
+      }
+    }
+
+    /**
+     * Whisper journey action rules to the triggering player
+     */
+    async whisperJourneyActionRules(actionId) {
+      const rulesKey = `tokenActionHud.dragonbane.journeyActionRules.${actionId}`;
+      const title = game.i18n.localize(`${rulesKey}.title`);
+
+      if (
+        !title ||
+        title.includes("tokenActionHud.dragonbane.journeyActionRules")
+      ) {
+        ui.notifications.warn(
+          `Rules not found for journey action: ${actionId}`
+        );
+        return;
+      }
+
+      // Build content from individual rule keys
+      let content = "";
+      const ruleKeys = this.getJourneyActionRuleKeys(actionId);
+
+      for (const ruleKey of ruleKeys) {
+        const ruleText = game.i18n.localize(`${rulesKey}.${ruleKey}`);
+        if (
+          ruleText &&
+          !ruleText.includes("tokenActionHud.dragonbane.journeyActionRules")
+        ) {
+          content += `<li>${ruleText}</li>`;
+        }
+      }
+
+      if (!content) {
+        ui.notifications.warn(`No rules found for journey action: ${actionId}`);
+        return;
+      }
+
+      const chatContent = `<div class="dragonbane-action-rules"><ul>${content}</ul></div>`;
+      const speakerName =
+        game.i18n.format("tokenActionHud.dragonbane.speakers.journeyAction", {
+          action: title,
+        }) || `${title} Rules`;
+
+      await ChatMessage.create({
+        content: chatContent,
+        speaker: { alias: speakerName },
+        whisper: [game.user.id],
+        flags: {
+          "token-action-hud-dragonbane": {
+            journeyActionRules: true,
+          },
+        },
+      });
+    }
+
+    /**
+     * Get the rule keys for each journey action
+     */
+    getJourneyActionRuleKeys(actionId) {
+      const ruleKeyMap = {
+        pathfinder: [
+          "skill",
+          "whenNeeded",
+          "appointment",
+          "spyglass",
+          "noMap",
+          "difficultTerrain",
+          "failure",
+          "dragonBonus",
+        ],
+        makeCamp: [
+          "skill",
+          "sleepRequirement",
+          "equipmentPenalty",
+          "failure",
+          "tentBonus",
+          "tentSharing",
+          "tentFailure",
+          "dangerousAreas",
+          "coldWeather",
+        ],
+        hunt: [
+          "skill",
+          "equipment",
+          "twoStep",
+          "animalTable",
+          "killTrap",
+          "yield",
+          "noTravel",
+        ],
+        fish: ["skill", "equipment", "fishingRod", "fishingNet", "noTravel"],
+        forage: ["skill", "winterPenalty", "fallBonus", "success", "noTravel"],
+        cook: [
+          "skill",
+          "rawRisk",
+          "rawPlants",
+          "capacity",
+          "fieldKitchen",
+          "properKitchen",
+          "failure",
+        ],
+      };
+
+      return ruleKeyMap[actionId] || [];
+    }
+
+    /**
+     * Perform journey action (left-click)
+     */
+    async performJourneyAction(actionId) {
+      const actor = this.actor;
+
+      // Map action IDs to skill keys for translation lookup
+      const actionToSkillMap = {
+        pathfinder: "bushcraft", // pathfinder action → bushcraft skill
+        makeCamp: "bushcraft", // makeCamp action → bushcraft skill
+        hunt: "huntingfishing", // hunt action → huntingfishing skill
+        fish: "huntingfishing", // fish action → huntingfishing skill
+        forage: "bushcraft", // forage action → bushcraft skill
+        cook: "bushcraft", // cook action → bushcraft skill (or whatever cooking uses)
+      };
+
+      const skillKey = actionToSkillMap[actionId];
+
+      if (skillKey) {
+        return this.callSkillAction(actor, skillKey);
+      } else {
+        ui.notifications.warn(`Unknown journey action: ${actionId}`);
       }
     }
 

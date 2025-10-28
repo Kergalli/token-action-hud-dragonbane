@@ -11,8 +11,8 @@
       "spellRank3": "Rank 3",
       "attributes": "Attributes",
       "stats": "Stats",
-      "combatActions": "Combat Actions",
-      "journeyActions": "Journey Actions",
+      "combatActions": "Combat Actions (right-click for rules)",
+      "journeyActions": "Journey Actions (right-click for rules)",
       "pathfinder": "Pathfinder",
       "makeCamp": "Make Camp",
       "hunt": "Hunt",
@@ -156,6 +156,10 @@
           "failure": "Failure"
         }
       },
+      "speakers": {
+        "combatAction": "{action} Rules",
+        "journeyAction": "{action} Rules"
+      },
       "dialog": {
         "lightTest": {
           "title": "Light Test",
@@ -206,6 +210,123 @@
           "gold": "<strong>{name}</strong> has {amount} gold.",
           "silver": "<strong>{name}</strong> has {amount} silver.",
           "copper": "<strong>{name}</strong> has {amount} copper."
+        }
+      },
+      "combatActionRules": {
+        "firstAid": {
+          "title": "First Aid",
+          "skill": "Uses HEALING to save someone at risk of dying",
+          "target": "Target must be at zero HP (dying/unconscious)",
+          "range": "You must be adjacent to target",
+          "action": "Counts as your action for the turn",
+          "equipment": "Without bandages = bane to the roll",
+          "attempts": "Multiple attempts allowed until successful or target dies",
+          "success": "Success = target stops death rolls + recovers [[/roll 1D6]] HP",
+          "cannotSelfHeal": "You cannot save your own life (even if rallied)",
+          "limitation": "Additional healing has no effect once above zero HP (except when resting)"
+        },
+        "dodge": {
+          "title": "Dodge",
+          "skill": "Uses EVADE to avoid incoming attack",
+          "reaction": "Dodging uses your action for the turn (replaces your normal turn)",
+          "declaration": "Must declare before opponent rolls damage",
+          "roll": "Success = no damage, failure = hit normally",
+          "cannotCombine": "Cannot parry and dodge the same attack",
+          "proneAllowed": "Can dodge while lying down",
+          "successMovement": "Success = move up to 2m in any direction (no free attacks triggered)",
+          "monsterAttacks": "Monster attacks can be dodged unless specified otherwise"
+        },
+        "rallySelf": {
+          "title": "Rally Self",
+          "skill": "Uses WIL to keep fighting despite having zero HP",
+          "penalty": "Automatic bane to the roll",
+          "target": "You can use this when you are at zero HP",
+          "action": "Counts as your action for the turn",
+          "success": "Success = can act normally but must still make death rolls"
+        },
+        "rallyOther": {
+          "title": "Rally Other",
+          "skill": "Uses PERSAUSION to help another keep fighting despite having zero HP",
+          "target": "Target must be at zero HP",
+          "range": "You must be within 10m and earshot",
+          "action": "Counts as your action for the turn",
+          "success": "Success = target can act normally but must still make death rolls",
+          "limitation": "Only works on PCs, not NPCs/monsters"
+        },
+        "deathRoll": {
+          "title": "Death Roll",
+          "skill": "Uses CON to resist your imminent demise",
+          "when": "Required when HP reaches zero (each turn until resolved)",
+          "roll": "A death roll cannot be pushed",
+          "incapacitated": "You cannot move or act except Rally Self",
+          "successCondition": "3 successes = recover [[/roll 1D6]] HP and stop death rolls",
+          "failureCondition": "3 failures = character dies",
+          "dragonBonus": "Dragon = 2 successes",
+          "demonPenalty": "Demon = 2 failures",
+          "additionalDamage": "Any damage while at zero HP = automatic failed death roll",
+          "combatEnds": "Continue rolling after combat ends until resolved",
+          "recovery": "Failed rolls reset if character survives"
+        }
+      },
+      "journeyActionRules": {
+        "pathfinder": {
+          "title": "Pathfinder",
+          "skill": "Uses BUSHCRAFT roll every shift to navigate",
+          "whenNeeded": "Required in pathless wilderness terrain (roads/clear paths = no risk)",
+          "appointment": "Group must designate one pathfinder to lead",
+          "spyglass": "Spyglass = boon to the BUSHCRAFT roll",
+          "noMap": "No map = bane to the BUSHCRAFT roll",
+          "difficultTerrain": "Difficult terrain = additional bane to the roll",
+          "failure": "Failure = group suffers mishap (roll on mishap table)",
+          "dragonBonus": "Dragon = double distance covered this shift (shortcut found)"
+        },
+        "makeCamp": {
+          "title": "Make Camp",
+          "skill": "Uses BUSHCRAFT roll to find suitable resting place",
+          "sleepRequirement": "Need one shift per day to avoid sleep deprivation",
+          "equipmentPenalty": "Without sleeping fur = bane on the roll",
+          "failure": "Failure = shift doesn't count as sleep or shift rest",
+          "tentBonus": "Tent = boon on BUSHCRAFT roll",
+          "tentSharing": "Success with tent allows multiple people to use one roll (small tent = 2 people, large tent = 6 people)",
+          "tentFailure": "If tent setup fails, others can roll separately for same shift",
+          "dangerousAreas": "Cannot camp in unsafe locations (dungeons, enemy territory)",
+          "coldWeather": "Cold weather = additional BUSHCRAFT roll (blanket avoids bane, fur grants boon)"
+        },
+        "hunt": {
+          "title": "Hunting",
+          "skill": "Uses HUNTING & FISHING roll to track animals",
+          "equipment": "Requires ranged weapon or hunting trap",
+          "twoStep": "Two-step process: First roll to track, second roll to kill/trap",
+          "animalTable": "Success on tracking = roll on animal table",
+          "killTrap": "Second roll using weapon skill to kill or HUNTING & FISHING to trap (some animals cannot be trapped)",
+          "yield": "Variable rations based on animal type",
+          "noTravel": "Cannot make map progress during hunting shift"
+        },
+        "fish": {
+          "title": "Fishing",
+          "skill": "Uses HUNTING & FISHING roll to catch fish",
+          "equipment": "Requires fishing gear",
+          "fishingRod": "Fishing rod success = [[/roll 1D4]] rations of food",
+          "fishingNet": "Fishing net success = [[/roll 1D6]] rations of food",
+          "noTravel": "Cannot make map progress during fishing shift"
+        },
+        "forage": {
+          "title": "Foraging",
+          "skill": "Uses BUSHCRAFT roll to seek edible plants",
+          "winterPenalty": "Bane in winter",
+          "fallBonus": "Boon in fall",
+          "success": "Success = find [[/roll 1D3]] rations of edible plants",
+          "noTravel": "Cannot make map progress during foraging shift"
+        },
+        "cook": {
+          "title": "Cooking",
+          "skill": "Uses BUSHCRAFT roll to cook food",
+          "rawRisk": "Raw meat/fish = disease check vs virulence 10",
+          "rawPlants": "Raw plants require 2 rations instead of 1 for daily need",
+          "capacity": "One shift cooks up to 10 rations",
+          "fieldKitchen": "Field kitchen = boon to cooking roll",
+          "properKitchen": "Proper kitchen = boon + unlimited cooking capacity",
+          "failure": "Failure = food remains uncooked with associated risks"
         }
       },
       "settings": {

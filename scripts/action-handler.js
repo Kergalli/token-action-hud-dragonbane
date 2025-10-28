@@ -445,9 +445,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       Object.assign(this, {
         handleStatsAction: actionHandlers.handleStatsAction.bind(this),
         handleTraitsAction: actionHandlers.handleTraitsAction.bind(this),
-        handleWeaponAction: actionHandlers.handleWeaponAction.bind(this),
-        handleSpellAction: actionHandlers.handleSpellAction.bind(this),
-        handleAbilityAction: actionHandlers.handleAbilityAction.bind(this),
         handleSkillAction: actionHandlers.handleSkillAction.bind(this),
         handleAttributeAction: actionHandlers.handleAttributeAction.bind(this),
         handleItemAction: actionHandlers.handleItemAction.bind(this),

@@ -596,10 +596,16 @@ export function createActionBuilders(coreModule) {
     buildCombatActions: async function () {
       const actions = [];
 
-      // Helper function to get skill value by name from core skills
+      // Helper function to get skill value by key using localization
       const getSkillValueByName = (skillKey) => {
         if (!this.actor?.system?.coreSkills) return 0;
-        const localizedSkillName = Utils.getLocalizedSkillName(skillKey);
+
+        // Get the localized skill name from the key
+        const localizedSkillName = game.i18n.localize(
+          `tokenActionHud.dragonbane.skillNames.${skillKey}`
+        );
+
+        // Find the skill using the localized name
         const skill = this.actor.system.coreSkills.find(
           (s) => s.name === localizedSkillName
         );
@@ -611,7 +617,6 @@ export function createActionBuilders(coreModule) {
         return this.actor?.system?.attributes?.[attributeKey]?.value || 0;
       };
 
-      // Define combat action configurations
       const combatConfigs = [
         {
           id: "dodge",
@@ -668,12 +673,12 @@ export function createActionBuilders(coreModule) {
             const baseName = coreModule.api.Utils.i18n(
               "tokenActionHud.dragonbane.rallySelf"
             );
-            const attributeValue = getAttributeValue("wil");
+            const attributeValue = getAttributeValue("wil"); // This should use getAttributeValue, not getSkillValueByName
             return `${baseName} (${attributeValue})`;
           },
           img: "icons/svg/upgrade.svg",
           actionType: "combatAction",
-          handler: "handleAttributeAction",
+          handler: "handleAttributeAction", // Should be handleAttributeAction, not handleCombatSkillAction
           handlerArgs: ["wil"],
         },
       ];
@@ -689,12 +694,12 @@ export function createActionBuilders(coreModule) {
             config.handler
           );
 
-          // Override onClick for actions that need custom arguments
-          if (config.handlerArgs) {
-            action.onClick = async (event) => {
-              await this[config.handler](event, ...config.handlerArgs);
-            };
-          }
+          // Use encodedValue instead of onClick for combat actions
+          action.encodedValue = [config.actionType, config.id].join(
+            this.delimiter
+          );
+
+          // Remove the onClick handler completely - let it route to RollHandler
 
           actions.push(action);
         }
@@ -717,7 +722,7 @@ export function createActionBuilders(coreModule) {
           "deathRoll",
           coreModule.api.Utils.i18n("tokenActionHud.dragonbane.deathRoll"),
           "icons/svg/skull.svg",
-          "deathRoll",
+          "combatAction", // Change from "deathRoll" to "combatAction"
           "handleDeathRollAction"
         );
 
@@ -858,12 +863,10 @@ export function createActionBuilders(coreModule) {
             config.handler
           );
 
-          // Override onClick for actions that need custom arguments
-          if (config.handlerArgs) {
-            action.onClick = async (event) => {
-              await this[config.handler](event, ...config.handlerArgs);
-            };
-          }
+          // Use encodedValue instead of onClick for journey actions
+          action.encodedValue = [config.actionType, config.id].join(
+            this.delimiter
+          );
 
           actions.push(action);
         }

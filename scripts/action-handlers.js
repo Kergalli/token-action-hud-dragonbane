@@ -95,30 +95,6 @@ export function createActionHandlers(coreModule) {
       }
     },
 
-    handleWeaponAction: async function (event, weapon) {
-      // This handler is no longer used for regular weapons
-      // Weapons now route through RollHandler for proper right-click support
-      console.warn(
-        "Token Action HUD Dragonbane: handleWeaponAction called unexpectedly"
-      );
-    },
-
-    handleSpellAction: async function (event, spell) {
-      // This handler is no longer used for regular spells
-      // Spells now route through RollHandler for proper right-click support
-      console.warn(
-        "Token Action HUD Dragonbane: handleSpellAction called unexpectedly"
-      );
-    },
-
-    handleAbilityAction: async function (event, ability) {
-      // This handler is no longer used for regular abilities
-      // Abilities now route through RollHandler for proper right-click support
-      console.warn(
-        "Token Action HUD Dragonbane: handleAbilityAction called unexpectedly"
-      );
-    },
-
     handleSkillAction: async function (event, itemId, itemData) {
       const actor = this.actor;
 
@@ -490,20 +466,19 @@ export function createActionHandlers(coreModule) {
     handleCombatSkillAction: async function (event, skillKey) {
       const actor = this.actor;
 
-      // Find the skill by localized name
       try {
-        if (actor.system.coreSkills) {
-          const localizedSkillName = Utils.getLocalizedSkillName(skillKey);
-          const skill = actor.system.coreSkills.find(
-            (s) => s.name === localizedSkillName
-          );
-          if (skill) {
-            return game.dragonbane.rollItem(skill.name, "skill");
-          }
+        // Use the skill key to get the localized skill name
+        const localizedSkillName = Utils.getLocalizedSkillName(skillKey);
+
+        const skill = actor.system.coreSkills.find(
+          (s) => s.name === localizedSkillName
+        );
+
+        if (skill) {
+          return game.dragonbane.rollItem(skill.name, "skill");
         }
 
-        // If skill not found, show warning
-        const localizedSkillName = Utils.getLocalizedSkillName(skillKey);
+        // If skill not found, show warning using the localized name
         const message =
           coreModule.api.Utils.i18n(
             "tokenActionHud.dragonbane.messages.skills.notFound"

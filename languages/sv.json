@@ -11,8 +11,8 @@
       "spellRank3": "Rang 3",
       "attributes": "Egenskaper",
       "stats": "Statistik",
-      "combatActions": "Stridshandlingar",
-      "journeyActions": "Utfärdshandlingar",
+      "combatActions": "Stridshandlingar (högerklicka för regler)",
+      "journeyActions": "Utfärdshandlingar (högerklicka för regler)",
       "pathfinder": "Stigfinnare",
       "makeCamp": "Slå Läger",
       "hunt": "Jaga",
@@ -33,7 +33,7 @@
       "monsterWeaponDamage": "Vapenskada",
       "monsterDefend": "Försvara",
       "rest": "Vila",
-      "dodge": "Undvika",
+      "dodge": "Ducka",
       "firstAid": "Första Hjälpen",
       "rallyOther": "Kämpa på (Annan)",
       "rallySelf": "Kämpa på (Sig själv)",
@@ -156,6 +156,10 @@
           "failure": "Misslyckat"
         }
       },
+      "speakers": {
+        "combatAction": "{action} Regler",
+        "journeyAction": "{action} Regler"
+      },
       "dialog": {
         "lightTest": {
           "title": "Ljustest",
@@ -206,6 +210,123 @@
           "gold": "<strong>{name}</strong> har {amount} guld.",
           "silver": "<strong>{name}</strong> har {amount} silver.",
           "copper": "<strong>{name}</strong> har {amount} koppar."
+        }
+      },
+      "combatActionRules": {
+        "firstAid": {
+          "title": "Första Hjälpen",
+          "skill": "Använder LÄKEKONST för att rädda någon som riskerar att dö",
+          "target": "Målet måste ha noll KP (döende/medvetslös)",
+          "range": "Du måste vara intill målet",
+          "action": "Räknas som din handling för rundan",
+          "equipment": "Utan bandage = nackdel på slaget",
+          "attempts": "Flera försök tillåtna tills lyckat eller målet dör",
+          "success": "Framgång = målet slutar med dödsslag + återfår [[/roll 1D6]] KP",
+          "cannotSelfHeal": "Du kan inte rädda ditt eget liv (även om samlade)",
+          "limitation": "Ytterligare läkning har ingen effekt när över noll KP (utom vid vila)"
+        },
+        "dodge": {
+          "title": "Ducka",
+          "skill": "Använder UNDVIKA för att undgå inkommande attack",
+          "reaction": "Undvikande använder din handling för rundan (ersätter din normala tur)",
+          "declaration": "Måste deklareras innan motståndaren slår skada",
+          "roll": "Framgång = ingen skada, misslyckande = träff normalt",
+          "cannotCombine": "Kan inte parera och undvika samma attack",
+          "proneAllowed": "Kan undvika medan liggande",
+          "successMovement": "Framgång = flytta upp till 2m i valfri riktning (inga gratisattacker utlöses)",
+          "monsterAttacks": "Monsterattacker kan undvikas om inget annat anges"
+        },
+        "rallySelf": {
+          "title": "Kämpa på (Sig själv)",
+          "skill": "Använder VIL för att fortsätta slåss trots noll KP",
+          "penalty": "Automatisk nackdel på slaget",
+          "target": "Du kan använda detta när du har noll KP",
+          "action": "Räknas som din handling för rundan",
+          "success": "Framgång = kan agera normalt men måste fortfarande göra dödsslag"
+        },
+        "rallyOther": {
+          "title": "Kämpa på (Annan)",
+          "skill": "Använder ÖVERTALA för att hjälpa andra fortsätta slåss trots noll KP",
+          "target": "Målet måste ha noll KP",
+          "range": "Du måste vara inom 10m och hörhåll",
+          "action": "Räknas som din handling för rundan",
+          "success": "Framgång = målet kan agera normalt men måste fortfarande göra dödsslag",
+          "limitation": "Fungerar bara på SCs, inte NSCs/monster"
+        },
+        "deathRoll": {
+          "title": "Dödsslag",
+          "skill": "Använder FYS för att motstå din förestående undergång",
+          "when": "Krävs när KP når noll (varje tur tills löst)",
+          "roll": "Ett dödsslag kan inte forceras",
+          "incapacitated": "Du kan inte röra dig eller agera utom Samla Mod",
+          "successCondition": "3 framgångar = återfå [[/roll 1D6]] KP och sluta med dödsslag",
+          "failureCondition": "3 misslyckanden = karaktären dör",
+          "dragonBonus": "Drake = 2 framgångar",
+          "demonPenalty": "Demon = 2 misslyckanden",
+          "additionalDamage": "All skada när på noll KP = automatiskt misslyckat dödsslag",
+          "combatEnds": "Fortsätt slå efter striden slutar tills löst",
+          "recovery": "Misslyckade slag återställs om karaktären överlever"
+        }
+      },
+      "journeyActionRules": {
+        "pathfinder": {
+          "title": "Stigfinnare",
+          "skill": "Använder VILDMARKSVANA varje skift för att navigera",
+          "whenNeeded": "Krävs i spårlös vildmark (vägar/tydliga stigar = ingen risk)",
+          "appointment": "Gruppen måste utse en vägvisare som leder",
+          "spyglass": "Kikare = fördel på VILDMARKSVANA-slaget",
+          "noMap": "Ingen karta = nackdel på VILDMARKSVANA-slaget",
+          "difficultTerrain": "Svår terräng = ytterligare nackdel på slaget",
+          "failure": "Misslyckande = gruppen drabbas av motgång (slå på motgångstabell)",
+          "dragonBonus": "Drake = dubbel sträcka täckt detta skift (genväg hittad)"
+        },
+        "makeCamp": {
+          "title": "Slå Läger",
+          "skill": "Använder VILDMARKSVANA för att hitta lämplig rastplats",
+          "sleepRequirement": "Behöver ett skift sömn per dag för att undvika sömnbrist",
+          "equipmentPenalty": "Utan sovsäck = nackdel på slaget",
+          "failure": "Misslyckande = skiftet räknas inte som sömn eller skiftvila",
+          "tentBonus": "Tält = fördel på VILDMARKSVANA-slaget",
+          "tentSharing": "Framgång med tält låter flera använda ett slag (litet tält = 2 personer, stort tält = 6 personer)",
+          "tentFailure": "Om tältuppsättning misslyckas kan andra slå separat för samma skift",
+          "dangerousAreas": "Kan inte slå läger på osäkra platser (fängelsehålor, fiendeområde)",
+          "coldWeather": "Kallt väder = ytterligare VILDMARKSVANA-slag (filt undviker nackdel, päls ger fördel)"
+        },
+        "hunt": {
+          "title": "Jaga",
+          "skill": "Använder JAKT & FISKE för att spåra djur",
+          "equipment": "Kräver distansvapen eller jaktfälla",
+          "twoStep": "Tvåstegsprocess: Första slaget för att spåra, andra slaget för att döda/fånga",
+          "animalTable": "Framgång på spårning = slå på djurtabell",
+          "killTrap": "Andra slaget använder vapenfärdighet för att döda eller JAKT & FISKE för fälla (vissa djur kan inte fångas i fälla)",
+          "yield": "Varierande ransoner baserat på djurtyp",
+          "noTravel": "Kan inte göra framsteg på kartan under jaktskift"
+        },
+        "fish": {
+          "title": "Fiska",
+          "skill": "Använder JAKT & FISKE för att fånga fisk",
+          "equipment": "Kräver fiskeutrustning",
+          "fishingRod": "Fiskespö framgång = [[/roll 1D4]] ransoner mat",
+          "fishingNet": "Fiskenät framgång = [[/roll 1D6]] ransoner mat",
+          "noTravel": "Kan inte göra framsteg på kartan under fiskeskift"
+        },
+        "forage": {
+          "title": "Samla växter",
+          "skill": "Använder VILDMARKSVANA för att söka ätbara växter",
+          "winterPenalty": "Nackdel på vintern",
+          "fallBonus": "Fördel på hösten",
+          "success": "Framgång = hitta [[/roll 1D3]] ransoner ätbara växter",
+          "noTravel": "Kan inte göra framsteg på kartan under samlarkskift"
+        },
+        "cook": {
+          "title": "Laga Mat",
+          "skill": "Använder VILDMARKSVANA för att laga mat",
+          "rawRisk": "Rått kött/fisk = sjukdomstest mot virulens 10",
+          "rawPlants": "Råa växter kräver 2 ransoner istället för 1 för dagsbehov",
+          "capacity": "Ett skift lagar upp till 10 ransoner",
+          "fieldKitchen": "Fältkök = fördel på matlagningsslag",
+          "properKitchen": "Riktigt kök = fördel + obegränsad matlagningskapacitet",
+          "failure": "Misslyckande = maten förblir okokt med tillhörande risker"
         }
       },
       "settings": {

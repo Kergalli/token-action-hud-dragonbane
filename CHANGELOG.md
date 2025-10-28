@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.3.3] - 2025-01-27
+
+### ✨ New Features
+
+#### 📖 Interactive Rules Display System
+
+- **Right-Click Rules Summaries**: Combat Actions and Journey Actions now support right-click to whisper concise rules summaries
+  - **Combat Actions**: Dodge, First Aid, Rally Self, Rally Other, and Death Roll
+  - **Journey Actions**: Pathfinder, Make Camp, Hunt, Fish, Forage, and Cook
+  - **Whispered Display**: Rules appear as private chat messages to the triggering player
+  - **Structured Format**: Bullet-point summaries matching Dragonbane Combat Assistant styling for consistency
+
+---
+
 ## [2.3.2] - 2025-10-26
 
 ### 🎨 Added

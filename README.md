@@ -25,6 +25,7 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
   - **Rally Self**: WIL attribute check
   - **Dodge**: Evade skill for defensive maneuvers
   - **Death Rolls**: Show when at zero HP
+  - **Right-Click Rules**: Combat Actions support right-click for concise rules summaries whispered to triggering player
 - **Weapon Management**: Visual indicators for equipped (⚔) and broken weapons (red styling)
 
 ### 🧙‍♂️ **Magic & Spell System**
@@ -76,6 +77,7 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
 ### 🔧 **Utility Actions**
 
 - **Journey Actions**: Simple buttons for various Journey Actions
+  - **Right-Click Rules**: Jounrey Actions support right-click for concise rules summaries whispered to triggering player
 - **Light Test**: Interactive light source selection with duration rules and light roll test
 - **Fear Test**: WIL-based resistance rolls against fear effects
 - **Severe Injury**: CON-based survival tests with automatic table rolling
@@ -95,14 +97,14 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
 The HUD is organized into logical sections that can be collapsed or repositioned:
 
 1. **📊 Stats**: HP, WP, Movement, Encumbrance, Ferocity, Monster Traits, Injuries with visual status indicators
-2. **⚔️ Combat**: Weapons and Combat Actions (First Aid, Rally, Dodge)
+2. **⚔️ Combat**: Weapons and Combat Actions (First Aid, Rally, Dodge) with right-click rules summaries
 3. **🧙‍♂️ Spells**: Magic Tricks, Rank 1-3 spells with preparation status
 4. **👹 Monster**: Random/Specific Attacks, Weapon Damage, Defend (Monster actors only)
 5. **🎯 Skills**: Core, Weapon, and Secondary skills (configurable display)
 6. **⭐ Abilities**: Character abilities and special powers with grouped display for multiples
 7. **🛡️ Conditions**: Attribute conditions and status effects with active indicators
 8. **🎒 Inventory**: Armor, Helmets, Items organized by type, currency
-9. **🔧 Utility**: Rest actions, Journey actions, Light Test, Fear Test, Severe Injury, and other tools
+9. **🔧 Utility**: Rest actions, Journey actions (with right-click rules), Light Test, Fear Test, Severe Injury, and other tools
 
 ---
 
@@ -194,6 +196,7 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and feature update
 
 ### Recent Major Changes:
 
+- **v2.3.3**: Right-click rules summaries for Combat and Journey actions
 - **v2.3.2**: Enhanced button border customization and Swedish language improvements
 - **v2.3.1**: Added customizable button styling and z-index override settings
 - **v2.3.0**: Currency display system, enhanced Severe Injury with CON value, Fear Test refinements
