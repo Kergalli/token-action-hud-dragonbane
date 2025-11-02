@@ -57,7 +57,7 @@
       "shiftRest": "Lång vila",
       "passOneShift": "Låt Ett Skift Passera",
       "lightTest": "Ljustest",
-      "fearTest": "Fruktan Test",
+      "fearTest": "Skräcktest",
       "severeInjury": "Svår Skada",
       "rollSevereInjuryTest": "Slå Test för Svår Skada",
       "deathRoll": "Dödsslag",
@@ -102,18 +102,18 @@
           "lit": "{actor}s {lightSource} förblir tänd."
         },
         "fearTest": {
-          "notForMonsters": "Fruktan tester är inte tillgängliga för monster",
-          "failed": "Misslyckades med att utföra fruktan test"
+          "notForMonsters": "Skräcktester är inte tillgängliga för monster",
+          "failed": "Misslyckades med att utföra skräcktest"
         },
         "fearEffect": {
-          "instruction": "Om <strong>VIL-slaget</strong> misslyckas, måste du slå på fruktan tabellen:",
-          "rollButton": "Slå Fruktan Effekt",
-          "rolled": "Fruktan Effekt Slagen",
+          "instruction": "Om <strong>VIL-slaget</strong> misslyckas, måste du slå på skräcktabellen:",
+          "rollButton": "Slå skräck-effekt",
+          "rolled": "Skräck-effekt Slagen",
           "actorNotFound": "Aktör inte hittad",
           "noPermission": "Du har inte behörighet att slå för denna karaktär",
-          "tableNotFound": "Fruktan effekt tabell inte hittad",
-          "tableFailed": "Misslyckades med att slå fruktan effekt tabell",
-          "rollFailed": "Misslyckades med att slå fruktan effekt"
+          "tableNotFound": "Skräcktabell inte hittad",
+          "tableFailed": "Misslyckades med att slå på skräcktabell",
+          "rollFailed": "Misslyckades med att slå skräckeffekt"
         },
         "severeInjury": {
           "testLabel": "Test för Svår Skada",
@@ -251,7 +251,7 @@
           "range": "Du måste vara inom 10m och hörhåll",
           "action": "Räknas som din handling för rundan",
           "success": "Framgång = målet kan agera normalt men måste fortfarande göra dödsslag",
-          "limitation": "Fungerar bara på SCs, inte NSCs/monster"
+          "limitation": "Fungerar bara på rollpersoner, inte SLPer/monster"
         },
         "deathRoll": {
           "title": "Dödsslag",
@@ -368,11 +368,11 @@
         },
         "severeInjuryTableUuid": {
           "name": "Svår Skada Tabell UUID",
-          "hint": "UUID för Svår Skada tärningstabell (t.ex., RollTable.mnblh90YZemYRb0G). Lämna tomt för automatisk upptäckt efter tabellnamn (Engelska eller Svenska)."
+          "hint": "UUID för Svår Skada tärningstabell (t.ex., RollTable.mnblh90YZemYRb0G). Lämna tomt för att automatiskt sätta efter tabellnamn (Engelska eller Svenska)."
         },
         "fearEffectTableUuid": {
-          "name": "Skräck Effekt Tabell UUID",
-          "hint": "UUID för Skräck effekt tärningstabell (t.ex., RollTable.YBHWSmNrv6gZ5LfB). Lämna tomt för automatisk upptäckt efter tabellnamn (Engelska eller Svenska)."
+          "name": "Skräcktabell UUID",
+          "hint": "UUID för Skräcktabell (t.ex., RollTable.YBHWSmNrv6gZ5LfB). Lämna tomt för att automatisk sätta efter tabellnamn (Engelska eller Svenska)."
         },
         "hudAboveWindows": {
           "name": "Visa HUD Ovanför Andra Fönster",
