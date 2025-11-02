@@ -197,6 +197,7 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history and feature update
 
 ### Recent Major Changes:
 
+- **v2.3.2**: Various improvements and corrections to Swedish translations (courtesy of **xdy**)
 - **v2.3.3**: Right-click rules summaries for Combat and Journey actions, torch dual-purpose item handling
 - **v2.3.2**: Enhanced button border customization and Swedish language improvements
 - **v2.3.1**: Added customizable button styling and z-index override settings

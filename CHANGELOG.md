@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.3.4] - 2025-11-02
+
+### 🌍 Localization Improvements
+
+#### 🇸🇪 Swedish Language Enhancements
+
+- **Swedish Language Fixes**: Various improvements and corrections to Swedish translations (courtesy of **xdy**)
+- **Enhanced Localization**: Better language support and more accurate translations throughout the module
+
+---
+
 ## [2.3.3] - 2025-01-27
 
 ### ✨ New Features
