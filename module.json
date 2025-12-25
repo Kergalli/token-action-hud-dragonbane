@@ -13,7 +13,7 @@
   "version": "2.4.0",
   "compatibility": {
     "minimum": "12.331",
-    "verified": "13.348"
+    "verified": "13.351"
   },
   "esmodules": ["./scripts/init.js"],
   "scripts": [],
@@ -61,15 +61,7 @@
         "id": "dragonbane-status-effects",
         "reason": "Enhanced categorized condition display and status effect management (v13+ required)"
       }
-    ],
-    "flags": {
-      "optional": [
-        {
-          "id": "dragonbane-status-effects",
-          "reason": "Enhanced categorized condition display and status effect management (v13+ required)"
-        }
-      ]
-    }
+    ]
   },
   "socket": false,
   "manifest": "https://github.com/kergalli/token-action-hud-dragonbane/releases/latest/download/module.json",
