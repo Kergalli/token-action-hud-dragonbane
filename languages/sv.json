@@ -367,12 +367,12 @@
           "hint": "Visa valuta-knappar (guld, silver, koppar) på HUD:en"
         },
         "severeInjuryTableUuid": {
-          "name": "Svår Skada Tabell UUID",
-          "hint": "UUID för Svår Skada tärningstabell (t.ex., RollTable.mnblh90YZemYRb0G). Lämna tomt för att automatiskt sätta efter tabellnamn (Engelska eller Svenska)."
+          "name": "UUID för Svår Skada-tabell",
+          "hint": "UUID för anpassad Svår Skada-tabell endast för Token Action HUD-slag (t.ex. RollTable.4wZ2sIWqV3tw8eKL). Lämna tom för auto-detektering."
         },
         "fearEffectTableUuid": {
-          "name": "Skräcktabell UUID",
-          "hint": "UUID för Skräcktabell (t.ex., RollTable.YBHWSmNrv6gZ5LfB). Lämna tomt för att automatisk sätta efter tabellnamn (Engelska eller Svenska)."
+          "name": "UUID för Skräckeffekt-tabell",
+          "hint": "UUID för anpassad Skräckeffekt-tabell endast för Token Action HUD-slag (t.ex. RollTable.wHTr9HuHkpVv7ccX). Lämna tom för auto-detektering."
         },
         "hudAboveWindows": {
           "name": "Visa HUD Ovanför Andra Fönster",

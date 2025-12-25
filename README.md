@@ -22,9 +22,9 @@ Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifi
 - **Combat Actions Group**: Dedicated section for tactical combat options
   - **First Aid**: Healing skill roll
   - **Rally Other**: Persuasion skill roll
-  - **Rally Self**: WIL attribute check
+  - **Rally Self**: WIL attribute check (only shows when at zero HP)
   - **Dodge**: Evade skill for defensive maneuvers
-  - **Death Rolls**: Show when at zero HP
+  - **Death Rolls**: CON Attribute roll (only shows when at zero HP)
   - **Right-Click Rules**: Combat Actions support right-click for concise rules summaries whispered to triggering player
 - **Weapon Management**: Visual indicators for equipped (⚔) and broken weapons (red styling)
 
@@ -130,6 +130,7 @@ The HUD is organized into logical sections that can be collapsed or repositioned
 
 - **Fear Effect Table UUID**: Specify UUID for custom Fear effect roll tables (e.g., RollTable.wHTr9HuHkpVv7ccX)
 - **Severe Injury Table UUID**: Specify UUID for custom Severe Injury roll tables (e.g., RollTable.4wZ2sIWqV3tw8eKL)
+- **Token Action HUD Only**: Custom tables work exclusively with Token Action HUD rolls
 - **Homebrew Tables**: Allows for custom/homebrew tables via UUID
 - **Note**: _Leave UUID settings blank to use automatic detection by table name (supports English and Swedish)_
 

@@ -1,5 +1,34 @@
 # Changelog
 
+## [2.4.0] - 2025-12-25
+
+### ✨ **Enhanced User Experience**
+
+#### 🩹 **Rally Self Action Improvements**
+
+- **Smart Visibility**: Rally Self button now only appears when character is at zero HP (matches Death Roll behavior)
+- **Automatic Action Tracking**: Rally Self now automatically applies action status effect after WIL roll completion
+
+#### 💀 **Death Roll Enhancements**
+
+- **Target Number Display**: Death Roll button now shows character's CON value for easy reference
+- **Progress Tracking**: Displays current death roll successes and failures
+
+#### 🔦 **Light Test Dialog Enhancement**
+
+- **Equipped Icon Display**: Light sources in inventory now show ⚔ icon before name
+
+#### 🎯 **Custom Table Settings Clarification**
+
+- **Clear Scope**: Updated Severe Injury Table UUID and Fear Effect Table UUID setting hints
+- **Token Action HUD Only**: Made explicit that custom tables only work for Token Action HUD rolls
+
+#### 🎨 **Modern Dialog System (ApplicationV2)**
+
+- **Visual Consistency**: Severe Injury and Light Test dialogs now use modern AppV2 architecture
+
+---
+
 ## [2.3.4] - 2025-11-02
 
 ### 🌍 Localization Improvements

@@ -368,11 +368,11 @@
         },
         "severeInjuryTableUuid": {
           "name": "Severe Injury Table UUID",
-          "hint": "UUID of the Severe Injury roll table (e.g., RollTable.4wZ2sIWqV3tw8eKL). Leave blank to auto-detect by table name (English or Swedish)."
+          "hint": "UUID of custom Severe Injury table for Token Action HUD rolls only (e.g., RollTable.4wZ2sIWqV3tw8eKL). Leave blank for auto-detection."
         },
         "fearEffectTableUuid": {
           "name": "Fear Effect Table UUID",
-          "hint": "UUID of the Fear effect roll table (e.g., RollTable.wHTr9HuHkpVv7ccX). Leave blank to auto-detect by table name (English or Swedish)."
+          "hint": "UUID of custom Fear effect table for Token Action HUD rolls only (e.g., RollTable.wHTr9HuHkpVv7ccX). Leave blank for auto-detection."
         },
         "hudAboveWindows": {
           "name": "Show HUD Above Other Windows",

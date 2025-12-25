@@ -121,8 +121,9 @@ export function createActionDialogs(coreModule) {
           );
 
           if (lightSourceItem) {
-            // In inventory: Bold and green color using Dragonbane green
-            return `<strong style="color: #00604d;">${lightSourceName}</strong>`;
+            // In inventory: Add sword icon + green color + bold
+            const equippedIcon = "⚔";
+            return `<span style="color: var(--dod-color-positive-effect); font-weight: bold;">${equippedIcon} ${lightSourceName}</span>`;
           }
         } catch (error) {
           console.warn(
@@ -135,123 +136,118 @@ export function createActionDialogs(coreModule) {
         return lightSourceName;
       };
 
-      return new Promise((resolve) => {
-        const dialog = new Dialog({
+      return await foundry.applications.api.DialogV2.prompt({
+        window: {
           title:
             coreModule.api.Utils.i18n(
               "tokenActionHud.dragonbane.dialog.lightTest.title"
             ) || "Light Test",
-          content: `
-                        <div style="padding: 10px;">
-                            <div style="margin-bottom: 15px;">
-                                <label for="light-source" style="font-weight: bold; display: block; margin-bottom: 5px;">${chooseLabel}</label>
-                                <select id="light-source" style="width: 100%; margin-top: 5px; padding: 5px; font-size: 14px;">${options}</select>
-                            </div>
-                            
-                            <div class="display-generic-table" style="margin-bottom: 15px;">
-                                <table style="width: 100%; border-collapse: collapse; background: transparent;">
-                                    <thead>
-                                        <tr style="background-color: transparent;"> 
-                                            <th style="padding: 6px; text-align: left; border-bottom: 2px solid #4a2407; font-weight: bold;">${
-                                              tableHeaders.source
-                                            }</th>
-                                            <th style="padding: 6px; text-align: center; border-bottom: 2px solid #4a2407; font-weight: bold;">${
-                                              tableHeaders.radius
-                                            }</th>
-                                            <th style="padding: 6px; text-align: center; border-bottom: 2px solid #4a2407; font-weight: bold;">${
-                                              tableHeaders.test
-                                            }</th>
-                                            <th style="padding: 6px; text-align: left; border-bottom: 2px solid #4a2407; font-weight: bold;">${
-                                              tableHeaders.whenToRoll
-                                            }</th>
-                                            <th style="padding: 6px; text-align: left; border-bottom: 2px solid #4a2407; font-weight: bold;">${
-                                              tableHeaders.onOne
-                                            }</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody style="color: #4a2407;">
-                                        <tr style="background-color: rgba(74, 36, 7, 0.1);">
-                                            <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${createStyledLightSourceName(
-                                              "lantern"
-                                            )}</td>
-                                            <td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #4a2407;">10m</td>
-                                            <td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #4a2407;">1d8</td>
-                                            <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${
-                                              tableContent.afterEachStretch
-                                            }</td>
-                                            <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${
-                                              tableContent.refillRelight
-                                            }</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${createStyledLightSourceName(
-                                              "oilLamp"
-                                            )}</td>
-                                            <td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #4a2407;">10m</td>
-                                            <td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #4a2407;">1d6</td>
-                                            <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${
-                                              tableContent.afterEachStretch
-                                            }</td>
-                                            <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${
-                                              tableContent.refillRelight
-                                            }</td>
-                                        </tr>
-                                        <tr style="background-color: rgba(74, 36, 7, 0.1);">
-                                            <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${createStyledLightSourceName(
-                                              "tallowCandle"
-                                            )}</td>
-                                            <td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #4a2407;">4m</td>
-                                            <td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #4a2407;">1d4</td>
-                                            <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${
-                                              tableContent.afterStretchOrCombat
-                                            }</td>
-                                            <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${
-                                              tableContent.goesOut
-                                            }</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding: 6px 8px; text-align: left; border-bottom: none;">${createStyledLightSourceName(
-                                              "torch"
-                                            )}</td>
-                                            <td style="padding: 6px 8px; text-align: center; border-bottom: none;">10m</td>
-                                            <td style="padding: 6px 8px; text-align: center; border-bottom: none;">1d6</td>
-                                            <td style="padding: 6px 8px; text-align: left; border-bottom: none;">${
-                                              tableContent.afterStretchOrWeapon
-                                            }</td>
-                                            <td style="padding: 6px 8px; text-align: left; border-bottom: none;">${
-                                              tableContent.goesOut
-                                            }</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                            <div style="font-size: 13px; color: #666; text-align: center; margin: 0; font-style: italic;">
-                                <p style="margin: 0;">${noteText}</p>
-                            </div>
-                        </div>
-                    `,
-          buttons: {
-            roll: {
-              label:
-                coreModule.api.Utils.i18n(
-                  "tokenActionHud.dragonbane.dialog.lightTest.roll"
-                ) || "Roll Light Test",
-              callback: (html) => resolve(html.find("#light-source").val()),
-            },
-            cancel: {
-              label:
-                coreModule.api.Utils.i18n(
-                  "tokenActionHud.dragonbane.dialog.lightTest.cancel"
-                ) || "Cancel",
-              callback: () => resolve(null),
-            },
+        },
+        position: {
+          width: 700,
+          height: 420,
+        },
+        content: `
+      <div style="padding: 10px;">
+          <div style="margin-bottom: 15px;">
+              <label for="light-source" style="font-weight: bold; display: block; margin-bottom: 5px;">${chooseLabel}</label>
+              <select id="light-source" name="lightSource" style="width: 100%; margin-top: 5px; padding: 5px; font-size: 14px;">${options}</select>
+          </div>
+          
+          <div class="display-generic-table" style="margin-bottom: 15px;">
+              <table style="width: 100%; border-collapse: collapse; background: transparent;">
+                  <thead>
+                      <tr style="background-color: #797974"> 
+                          <th style="padding: 6px; text-align: left; border-bottom: 2px solid #4a2407; color: #ffffff;">${
+                            tableHeaders.source
+                          }</th>
+                          <th style="padding: 6px; text-align: left; border-bottom: 2px solid #4a2407; color: #ffffff;">${
+                            tableHeaders.radius
+                          }</th>
+                          <th style="padding: 6px; text-align: left; border-bottom: 2px solid #4a2407; color: #ffffff;">${
+                            tableHeaders.test
+                          }</th>
+                          <th style="padding: 6px; text-align: left; border-bottom: 2px solid #4a2407; color: #ffffff;">${
+                            tableHeaders.whenToRoll
+                          }</th>
+                          <th style="padding: 6px; text-align: left; border-bottom: 2px solid #4a2407; color: #ffffff;">${
+                            tableHeaders.onOne
+                          }</th>
+                      </tr>
+                  </thead>
+                  <tbody style="color: #4a2407;">
+                      <tr style="background-color: rgba(74, 36, 7, 0.1);">
+                          <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${createStyledLightSourceName(
+                            "lantern"
+                          )}</td>
+                          <td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #4a2407;">10m</td>
+                          <td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #4a2407;">1d8</td>
+                          <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${
+                            tableContent.afterEachStretch
+                          }</td>
+                          <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${
+                            tableContent.refillRelight
+                          }</td>
+                      </tr>
+                      <tr>
+                          <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${createStyledLightSourceName(
+                            "oilLamp"
+                          )}</td>
+                          <td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #4a2407;">10m</td>
+                          <td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #4a2407;">1d6</td>
+                          <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${
+                            tableContent.afterEachStretch
+                          }</td>
+                          <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${
+                            tableContent.refillRelight
+                          }</td>
+                      </tr>
+                      <tr style="background-color: rgba(74, 36, 7, 0.1);">
+                          <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${createStyledLightSourceName(
+                            "tallowCandle"
+                          )}</td>
+                          <td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #4a2407;">4m</td>
+                          <td style="padding: 6px 8px; text-align: center; border-bottom: 1px solid #4a2407;">1d4</td>
+                          <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${
+                            tableContent.afterStretchOrCombat
+                          }</td>
+                          <td style="padding: 6px 8px; text-align: left; border-bottom: 1px solid #4a2407;">${
+                            tableContent.goesOut
+                          }</td>
+                      </tr>
+                      <tr>
+                          <td style="padding: 6px 8px; text-align: left; border-bottom: none;">${createStyledLightSourceName(
+                            "torch"
+                          )}</td>
+                          <td style="padding: 6px 8px; text-align: center; border-bottom: none;">10m</td>
+                          <td style="padding: 6px 8px; text-align: center; border-bottom: none;">1d6</td>
+                          <td style="padding: 6px 8px; text-align: left; border-bottom: none;">${
+                            tableContent.afterStretchOrWeapon
+                          }</td>
+                          <td style="padding: 6px 8px; text-align: left; border-bottom: none;">${
+                            tableContent.goesOut
+                          }</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          
+          <div style="font-size: 13px; color: #666; text-align: center; margin: 0; font-style: italic;">
+              <p style="margin: 0;">${noteText}</p>
+          </div>
+      </div>
+    `,
+        ok: {
+          icon: "fa-solid fa-check",
+          label:
+            coreModule.api.Utils.i18n(
+              "tokenActionHud.dragonbane.dialog.lightTest.roll"
+            ) || "Roll Light Test",
+          callback: (event, button, dialog) => {
+            const form = button.form;
+            return form.lightSource.value;
           },
-          default: "roll",
-        });
-
-        // Render the dialog with appropriate dimensions for the table
-        dialog.render(true, { width: 700, height: 360, resizable: false });
+        },
       });
     },
 
@@ -261,96 +257,85 @@ export function createActionDialogs(coreModule) {
      * @returns {Promise<object|null>} Object with boons/banes values or null if cancelled
      */
     showSevereInjuryDialog: async function (actor) {
-      // Use official Dragonbane language keys
-      const testLabel =
-        coreModule.api.Utils.i18n(
-          "tokenActionHud.dragonbane.messages.severeInjury.testLabel"
-        ) || "Severe Injury Test";
       const boonsLabel = game.i18n.localize("DoD.ui.dialog.boons") || "Boons";
       const banesLabel = game.i18n.localize("DoD.ui.dialog.banes") || "Banes";
       const extraLabel = game.i18n.localize("DoD.ui.dialog.extra") || "Extra";
-      const rollLabel =
-        coreModule.api.Utils.i18n(
-          "tokenActionHud.dragonbane.rollSevereInjuryTest"
-        ) || "Roll Severe Injury Test";
 
-      // Build content matching Dragonbane's roll-dialog.hbs structure
-      const content = `
-                <form class="DoD.dialog">
-                    <div class="flexrow">
-                        <table class="sheet-table boons">
-                            <tr class="sheet-table-header">
-                                <th></th>
-                                <th class="text-header">${boonsLabel}</th>
-                            </tr>
-                            <tr class="sheet-table-data">
-                                <td class="number-data">
-                                    <select class="extraBoons" name="extraBoons"> 
-                                        <option value="0">0</option> 
-                                        <option value="1">1</option> 
-                                        <option value="2">2</option> 
-                                        <option value="3">3</option> 
-                                        <option value="4">4</option> 
-                                        <option value="5">5</option> 
-                                        <option value="6">6</option> 
-                                        <option value="7">7</option> 
-                                        <option value="8">8</option> 
-                                        <option value="9">9</option> 
-                                    </select>                    
-                                </td>
-                                <td class="text-data wide">${extraLabel}</td>
-                            </tr>
-                        </table>
-                        
-                        <table class="sheet-table banes">
-                            <tr class="sheet-table-header">
-                                <th></th>
-                                <th class="text-header">${banesLabel}</th>
-                            </tr>
-                            <tr class="sheet-table-data">
-                                <td class="number-data">
-                                    <select class="extraBanes" name="extraBanes"> 
-                                        <option value="0">0</option> 
-                                        <option value="1">1</option> 
-                                        <option value="2">2</option> 
-                                        <option value="3">3</option> 
-                                        <option value="4">4</option> 
-                                        <option value="5">5</option> 
-                                        <option value="6">6</option> 
-                                        <option value="7">7</option> 
-                                        <option value="8">8</option> 
-                                        <option value="9">9</option> 
-                                    </select>                    
-                                </td>
-                                <td class="text-data wide">${extraLabel}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </form>
-            `;
+      return await foundry.applications.api.DialogV2.prompt({
+        window: {
+          title: "Severe Injury Test",
+        },
+        content: `
+      <form class="dialog-form standard-form" autocomplete="off">
+        <div class="dialog-content standard-form">
+          <div class="dod-controls">
+            <div class="flexrow">
+              <table class="sheet-table boons">
+                <tbody>
+                  <tr class="sheet-table-header">
+                    <th></th>
+                    <th class="text-header">${boonsLabel}</th>
+                  </tr>
+                  <tr class="sheet-table-data">
+                    <td class="number-data">
+                      <select name="extraBoons"> 
+                        <option value="0">0</option> 
+                        <option value="1">1</option> 
+                        <option value="2">2</option> 
+                        <option value="3">3</option> 
+                        <option value="4">4</option> 
+                        <option value="5">5</option> 
+                        <option value="6">6</option> 
+                        <option value="7">7</option> 
+                        <option value="8">8</option> 
+                        <option value="9">9</option> 
+                      </select>                    
+                    </td>
+                    <td class="text-data wide">${extraLabel}</td>
+                  </tr>
+                </tbody>
+              </table>
 
-      return new Promise((resolve) => {
-        const dialog = new Dialog({
-          title: testLabel,
-          content: content,
-          buttons: {
-            roll: {
-              label: rollLabel,
-              callback: (html) => {
-                const form = html[0].querySelector("form");
-                const extraBoons =
-                  parseInt(form.querySelector(".extraBoons").value) || 0;
-                const extraBanes =
-                  parseInt(form.querySelector(".extraBanes").value) || 0;
-                resolve({ boons: extraBoons, banes: extraBanes });
-              },
-            },
+              <table class="sheet-table banes">
+                <tbody>
+                  <tr class="sheet-table-header">
+                    <th></th>
+                    <th class="text-header">${banesLabel}</th>
+                  </tr>
+                  <tr class="sheet-table-data">
+                    <td class="number-data">
+                      <select name="extraBanes"> 
+                        <option value="0">0</option> 
+                        <option value="1">1</option> 
+                        <option value="2">2</option> 
+                        <option value="3">3</option> 
+                        <option value="4">4</option> 
+                        <option value="5">5</option> 
+                        <option value="6">6</option> 
+                        <option value="7">7</option> 
+                        <option value="8">8</option> 
+                        <option value="9">9</option> 
+                      </select>                    
+                    </td>
+                    <td class="text-data wide">${extraLabel}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </form>
+    `,
+        ok: {
+          icon: "fa-solid fa-check",
+          label: "Roll Severe Injury Test",
+          callback: (event, button, dialog) => {
+            const form = button.form;
+            const boons = parseInt(form.extraBoons.value) || 0;
+            const banes = parseInt(form.extraBanes.value) || 0;
+            return { boons, banes };
           },
-          default: "roll",
-          close: () => resolve(null),
-        });
-
-        dialog.render(true, { width: 400, resizable: false });
+        },
       });
     },
 

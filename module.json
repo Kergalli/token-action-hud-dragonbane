@@ -10,7 +10,7 @@
   ],
   "url": "https://github.com/kergalli/token-action-hud-dragonbane",
   "flags": {},
-  "version": "2.3.4",
+  "version": "2.4.0",
   "compatibility": {
     "minimum": "12.331",
     "verified": "13.348"
