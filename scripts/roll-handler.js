@@ -411,7 +411,36 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
             return this.callSkillAction(actor, "persuasion");
 
           case "rallySelf":
-            return this.callAttributeAction(actor, "wil");
+            try {
+              // Do WIL test FIRST
+              const rollResult = await this.callAttributeAction(actor, "wil");
+
+              // Only apply action status if roll was completed successfully
+              if (rollResult !== false) {
+                const actionEffect = CONFIG.statusEffects.find(
+                  (e) => e.id === "action1"
+                );
+
+                if (
+                  actionEffect &&
+                  !actor.effects.some((e) => e.statuses?.has("action1"))
+                ) {
+                  await actor.createEmbeddedDocuments("ActiveEffect", [
+                    {
+                      name: game.i18n.localize(actionEffect.name), // LOCALIZE the key
+                      label: game.i18n.localize(actionEffect.name), // LOCALIZE the key
+                      icon: "modules/yze-combat/assets/icons/slow-action.svg", // Use direct path
+                      statuses: ["action1"],
+                    },
+                  ]);
+                }
+              }
+
+              return rollResult;
+            } catch (error) {
+              console.error("Rally Self roll failed:", error);
+              return false;
+            }
 
           case "deathRoll":
             return this.callDeathRollAction(actor);

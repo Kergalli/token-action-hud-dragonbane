@@ -550,8 +550,11 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * Build multiple token actions
      */
     buildMultipleTokenActions() {
-      // For multiple tokens, show basic actions
-      this.buildCombatActions();
+      // For multiple tokens, only show basic actions if available
+      if (typeof this.buildCombatActions === "function") {
+        this.buildCombatActions();
+      }
+      // If buildCombatActions isn't available yet, just skip it for multiple token selection
     }
 
     /**

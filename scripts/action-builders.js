@@ -702,7 +702,12 @@ export function createActionBuilders(coreModule) {
         },
         {
           id: "rallySelf",
-          condition: () => this.actorType === "character",
+          condition: () => {
+            // Only show for characters at zero HP
+            if (this.actorType !== "character") return false;
+            const currentHP = this.actor?.system?.hitPoints?.value || 0;
+            return currentHP <= 0;
+          },
           name: () => {
             const baseName = coreModule.api.Utils.i18n(
               "tokenActionHud.dragonbane.rallySelf"
@@ -746,22 +751,22 @@ export function createActionBuilders(coreModule) {
         Utils.needsDeathRoll(this.actor)
       ) {
         const deathRolls = Utils.getDeathRollStatus(this.actor);
-        const deathRollText =
-          coreModule.api.Utils.i18n("tokenActionHud.dragonbane.deathRollStatus")
-            ?.replace("{successes}", deathRolls.successes)
-            ?.replace("{failures}", deathRolls.failures) ||
-          `Death Roll (${deathRolls.successes}/${deathRolls.failures})`;
+        const conValue = this.actor?.system?.attributes?.con?.value || 0;
+
+        // Build the full name with CON value and death roll progress
+        const fullDeathRollName = `${coreModule.api.Utils.i18n(
+          "tokenActionHud.dragonbane.deathRoll"
+        )} (${conValue}) [${deathRolls.successes}/${deathRolls.failures}]`;
 
         const deathRollAction = this._createSimpleAction(
           "deathRoll",
-          coreModule.api.Utils.i18n("tokenActionHud.dragonbane.deathRoll"),
+          fullDeathRollName, // Use the full name here instead of just CON
           "icons/svg/skull.svg",
-          "combatAction", // Change from "deathRoll" to "combatAction"
+          "combatAction",
           "handleDeathRollAction"
         );
 
-        // Override listName for death roll
-        deathRollAction.listName = deathRollText;
+        // The name is already set correctly, no need to override listName
         actions.push(deathRollAction);
       }
 
