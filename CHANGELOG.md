@@ -25,7 +25,7 @@
 
 #### 🎨 **Modern Dialog System (ApplicationV2)**
 
-- **Visual Consistency**: Severe Injury and Light Test dialogs now use modern AppV2 architecture
+- **Visual Consistency**: Severe Injury and Light Test dialogs now use modern AppV2 architecture to align with Dragonbane v3.0
 
 ---
 
