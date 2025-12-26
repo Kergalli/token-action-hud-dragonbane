@@ -479,17 +479,26 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * Call attribute action directly
      */
     async callAttributeAction(actor, attributeKey) {
-      if (actor.sheet && typeof actor.sheet._onAttributeRoll === "function") {
-        const fakeEvent = {
-          currentTarget: {
-            dataset: { attribute: attributeKey },
-          },
-          preventDefault: () => {},
-        };
-        return actor.sheet._onAttributeRoll(fakeEvent);
-      } else {
+      try {
+        if (actor.sheet && typeof actor.sheet._onAttributeRoll === "function") {
+          const fakeEvent = {
+            currentTarget: {
+              dataset: { attribute: attributeKey },
+            },
+            preventDefault: () => {},
+          };
+          return actor.sheet._onAttributeRoll(fakeEvent);
+        } else {
+          // Fallback to game API (no dialog)
+          return game.dragonbane.rollAttribute(actor, attributeKey);
+        }
+      } catch (error) {
+        console.error(
+          "Token Action HUD Dragonbane: Attribute roll failed:",
+          error
+        );
         ui.notifications.error(
-          "Could not perform attribute roll - sheet method not available"
+          `Could not perform ${attributeKey.toUpperCase()} attribute roll`
         );
       }
     }
@@ -498,6 +507,21 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      * Call death roll action directly
      */
     async callDeathRollAction(actor) {
+      // Set ignore flag for Combat Assistant
+      await game.user.setFlag(
+        "token-action-hud-dragonbane",
+        "ignoreNextRollForActionCounting",
+        true
+      );
+
+      // Clear ignore flag after timeout (safety cleanup)
+      setTimeout(async () => {
+        await game.user.unsetFlag(
+          "token-action-hud-dragonbane",
+          "ignoreNextRollForActionCounting"
+        );
+      }, 3000);
+
       try {
         if (actor.sheet && typeof actor.sheet._onDeathRoll === "function") {
           const fakeEvent = {
@@ -514,6 +538,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           );
         }
       } catch (error) {
+        // Clear ignore flag on error
+        await game.user
+          .unsetFlag(
+            "token-action-hud-dragonbane",
+            "ignoreNextRollForActionCounting"
+          )
+          .catch(() => {});
+
         console.error("Error performing death roll:", error);
         ui.notifications.error("Failed to perform death roll");
       }

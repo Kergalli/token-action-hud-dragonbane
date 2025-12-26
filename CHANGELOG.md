@@ -1,5 +1,33 @@
 # Changelog
 
+## [2.4.1] - 2025-12-26
+
+### 🐛 **Critical Bug Fixes**
+
+#### 🎯 **YZE Combat Integration - Action Counting Fix**
+
+- **Fixed Fear Test Action Counting Bug**: Fear Test WIL rolls and Fear Effect table rolls no longer incorrectly count as combat actions
+- **Ignore Flag System**: Implemented comprehensive ignore flag system for Dragonbane Combat Assistant integration
+  - **Light Test**: No longer counts as action (utility roll)
+  - **Severe Injury Test**: No longer counts as action (survival test)
+  - **Death Roll**: No longer counts as action (survival test)
+  - **Fear Effect Table**: No longer counts as action (reaction roll)
+- **Smart Integration**: Combat Assistant now respects `ignoreNextRollForActionCounting` flag from Token Action HUD
+
+### 📋 **Compatibility Requirements**
+
+- **Dragonbane Combat Assistant**: v2.2.3+ required for updated YZE integration to respect ignore flags
+- **YZE Combat Module**: Compatible with existing single action tracking
+- **Foundry VTT**: v13.345+ recommended for full functionality
+
+### 📚 **Documentation Improvements**
+
+- **README Restructure**: Completely reorganized README.md for improved readability and logical flow
+- **Streamlined Installation Guide**: Clearer requirements and dependency information
+- **Improved Usage Guidance**: Better organization of special cases and integration tips
+
+---
+
 ## [2.4.0] - 2025-12-25
 
 ### ✨ **Enhanced User Experience**

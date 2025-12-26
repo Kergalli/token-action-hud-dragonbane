@@ -105,7 +105,31 @@ export function createActionHandlers(coreModule) {
     handleAttributeAction: async function (event, attributeKey) {
       const actor = this.actor;
 
-      // Try actor sheet method first to show roll dialog with banes and boons
+      // === ADD SPECIAL IGNORE CASES ===
+      const fearTestInProgress = game.user.getFlag(
+        "token-action-hud-dragonbane",
+        "fearTestInProgress"
+      );
+
+      // Check if this is a Fear Test WIL roll
+      if (fearTestInProgress && attributeKey === "wil") {
+        // Set ignore flag for Combat Assistant
+        await game.user.setFlag(
+          "token-action-hud-dragonbane",
+          "ignoreNextRollForActionCounting",
+          true
+        );
+
+        // Clear ignore flag after timeout (safety cleanup)
+        setTimeout(async () => {
+          await game.user.unsetFlag(
+            "token-action-hud-dragonbane",
+            "ignoreNextRollForActionCounting"
+          );
+        }, 3000);
+      }
+
+      // Use sheet method to show boons/banes dialog
       try {
         if (actor.sheet && typeof actor.sheet._onAttributeRoll === "function") {
           // Create fake event with the attribute key
@@ -120,11 +144,14 @@ export function createActionHandlers(coreModule) {
           };
           return actor.sheet._onAttributeRoll(fakeEvent);
         } else {
-          // Direct fallback to game API (simplified from 3-layer to 2-layer)
+          // Fallback to game API (no dialog)
           return game.dragonbane.rollAttribute(actor, attributeKey);
         }
       } catch (error) {
-        // Silent fallback - attribute rolls are straightforward enough
+        console.error(
+          "Token Action HUD Dragonbane: Attribute roll failed:",
+          error
+        );
         return null;
       }
     },
@@ -165,7 +192,7 @@ export function createActionHandlers(coreModule) {
           );
         }, 5000);
 
-        // Perform the WIL test
+        // Perform the WIL test (ignore flag handled in handleAttributeAction)
         await this.handleAttributeAction(event, "wil");
       } catch (error) {
         console.error(
@@ -343,6 +370,21 @@ export function createActionHandlers(coreModule) {
           return;
         }
 
+        // Set ignore flag for Combat Assistant
+        await game.user.setFlag(
+          "token-action-hud-dragonbane",
+          "ignoreNextRollForActionCounting",
+          true
+        );
+
+        // Clear ignore flag after timeout (safety cleanup)
+        setTimeout(async () => {
+          await game.user.unsetFlag(
+            "token-action-hud-dragonbane",
+            "ignoreNextRollForActionCounting"
+          );
+        }, 3000);
+
         // Roll the test
         const roll = new Roll(lightSourceData.dice);
         await roll.evaluate();
@@ -423,9 +465,24 @@ export function createActionHandlers(coreModule) {
           return;
         }
 
+        // Set ignore flag for Combat Assistant
+        await game.user.setFlag(
+          "token-action-hud-dragonbane",
+          "ignoreNextRollForActionCounting",
+          true
+        );
+
+        // Clear ignore flag after timeout (safety cleanup)
+        setTimeout(async () => {
+          await game.user.unsetFlag(
+            "token-action-hud-dragonbane",
+            "ignoreNextRollForActionCounting"
+          );
+        }, 5000);
+
         // Show boons/banes dialog
         const dialogResult = await this.showSevereInjuryDialog(actor);
-        if (!dialogResult) return; // Cancelled
+        if (!dialogResult) return;
 
         const { boons, banes } = dialogResult;
 
@@ -507,28 +564,13 @@ export function createActionHandlers(coreModule) {
 
       // Delegate to the sheet's death roll method (handles roll AND updates)
       try {
-        if (actor.sheet && typeof actor.sheet._onDeathRoll === "function") {
-          // Create fake event for the sheet method
-          const fakeEvent = {
-            preventDefault: () => {},
-            stopPropagation: () => {},
-          };
-          return actor.sheet._onDeathRoll(fakeEvent);
-        } else {
-          // Silent fallback if sheet method not available
-          const message =
-            coreModule.api.Utils.i18n(
-              "tokenActionHud.dragonbane.messages.deathRoll.failed"
-            ) || "Could not perform death roll";
-          ui.notifications.warn(message);
-        }
+        return await game.dragonbane.rollAttribute(actor, "con", {
+          canPush: false,
+          flavor: "DoD.roll.deathRoll",
+        });
       } catch (error) {
-        // Silent fallback - just show user notification
-        const message =
-          coreModule.api.Utils.i18n(
-            "tokenActionHud.dragonbane.messages.deathRoll.failed"
-          ) || "Could not perform death roll";
-        ui.notifications.warn(message);
+        console.error("Token Action HUD Dragonbane: Death roll failed:", error);
+        ui.notifications.error("Could not perform death roll");
       }
     },
 

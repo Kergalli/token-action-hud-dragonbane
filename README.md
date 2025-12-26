@@ -2,164 +2,16 @@
 
 ![Foundry Version](https://img.shields.io/badge/foundry-v12%20to%20v13-green) ![GitHub release](https://img.shields.io/github/v/release/kergalli/token-action-hud-dragonbane) ![Token Action HUD Core](https://img.shields.io/badge/TAH%20Core-v2.0.0%2B-blue)
 
-Token Action HUD Dragonbane is a repositionable HUD of stats and actions specifically designed for the Dragonbane RPG system by Free League Publishing. **Version 2.0 represents a complete rebuild** optimized for Foundry VTT v13 and Token Action HUD Core 2.0+.
+**Token Action HUD Dragonbane** provides a repositionable HUD of stats and actions specifically designed for the Dragonbane RPG system by Free League Publishing.
 
 ---
 
-## ✨ Key Features
-
-### 🎯 **Core Functionality**
-
-- **Instant Action Access**: Roll dice and use abilities directly from the HUD without opening character sheets
-- **Repositionable Interface**: Drag and position the HUD anywhere on screen with collapsible sections
-- **Smart Filtering**: Configurable display options for equipped items, memorized spells, and more
-- **Real-time Status**: Live health indicators with color-coded status (green/yellow/red)
-- **Contextual Actions**: Different actions available based on actor type (Character/NPC/Monster)
-- **Localized Content**: All buttons, tooltips, messages, and settings in both English and Swedish
-
-### ⚔️ **Enhanced Combat Actions**
-
-- **Combat Actions Group**: Dedicated section for tactical combat options
-  - **First Aid**: Healing skill roll
-  - **Rally Other**: Persuasion skill roll
-  - **Rally Self**: WIL attribute check (only shows when at zero HP)
-  - **Dodge**: Evade skill for defensive maneuvers
-  - **Death Rolls**: CON Attribute roll (only shows when at zero HP)
-  - **Right-Click Rules**: Combat Actions support right-click for concise rules summaries whispered to triggering player
-- **Weapon Management**: Visual indicators for equipped (⚔) and broken weapons (red styling)
-
-### 🧙‍♂️ **Magic & Spell System**
-
-- **Organized by Rank**: Magic Tricks (Rank 0), Rank 1, Rank 2, Rank 3 spells
-- **Preparation Indicators**: Memorized spells marked with ⚡ when showing all spells
-- **Flexible Display**: Toggle between showing only memorized spells or all known spells
-- **Skill Integration**: Displays spell skill values with school-based calculations, including General spells (highest magic skill)
-
-### 🛡️ **Equipment & Inventory**
-
-- **Visual Status Indicators**:
-  - Equipped weapons and armor clearly marked
-- **Smart Filtering**: Separate options for equipped weapons only vs. showing all equipment
-- **Smart Torch Placement**: When "Show Equipped Weapons Only" setting to be enabled, torches automatically appear in the most logical HUD section (under weapons when equipped, under items when not)
-- **Quick Currency Access**: Gold, Silver, and Copper buttons show current amounts directly on the HUD
-
-### ⭐ **Abilities Management**
-
-- **Grouped Display**: Abilities taken multiple times show as "Robust x4" instead of separate entries
-- **Clean Interface**: Reduces clutter while maintaining full functionality
-
-### 👹 **Monster & NPC Features**
-
-- **Monster Attack System**:
-  - Random attacks from monster attack tables
-  - Specific attack selection with index numbers
-  - Supports monsters with weapons for damage rolls
-  - Integrated attack table support (tables entries must follow Dragonbane core standard)
-- **Monster Actions**: Dedicated Defend and Weapon Damage actions
-- **Traits Display**: GM-only whispered trait information for NPCs and Monsters
-- **Simplified Interface**: Streamlined actions appropriate for each actor type
-
-### 💤 **Advanced Rest System**
-
-- **Rest Availability Tracking**: Visual indicators showing which rest types are available
-- **Comprehensive Rest Options**: Round Rest, Stretch Rest, Shift Rest, Pass One Shift of Time
-- **Usage Prevention**: Disabled styling and informative messages for already-used rest types
-
-### 🏥 **Health & Condition Management**
-
-- **Dragonbane Status Effects Integration**: **NEW v2.1.0, v13 only** - Seamless compatibility with the Dragonbane Status Effects module
-  - **Categorized Conditions** - Organization of status effects into the defined DSE categories
-  - **Respects DSE Settings** - Hidden DSE catregories will no longer show in the Token Action HUD
-- **Active State Indicators**: Conditions highlighted when active with red styling
-- **Custom Status Effects**: Full compatibility with status effect modules and custom icons
-- **Death Rolls**: Automatic death roll button shown under Combat when a character is a zero HP
-- **Injury Tracking**: Shows current injuries under Stats
-
-### 🔧 **Utility Actions**
-
-- **Journey Actions**: Simple buttons for various Journey Actions
-  - **Right-Click Rules**: Jounrey Actions support right-click for concise rules summaries whispered to triggering player
-- **Light Test**: Interactive light source selection with duration rules and light roll test
-- **Fear Test**: WIL-based resistance rolls against fear effects
-- **Severe Injury**: CON-based survival tests with automatic table rolling
-- **Stats Display**: Click any stat to show detailed information in chat
-
-### 🎨 **Enhanced Customization**
-
-- **Custom Button Styling**: Personalize button appearance with configurable background colors and opacity
-- **Z-Index Control**: Optional setting to force HUD above other Foundry windows (journals, character sheets)
-- **Live Updates**: All customization changes apply immediately without requiring reload
-- **Per-Client Settings**: Each user can configure their own visual preferences
-
----
-
-## 📐 HUD Layout
-
-The HUD is organized into logical sections that can be collapsed or repositioned:
-
-1. **📊 Stats**: HP, WP, Movement, Encumbrance, Ferocity, Monster Traits, Injuries with visual status indicators
-2. **⚔️ Combat**: Weapons and Combat Actions (First Aid, Rally, Dodge) with right-click rules summaries
-3. **🧙‍♂️ Spells**: Magic Tricks, Rank 1-3 spells with preparation status
-4. **👹 Monster**: Random/Specific Attacks, Weapon Damage, Defend (Monster actors only)
-5. **🎯 Skills**: Core, Weapon, and Secondary skills (configurable display)
-6. **⭐ Abilities**: Character abilities and special powers with grouped display for multiples
-7. **🛡️ Conditions**: Attribute conditions and status effects with active indicators
-8. **🎒 Inventory**: Armor, Helmets, Items organized by type, currency
-9. **🔧 Utility**: Rest actions, Journey actions (with right-click rules), Light Test, Fear Test, Severe Injury, and other tools
-
----
-
-## ⚙️ Module Settings
-
-### 🎨 **Display Options**
-
-- **Show Unequipped Items**: Display all equipment vs. only equipped items
-- **Show All Spells**: Show all known spells with preparation indicators vs. only memorized
-- **Show Equipped Weapons Only**: Filter to display only equipped/held weapons
-- **Show Attributes**: Toggle attribute roll actions on the HUD
-- **Show Conditions**: Toggle injury and condition management sections
-- **Show Currency**: Display currency (gold, silver, copper)
-
-### 🎯 **Skill Display Options**
-
-- **Show Weapon Skills**: Toggle weapon skills section (Brawling always shown)
-- **Show Secondary Skills**: Toggle secondary skills section
-- **Show Death Roll**: Automatically display death roll when character is dying
-
-### 🎲 **Table Configuration**
-
-- **Fear Effect Table UUID**: Specify UUID for custom Fear effect roll tables (e.g., RollTable.wHTr9HuHkpVv7ccX)
-- **Severe Injury Table UUID**: Specify UUID for custom Severe Injury roll tables (e.g., RollTable.4wZ2sIWqV3tw8eKL)
-- **Token Action HUD Only**: Custom tables work exclusively with Token Action HUD rolls
-- **Homebrew Tables**: Allows for custom/homebrew tables via UUID
-- **Note**: _Leave UUID settings blank to use automatic detection by table name (supports English and Swedish)_
-
-### 🎨 Visual Customization
-
-#### Advanced Options
-
-- **Show HUD Above Other Windows**: Optional setting to force Token Action HUD above journals and character sheets
-
-#### Button Styling
-
-- **Button Background Color**: Choose any hex color for button backgrounds (default: Dragonbane green #00604d)
-- **Button Background Opacity**: Adjust transparency from 0-100% (default: 75%)
-- **Button Border Color**: Choose any hex color for button borders (default: 50% grey #808080)
-- **Button Border Size**: Adjust border thickness from 0-5px (default: 1px)
-- **Button Border Opacity**: Adjust border transparency from 0-100% (default: 80%)
-- **Live Preview**: All styling changes appear instantly as you adjust settings
-
----
-
-## 🚀 Installation
+## 🚀 **Installation**
 
 ### **From Foundry Module Browser (Recommended)**
 
-1. Open Foundry VTT
-2. Go to **Add-on Modules**
-3. Click **Install Module**
-4. Search for "**Token Action HUD Dragonbane**"
-5. Click **Install**
+1. Open Foundry VTT → **Add-on Modules** → **Install Module**
+2. Search for "**Token Action HUD Dragonbane**" → **Install**
 
 ### **Manual Installation**
 
@@ -171,62 +23,257 @@ https://github.com/kergalli/token-action-hud-dragonbane/releases/latest/download
 
 ---
 
-## 📋 Requirements
+## ✨ **Key Features**
+
+### 🎯 **Core Functionality**
+
+- **Instant Action Access**: Roll dice and use abilities directly without opening character sheets
+- **Repositionable Interface**: Drag and position HUD anywhere with collapsible sections
+- **Real-time Status**: Live health indicators with color-coded status (green/yellow/red)
+- **Smart Filtering**: Configurable display for equipped items, memorized spells, and more
+- **Contextual Actions**: Different actions based on actor type (Character/NPC/Monster)
+- **Full Localization**: Complete English and Swedish support
+
+### ⚔️ **Enhanced Combat System**
+
+- **Combat Actions Group**: Dedicated tactical combat section
+  - **First Aid**: Healing skill rolls
+  - **Rally Other**: Persuasion skill rolls
+  - **Rally Self**: WIL attribute checks (when at zero HP)
+  - **Dodge**: Evade skill for defensive maneuvers
+  - **Death Rolls**: CON attribute rolls with automatic tracking (when dying)
+  - **Right-Click Rules**: Whispered rules summaries for all combat actions
+- **Weapon Management**: Visual indicators for equipped (⚔) and broken weapons (red styling)
+- **Smart YZE Integration**: Automatic action counting with proper utility roll exclusions
+
+### 🧙‍♂️ **Magic & Spell System**
+
+- **Organized by Rank**: Magic Tricks (Rank 0), Rank 1-3 spells clearly categorized
+- **Preparation Indicators**: Memorized spells marked with ⚡ when showing all spells
+- **Flexible Display**: Toggle between memorized-only vs. all known spells
+- **Skill Integration**: Displays spell skill values with school-based calculations
+
+### 🛡️ **Equipment & Inventory Management**
+
+- **Visual Status Indicators**: Equipped weapons and armor clearly marked
+- **Smart Filtering**: Separate options for equipped weapons vs. all equipment
+- **Intelligent Torch Placement**: Torches appear in logical HUD sections based on equipped status
+- **Quick Currency Access**: Gold, Silver, Copper buttons with current amounts
+
+### 🔧 **Utility & Journey Actions**
+
+- **Journey Actions**: Pathfinder, Make Camp, Hunt, Fish, Forage, Cook
+  - **Right-Click Rules**: Whispered rules summaries for journey actions
+- **Utility Tests**:
+  - **Fear Test**: WIL-based resistance rolls
+  - **Light Test**: Interactive light source selection with duration rules
+  - **Severe Injury**: CON-based survival tests with automatic table rolling
+- **Stats Display**: Click any stat for detailed chat information
+
+### 🏥 **Health & Condition Management**
+
+- **Dragonbane Status Effects Integration**: Full compatibility with DSE module (v13+)
+  - **Categorized Conditions**: Organized into DSE-defined categories
+  - **Respects DSE Settings**: Hidden categories automatically excluded
+- **Active State Indicators**: Active conditions highlighted with red styling
+- **Death Roll Integration**: Automatic death roll buttons when dying
+- **Injury Tracking**: Current injuries displayed under Stats
+
+### 👹 **Monster & NPC Features**
+
+- **Monster Attack System**: Random and specific attacks from monster tables
+- **Dedicated Actions**: Monster Defend and Weapon Damage actions
+- **Traits Display**: GM-only whispered trait information
+- **Streamlined Interface**: Appropriate actions for each actor type
+
+### 💤 **Advanced Rest System**
+
+- **Rest Availability Tracking**: Visual indicators for available rest types
+- **Complete Rest Options**: Round Rest, Stretch Rest, Shift Rest, Pass One Shift
+- **Usage Prevention**: Disabled styling and messages for already-used rests
+
+### 🎨 **Enhanced Customization**
+
+- **Custom Button Styling**: Configurable colors, opacity, borders
+- **Z-Index Control**: Force HUD above other Foundry windows
+- **Live Updates**: Immediate application of styling changes
+- **Per-Client Settings**: Individual user customization
+
+### 🤖 **YZE Combat Integration** ⭐ **NEW v2.4.1**
+
+- **Smart Action Detection**: Seamless integration with Dragonbane Combat Assistant
+- **Automatic Exclusions**: Utility rolls correctly excluded from action counting
+  - **Fear Tests**: WIL rolls and Fear Effect table rolls
+  - **Light Tests**: Light source duration tests
+  - **Death Rolls**: Survival tests with proper tracking
+  - **Severe Injury Tests**: CON survival tests
+- **Extensible API**: Other modules can utilize ignore flag system
+- **Preserved Dialogs**: All boons/banes dialogs maintained
+
+---
+
+## 📐 **HUD Layout**
+
+The HUD organizes into collapsible, repositionable sections:
+
+| Section           | Contents                                          | Special Features                        |
+| ----------------- | ------------------------------------------------- | --------------------------------------- |
+| **📊 Stats**      | HP, WP, Movement, Encumbrance, Ferocity, Injuries | Color-coded health indicators           |
+| **⚔️ Combat**     | Weapons, Combat Actions, Death Rolls              | Right-click rules summaries             |
+| **🧙‍♂️ Spells**     | Magic Tricks, Rank 1-3 spells                     | Preparation status indicators           |
+| **👹 Monster**    | Random/Specific Attacks, Defend                   | Monster actors only                     |
+| **🎯 Skills**     | Core, Weapon, Secondary skills                    | Configurable display options            |
+| **⭐ Abilities**  | Character abilities, powers                       | Grouped display for multiples           |
+| **🛡️ Conditions** | Status effects, attribute conditions              | Active state highlighting               |
+| **🎒 Inventory**  | Armor, Helmets, Items, Currency                   | Smart equipment filtering               |
+| **🔧 Utility**    | Rest, Journey, Various Tests                      | Right-click rules summaries for journys |
+
+---
+
+## ⚙️ **Configuration**
+
+**Access**: Game Settings → Configure Settings → Token Action HUD Dragonbane
+
+### **Display Options**
+
+- **Show Unequipped Items**: Display all equipment vs. only equipped
+- **Show All Spells**: All known spells (with indicators) vs. memorized only
+- **Show Equipped Weapons Only**: Filter to equipped/held weapons only
+- **Show Attributes**: Toggle attribute roll actions
+- **Show Conditions**: Toggle injury and condition sections
+- **Show Currency**: Display gold, silver, copper buttons
+
+### **Skill Display**
+
+- **Show Weapon Skills**: Toggle weapon skills section (Brawling always shown)
+- **Show Secondary Skills**: Toggle secondary skills section
+- **Show Death Roll**: Auto-display when character is dying
+
+### **Table Configuration**
+
+- **Fear Effect Table UUID**: Custom Fear effect table (e.g., `RollTable.wHTr9HuHkpVv7ccX`)
+- **Severe Injury Table UUID**: Custom Severe Injury table (e.g., `RollTable.4wZ2sIWqV3tw8eKL`)
+- **Automatic Detection**: Leave blank for name-based detection (English/Swedish)
+- **Token Action HUD Only**: Custom tables work exclusively with TAH rolls
+
+### **Visual Customization**
+
+#### **Button Styling**
+
+- **Background Color**: Hex color for button backgrounds (default: #00604d)
+- **Background Opacity**: Transparency 0-100% (default: 75%)
+- **Border Color**: Hex color for borders (default: #808080)
+- **Border Size**: Thickness 0-5px (default: 1px)
+- **Border Opacity**: Border transparency 0-100% (default: 80%)
+- **Live Preview**: Changes apply instantly
+
+#### **Advanced Options**
+
+- **Show HUD Above Other Windows**: Force TAH above journals and character sheets
+
+---
+
+## 🔗 **Integration & Compatibility**
+
+### **Required Dependencies**
+
+| Module                                                                             | Version | Purpose             |
+| ---------------------------------------------------------------------------------- | ------- | ------------------- |
+| **[Token Action HUD Core](https://foundryvtt.com/packages/token-action-hud-core)** | v2.0.0+ | Essential framework |
+| **[Dragonbane System](https://foundryvtt.com/packages/dragonbane)**                | v2.0+   | Official system     |
+
+### **Recommended Integrations**
+
+| Module                                                                                     | Integration | Benefits                                     |
+| ------------------------------------------------------------------------------------------ | ----------- | -------------------------------------------- |
+| **[Dragonbane Combat Assistant](https://foundryvtt.com/packages/dragonbane-action-rules)** | Automatic   | Enhanced action rules, smart action counting |
+| **[YZE Combat](https://foundryvtt.com/packages/yze-combat)**                               | Automatic   | Single action tracking system                |
+| **[Dragonbane Status Effects](https://foundryvtt.com/packages/dragonbane-status-effects)** | Automatic   | Enhanced condition categorization (v13+)     |
+
+### **🆕 Automatic Action Exclusions (v2.4.1)**
+
+When using **Dragonbane Combat Assistant v2.2.3+**, these utility rolls are **automatically excluded** from action counting:
+
+- ✅ **Fear Tests** - WIL resistance and Fear Effect table rolls
+- ✅ **Light Tests** - Light source duration tests
+- ✅ **Death Rolls** - CON survival tests (with proper tracking)
+- ✅ **Severe Injury Tests** - CON survival tests
 
 ### **Foundry Compatibility**
 
-- **Foundry VTT**: v13.345+ **required** for full v2.1.0 features (v12.331+ for basic functionality)
-- **Optimized for**: Foundry VTT v13+ with enhanced condition categorization and module integration
-
-### **System Compatibility**
-
-- **[Dragonbane System](https://foundryvtt.com/packages/dragonbane) v2.0+** - Official Free League system
-
-### **Required Modules**
-
-- **[Token Action HUD Core](https://foundryvtt.com/packages/token-action-hud-core) v2.0.0+** - Essential for functionality
-
-### **Optional Modules for Enhanced Experience**
-
-- **[Dragonbane Status Effects](https://foundryvtt.com/packages/dragonbane-status-effects)**: **NEW v2.1.0** - Unlocks categorized condition display and enhanced status effect management (Foundry v13+ required)
+- **Foundry VTT**: v12.331+ (v13.345+ recommended for full features)
+- **Optimized for**: v13+ with enhanced condition categorization
 
 ---
 
-## 📝 Changelog
+## 📝 **Recent Updates**
 
-See [CHANGELOG.md](CHANGELOG.md) for detailed version history and feature updates.
+### **v2.4.1 - YZE Combat Integration Fixes** ⭐
 
-### Recent Major Changes:
+- **Fixed Action Counting**: Fear Tests, Light Tests, Death Rolls, Severe Injury Tests properly excluded
+- **Preserved Dialogs**: All attribute rolls maintain boons/banes selection dialogs
+- **Ignore Flag System**: Extensible API for other modules to exclude custom rolls
+- **Enhanced Integration**: Seamless compatibility with Dragonbane Combat Assistant
 
-- **v2.3.2**: Various improvements and corrections to Swedish translations (courtesy of **xdy**)
-- **v2.3.3**: Right-click rules summaries for Combat and Journey actions, torch dual-purpose item handling
-- **v2.3.2**: Enhanced button border customization and Swedish language improvements
-- **v2.3.1**: Added customizable button styling and z-index override settings
-- **v2.3.0**: Currency display system, enhanced Severe Injury with CON value, Fear Test refinements
-- **v2.2.0**: Severe Injury enhancements and addition of Fear test
-- **v2.1.0**: Categorized condition system with Dragonbane Status Effects integration (v13+ required)
-- **v2.0.4**: Fixed ability action errors with improved rollItem() method
-- **v2.0.3**: Enhanced Swedish localization with proper skill names and attribute abbreviations
-- **v2.0.2**: Fixed multiple token selection compatibility and magic tricks display
-- **v2.0.1**: Improved ability grouping and status effect compatibility
-- **v2.0.0**: Complete rebuild for Foundry v13 and TAH Core 2.0+ with Swedish translation
-- **v1.2.0**: Enhanced combat actions and targeting system
-- **v1.1.1**: Initial stable release with core Dragonbane integration
+### **Previous Major Updates**
+
+- **v2.4.0**: Rally Self visibility improvements, Death Roll enhancements, Light Test dialog upgrades
+- **v2.3.3**: Right-click rules summaries, intelligent torch placement
+- **v2.3.0**: Currency display system, Severe Injury enhancements, Fear Test additions
+- **v2.1.0**: Dragonbane Status Effects integration, categorized conditions (v13+)
+- **v2.0.0**: Complete rebuild for Foundry v13 and TAH Core 2.0+
+
+**See [CHANGELOG.md](CHANGELOG.md) for complete version history**
 
 ---
 
-## Credits & Attribution
+## 🛠️ **Advanced Usage**
 
-### Icons
+### **For Module Developers**
 
-Some icons used in this module are from [game-icons.net](https://game-icons.net), created by delapouite, lorc, and skoll. Available under [Creative Commons 3.0 BY license](https://creativecommons.org/licenses/by/3.0/).
+Token Action HUD Dragonbane provides an extensible ignore flag system:
 
-### Community Contributors
+```javascript
+// Exclude custom rolls from action counting
+await game.user.setFlag(
+  "token-action-hud-dragonbane",
+  "ignoreNextRollForActionCounting",
+  true
+);
+await yourCustomRollFunction();
+// Dragonbane Combat Assistant automatically respects this flag
+```
+
+### **Custom Tables**
+
+- Use **UUID settings** for homebrew Fear Effect or Severe Injury tables
+- Leave **blank for automatic detection** by table name (English/Swedish)
+- Custom tables work **only with Token Action HUD rolls**, not sheet-based rolls
+
+---
+
+## 🌍 **Credits & Support**
+
+### **Community Contributors**
 
 - **xdy** - Swedish language improvements and localization fixes
+- **Free League Publishing** - Excellent Dragonbane RPG system
+- **Token Action HUD Core team** - Foundational framework
+- **Foundry VTT community** - Feedback and support
 
-### Acknowledgments
+### **Attribution**
 
-- Free League Publishing for the excellent Dragonbane RPG system
-- Token Action HUD Core team for the foundational framework
-- The Foundry VTT community for feedback and support
+- **Icons**: Some icons from [game-icons.net](https://game-icons.net) by delapouite, lorc, and skoll
+- **License**: [Creative Commons 3.0 BY](https://creativecommons.org/licenses/by/3.0/)
+
+### **Support & Documentation**
+
+- **Issues**: [GitHub Issues](https://github.com/kergalli/token-action-hud-dragonbane/issues)
+- **Documentation**: [Complete Changelog](CHANGELOG.md)
+- **Community**: Foundry VTT Discord #dragonbane channel
+
+---
+
+## ⚖️ **License**
+
+This module is provided under the MIT License. This is an unofficial, fan-created module not affiliated with Free League Publishing. Dragonbane™ is a trademark of Free League Publishing.

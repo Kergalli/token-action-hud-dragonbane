@@ -10,7 +10,7 @@
   ],
   "url": "https://github.com/kergalli/token-action-hud-dragonbane",
   "flags": {},
-  "version": "2.4.0",
+  "version": "2.4.1",
   "compatibility": {
     "minimum": "12.331",
     "verified": "13.351"
@@ -59,7 +59,18 @@
     "optional": [
       {
         "id": "dragonbane-status-effects",
+        "type": "module",
         "reason": "Enhanced categorized condition display and status effect management (v13+ required)"
+      },
+      {
+        "id": "dragonbane-action-rules",
+        "type": "module",
+        "reason": "Enhanced action rules and smart YZE Combat integration with automatic utility roll exclusions"
+      },
+      {
+        "id": "yze-combat",
+        "type": "module",
+        "reason": "Single action tracking system with intelligent pattern detection and token-specific action counting"
       }
     ]
   },

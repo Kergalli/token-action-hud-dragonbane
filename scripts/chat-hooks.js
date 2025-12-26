@@ -221,10 +221,9 @@ export function registerChatHooks() {
       `;
 
       await ChatMessage.create({
-        author: game.user.id,
-        speaker: fearTestData.speaker,
+        whisper: ChatMessage.getWhisperRecipients("GM"),
         content: followUpContent,
-        whisper: message.whisper,
+        user: game.user.id,
       });
     }, 4000);
   });
@@ -335,6 +334,21 @@ export function registerChatHooks() {
             return;
           }
 
+          // Set ignore flag for Combat Assistant
+          await game.user.setFlag(
+            "token-action-hud-dragonbane",
+            "ignoreNextRollForActionCounting",
+            true
+          );
+
+          // Clear ignore flag after timeout (safety cleanup)
+          setTimeout(async () => {
+            await game.user.unsetFlag(
+              "token-action-hud-dragonbane",
+              "ignoreNextRollForActionCounting"
+            );
+          }, 3000);
+
           await rollFearEffectTable();
 
           $(button)
@@ -350,6 +364,15 @@ export function registerChatHooks() {
             "Token Action HUD Dragonbane: Error handling fear effect button:",
             error
           );
+
+          // Clear ignore flag on error
+          await game.user
+            .unsetFlag(
+              "token-action-hud-dragonbane",
+              "ignoreNextRollForActionCounting"
+            )
+            .catch(() => {});
+
           const errorMsg =
             game.i18n.localize(
               "tokenActionHud.dragonbane.messages.fearEffect.rollFailed"
