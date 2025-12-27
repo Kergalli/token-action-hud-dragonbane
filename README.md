@@ -108,7 +108,6 @@ https://github.com/kergalli/token-action-hud-dragonbane/releases/latest/download
   - **Death Rolls**: Survival tests with proper tracking
   - **Severe Injury Tests**: CON survival tests
 - **Extensible API**: Other modules can utilize ignore flag system
-- **Preserved Dialogs**: All boons/banes dialogs maintained
 
 ---
 
@@ -270,7 +269,7 @@ await yourCustomRollFunction();
 
 - **Issues**: [GitHub Issues](https://github.com/kergalli/token-action-hud-dragonbane/issues)
 - **Documentation**: [Complete Changelog](CHANGELOG.md)
-- **Community**: Foundry VTT Discord #dragonbane channel
+- **Community**: Dragonbane Community Discord channel
 
 ---
 
