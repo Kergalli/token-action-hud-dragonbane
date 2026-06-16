@@ -132,17 +132,20 @@ export function createActionHandlers(coreModule) {
       // Use sheet method to show boons/banes dialog
       try {
         if (actor.sheet && typeof actor.sheet._onAttributeRoll === "function") {
-          // Create fake event with the attribute key
+          // Dragonbane v4.0.1 migrated _onAttributeRoll to the AppV2 actions
+          // system: the signature is now (event, target) and the handler reads
+          // the attribute from target.dataset.attribute (not event.currentTarget).
+          const target = { dataset: { attribute: attributeKey } };
           const fakeEvent = {
-            currentTarget: {
-              dataset: {
-                attribute: attributeKey,
-              },
-            },
             preventDefault: () => {},
             stopPropagation: () => {},
+            shiftKey: false,
+            ctrlKey: false,
+            currentTarget: target,
+            target,
+            type: "click",
           };
-          return actor.sheet._onAttributeRoll(fakeEvent);
+          return actor.sheet._onAttributeRoll(fakeEvent, target);
         } else {
           // Fallback to game API (no dialog)
           return game.dragonbane.rollAttribute(actor, attributeKey);

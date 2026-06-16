@@ -37,7 +37,7 @@ async function rollSevereInjuryTable() {
     // Try UUID from settings first
     const tableUuid = game.settings.get(
       "token-action-hud-dragonbane",
-      "severeInjuryTableUuid"
+      "severeInjuryTableUuid",
     );
 
     if (tableUuid) {
@@ -45,13 +45,13 @@ async function rollSevereInjuryTable() {
         table = await fromUuid(tableUuid);
         if (!table) {
           console.warn(
-            `Token Action HUD Dragonbane: Severe Injury table UUID "${tableUuid}" not found, falling back to name detection`
+            `Token Action HUD Dragonbane: Severe Injury table UUID "${tableUuid}" not found, falling back to name detection`,
           );
         }
       } catch (error) {
         console.warn(
           `Token Action HUD Dragonbane: Error loading Severe Injury table from UUID "${tableUuid}":`,
-          error
+          error,
         );
       }
     }
@@ -61,14 +61,14 @@ async function rollSevereInjuryTable() {
       table = game.tables.contents.find(
         (tbl) =>
           tbl.name.toLowerCase().includes("severe injury") ||
-          tbl.name.toLowerCase().includes("svår skada")
+          tbl.name.toLowerCase().includes("svår skada"),
       );
     }
 
     if (!table) {
       const message =
         game.i18n.localize(
-          "tokenActionHud.dragonbane.messages.severeInjury.tableNotFound"
+          "tokenActionHud.dragonbane.messages.severeInjury.tableNotFound",
         ) || "Severe Injury roll table not found";
       ui.notifications.warn(message);
       return;
@@ -79,11 +79,11 @@ async function rollSevereInjuryTable() {
   } catch (error) {
     console.error(
       "Token Action HUD Dragonbane: Error rolling severe injury table:",
-      error
+      error,
     );
     const message =
       game.i18n.localize(
-        "tokenActionHud.dragonbane.messages.severeInjury.tableFailed"
+        "tokenActionHud.dragonbane.messages.severeInjury.tableFailed",
       ) || "Failed to roll severe injury table";
     ui.notifications.error(message);
   }
@@ -101,7 +101,7 @@ async function rollFearEffectTable() {
     // Try UUID from settings first
     const tableUuid = game.settings.get(
       "token-action-hud-dragonbane",
-      "fearEffectTableUuid"
+      "fearEffectTableUuid",
     );
 
     if (tableUuid) {
@@ -109,13 +109,13 @@ async function rollFearEffectTable() {
         table = await fromUuid(tableUuid);
         if (!table) {
           console.warn(
-            `Token Action HUD Dragonbane: Fear Effect table UUID "${tableUuid}" not found, falling back to name detection`
+            `Token Action HUD Dragonbane: Fear Effect table UUID "${tableUuid}" not found, falling back to name detection`,
           );
         }
       } catch (error) {
         console.warn(
           `Token Action HUD Dragonbane: Error loading Fear Effect table from UUID "${tableUuid}":`,
-          error
+          error,
         );
       }
     }
@@ -125,14 +125,14 @@ async function rollFearEffectTable() {
       table = game.tables.contents.find(
         (tbl) =>
           tbl.name.toLowerCase().includes("fear") ||
-          tbl.name.toLowerCase().includes("skräck")
+          tbl.name.toLowerCase().includes("skräck"),
       );
     }
 
     if (!table) {
       const message =
         game.i18n.localize(
-          "tokenActionHud.dragonbane.messages.fearEffect.tableNotFound"
+          "tokenActionHud.dragonbane.messages.fearEffect.tableNotFound",
         ) || "Fear effect table not found";
       ui.notifications.warn(message);
       return;
@@ -143,11 +143,11 @@ async function rollFearEffectTable() {
   } catch (error) {
     console.error(
       "Token Action HUD Dragonbane: Error rolling fear effect table:",
-      error
+      error,
     );
     const message =
       game.i18n.localize(
-        "tokenActionHud.dragonbane.messages.fearEffect.tableFailed"
+        "tokenActionHud.dragonbane.messages.fearEffect.tableFailed",
       ) || "Failed to roll fear effect table";
     ui.notifications.error(message);
   }
@@ -167,7 +167,7 @@ export function registerChatHooks() {
     // Check if we're tracking a fear test
     const fearTestData = game.user.getFlag(
       "token-action-hud-dragonbane",
-      "fearTestInProgress"
+      "fearTestInProgress",
     );
 
     if (!fearTestData) return;
@@ -187,7 +187,7 @@ export function registerChatHooks() {
     // Clear flag
     await game.user.unsetFlag(
       "token-action-hud-dragonbane",
-      "fearTestInProgress"
+      "fearTestInProgress",
     );
 
     // Get actor
@@ -201,7 +201,7 @@ export function registerChatHooks() {
           <p style="margin: 0;">
             ${
               game.i18n.localize(
-                "tokenActionHud.dragonbane.messages.fearEffect.instruction"
+                "tokenActionHud.dragonbane.messages.fearEffect.instruction",
               ) ||
               "If the <strong>WIL</strong> roll fails, you must roll on the fear table:"
             }
@@ -213,7 +213,7 @@ export function registerChatHooks() {
                   style="background: #dc3545; color: #fff; border: 1px solid #b5b3a4; padding: 8px 8px; border-radius: 3px; cursor: pointer; margin-top: 8px; height: 32px; width: 100%; text-align: center; display: block;">
             ${
               game.i18n.localize(
-                "tokenActionHud.dragonbane.messages.fearEffect.rollButton"
+                "tokenActionHud.dragonbane.messages.fearEffect.rollButton",
               ) || "Roll Fear Effect"
             }
           </button>
@@ -232,8 +232,13 @@ export function registerChatHooks() {
    * Hook 2: Handle button clicks
    */
   Hooks.on("renderChatMessage", (message, html, data) => {
+    // Foundry v14 may pass `html` as a native HTMLElement rather than a jQuery
+    // object (and renderChatMessageHTML supersedes this hook). Normalize so the
+    // jQuery .find() calls below keep working under both v13 and v14.
+    const $html = html instanceof jQuery ? html : $(html);
+
     // Handle severe injury button clicks
-    const severeInjuryBtn = html.find(".severe-injury-roll-btn");
+    const severeInjuryBtn = $html.find(".severe-injury-roll-btn");
     if (severeInjuryBtn.length > 0) {
       severeInjuryBtn.on("click", async (event) => {
         event.preventDefault();
@@ -255,7 +260,7 @@ export function registerChatHooks() {
           if (!actor) {
             const errorMsg =
               game.i18n.localize(
-                "tokenActionHud.dragonbane.messages.severeInjury.actorNotFound"
+                "tokenActionHud.dragonbane.messages.severeInjury.actorNotFound",
               ) || "Actor not found";
             ui.notifications.warn(errorMsg);
             return;
@@ -265,7 +270,7 @@ export function registerChatHooks() {
           if (!canClick) {
             const errorMsg =
               game.i18n.localize(
-                "tokenActionHud.dragonbane.messages.severeInjury.noPermission"
+                "tokenActionHud.dragonbane.messages.severeInjury.noPermission",
               ) || "You do not have permission to roll for this character";
             ui.notifications.warn(errorMsg);
             return;
@@ -276,19 +281,19 @@ export function registerChatHooks() {
           $(button)
             .text(
               game.i18n.localize(
-                "tokenActionHud.dragonbane.messages.severeInjury.rolled"
-              ) || "Severe Injury Rolled"
+                "tokenActionHud.dragonbane.messages.severeInjury.rolled",
+              ) || "Severe Injury Rolled",
             )
             .prop("disabled", true)
             .css("opacity", "0.6");
         } catch (error) {
           console.error(
             "Token Action HUD Dragonbane: Error handling severe injury button:",
-            error
+            error,
           );
           const errorMsg =
             game.i18n.localize(
-              "tokenActionHud.dragonbane.messages.severeInjury.rollFailed"
+              "tokenActionHud.dragonbane.messages.severeInjury.rollFailed",
             ) || "Failed to roll severe injury";
           ui.notifications.error(errorMsg);
         }
@@ -296,7 +301,7 @@ export function registerChatHooks() {
     }
 
     // Handle fear effect button clicks
-    const fearEffectBtn = html.find(".fear-effect-roll-btn");
+    const fearEffectBtn = $html.find(".fear-effect-roll-btn");
     if (fearEffectBtn.length > 0) {
       fearEffectBtn.on("click", async (event) => {
         event.preventDefault();
@@ -318,7 +323,7 @@ export function registerChatHooks() {
           if (!actor) {
             const errorMsg =
               game.i18n.localize(
-                "tokenActionHud.dragonbane.messages.fearEffect.actorNotFound"
+                "tokenActionHud.dragonbane.messages.fearEffect.actorNotFound",
               ) || "Actor not found";
             ui.notifications.warn(errorMsg);
             return;
@@ -328,7 +333,7 @@ export function registerChatHooks() {
           if (!canClick) {
             const errorMsg =
               game.i18n.localize(
-                "tokenActionHud.dragonbane.messages.fearEffect.noPermission"
+                "tokenActionHud.dragonbane.messages.fearEffect.noPermission",
               ) || "You do not have permission to roll for this character";
             ui.notifications.warn(errorMsg);
             return;
@@ -338,14 +343,14 @@ export function registerChatHooks() {
           await game.user.setFlag(
             "token-action-hud-dragonbane",
             "ignoreNextRollForActionCounting",
-            true
+            true,
           );
 
           // Clear ignore flag after timeout (safety cleanup)
           setTimeout(async () => {
             await game.user.unsetFlag(
               "token-action-hud-dragonbane",
-              "ignoreNextRollForActionCounting"
+              "ignoreNextRollForActionCounting",
             );
           }, 3000);
 
@@ -354,28 +359,28 @@ export function registerChatHooks() {
           $(button)
             .text(
               game.i18n.localize(
-                "tokenActionHud.dragonbane.messages.fearEffect.rolled"
-              ) || "Fear Effect Rolled"
+                "tokenActionHud.dragonbane.messages.fearEffect.rolled",
+              ) || "Fear Effect Rolled",
             )
             .prop("disabled", true)
             .css("opacity", "0.6");
         } catch (error) {
           console.error(
             "Token Action HUD Dragonbane: Error handling fear effect button:",
-            error
+            error,
           );
 
           // Clear ignore flag on error
           await game.user
             .unsetFlag(
               "token-action-hud-dragonbane",
-              "ignoreNextRollForActionCounting"
+              "ignoreNextRollForActionCounting",
             )
             .catch(() => {});
 
           const errorMsg =
             game.i18n.localize(
-              "tokenActionHud.dragonbane.messages.fearEffect.rollFailed"
+              "tokenActionHud.dragonbane.messages.fearEffect.rollFailed",
             ) || "Failed to roll fear effect";
           ui.notifications.error(errorMsg);
         }

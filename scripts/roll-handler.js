@@ -58,7 +58,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         if (!item) {
           console.warn(
             "Token Action HUD Dragonbane: Item not found:",
-            actionId
+            actionId,
           );
           return;
         }
@@ -71,7 +71,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
                 const message =
                   game.i18n.format(
                     "tokenActionHud.dragonbane.messages.weapons.weaponBroken",
-                    { weapon: item.name }
+                    { weapon: item.name },
                   ) || `${item.name} is broken and cannot be used!`;
                 ui.notifications.warn(message);
                 return;
@@ -107,7 +107,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         } catch (error) {
           console.warn(
             "Token Action HUD Dragonbane: Action failed, opening sheet:",
-            error
+            error,
           );
           return item.sheet?.render(true);
         }
@@ -116,7 +116,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       // All other actions are handled by onClick in ActionHandler
       // This is just a fallback in case encodedValue is used instead of onClick
       console.warn(
-        `Token Action HUD Dragonbane: Fallback handler called for ${actionTypeId}:${actionId} - consider using onClick instead`
+        `Token Action HUD Dragonbane: Fallback handler called for ${actionTypeId}:${actionId} - consider using onClick instead`,
       );
     }
 
@@ -213,7 +213,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           } catch (error) {
             console.warn(
               `Token Action HUD: Auto-targeting failed for ${item.name}:`,
-              error
+              error,
             );
           }
         }
@@ -241,7 +241,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
                 <i class="fa-solid fa-circle-info"></i>
                 <div class="expandable" style="text-align: left; margin-left: 0.5em">
                     <b>${game.i18n.localize(
-                      "DoD.ui.character-sheet.wp"
+                      "DoD.ui.character-sheet.wp",
                     )}:</b> ${oldWP} <i class="fa-solid fa-arrow-right"></i> ${newWP}<br>
                 </div>
             </div>`;
@@ -267,7 +267,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       } catch (error) {
         console.error(
           "Token Action HUD Dragonbane: Error casting magic trick",
-          error
+          error,
         );
         ui.notifications.error("Failed to cast magic trick");
       }
@@ -418,7 +418,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
               // Only apply action status if roll was completed successfully
               if (rollResult !== false) {
                 const actionEffect = CONFIG.statusEffects.find(
-                  (e) => e.id === "action1"
+                  (e) => e.id === "action1",
                 );
 
                 if (
@@ -459,18 +459,18 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
      */
     async callSkillAction(actor, skillKey) {
       const localizedSkillName = game.i18n.localize(
-        `tokenActionHud.dragonbane.skillNames.${skillKey}`
+        `tokenActionHud.dragonbane.skillNames.${skillKey}`,
       );
 
       const skill = actor.system.coreSkills.find(
-        (s) => s.name === localizedSkillName
+        (s) => s.name === localizedSkillName,
       );
 
       if (skill) {
         return game.dragonbane.rollItem(skill.name, "skill");
       } else {
         ui.notifications.warn(
-          `${localizedSkillName} skill not found on ${actor.name}`
+          `${localizedSkillName} skill not found on ${actor.name}`,
         );
       }
     }
@@ -481,13 +481,20 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
     async callAttributeAction(actor, attributeKey) {
       try {
         if (actor.sheet && typeof actor.sheet._onAttributeRoll === "function") {
+          // Dragonbane v4.0.1 migrated _onAttributeRoll to the AppV2 actions
+          // system: the signature is now (event, target) and the handler reads
+          // the attribute from target.dataset.attribute (not event.currentTarget).
+          const target = { dataset: { attribute: attributeKey } };
           const fakeEvent = {
-            currentTarget: {
-              dataset: { attribute: attributeKey },
-            },
             preventDefault: () => {},
+            stopPropagation: () => {},
+            shiftKey: false,
+            ctrlKey: false,
+            currentTarget: target,
+            target,
+            type: "click",
           };
-          return actor.sheet._onAttributeRoll(fakeEvent);
+          return actor.sheet._onAttributeRoll(fakeEvent, target);
         } else {
           // Fallback to game API (no dialog)
           return game.dragonbane.rollAttribute(actor, attributeKey);
@@ -495,10 +502,10 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       } catch (error) {
         console.error(
           "Token Action HUD Dragonbane: Attribute roll failed:",
-          error
+          error,
         );
         ui.notifications.error(
-          `Could not perform ${attributeKey.toUpperCase()} attribute roll`
+          `Could not perform ${attributeKey.toUpperCase()} attribute roll`,
         );
       }
     }
@@ -511,30 +518,37 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       await game.user.setFlag(
         "token-action-hud-dragonbane",
         "ignoreNextRollForActionCounting",
-        true
+        true,
       );
 
       // Clear ignore flag after timeout (safety cleanup)
       setTimeout(async () => {
         await game.user.unsetFlag(
           "token-action-hud-dragonbane",
-          "ignoreNextRollForActionCounting"
+          "ignoreNextRollForActionCounting",
         );
       }, 3000);
 
       try {
         if (actor.sheet && typeof actor.sheet._onDeathRoll === "function") {
+          // Dragonbane v4.0.1 migrated _onDeathRoll to the AppV2 actions system:
+          // the signature is now (event, target). The handler reads
+          // event.shiftKey / event.ctrlKey and calls target?.blur(), so pass a
+          // well-formed event plus a target exposing a no-op blur().
+          const target = { blur: () => {} };
           const fakeEvent = {
             preventDefault: () => {},
             stopPropagation: () => {},
-            currentTarget: null,
-            target: null,
+            shiftKey: false,
+            ctrlKey: false,
+            currentTarget: target,
+            target,
             type: "click",
           };
-          return actor.sheet._onDeathRoll(fakeEvent);
+          return actor.sheet._onDeathRoll(fakeEvent, target);
         } else {
           ui.notifications.error(
-            "Could not perform death roll - method not available"
+            "Could not perform death roll - method not available",
           );
         }
       } catch (error) {
@@ -542,7 +556,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         await game.user
           .unsetFlag(
             "token-action-hud-dragonbane",
-            "ignoreNextRollForActionCounting"
+            "ignoreNextRollForActionCounting",
           )
           .catch(() => {});
 
@@ -563,7 +577,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         title.includes("tokenActionHud.dragonbane.journeyActionRules")
       ) {
         ui.notifications.warn(
-          `Rules not found for journey action: ${actionId}`
+          `Rules not found for journey action: ${actionId}`,
         );
         return;
       }

@@ -1,6 +1,6 @@
 # Token Action HUD Dragonbane
 
-![Foundry Version](https://img.shields.io/badge/foundry-v12%20to%20v13-green) ![GitHub release](https://img.shields.io/github/v/release/kergalli/token-action-hud-dragonbane) ![Token Action HUD Core](https://img.shields.io/badge/TAH%20Core-v2.0.0%2B-blue)
+![Foundry Version](https://img.shields.io/badge/foundry-v14-green) ![GitHub release](https://img.shields.io/github/v/release/kergalli/token-action-hud-dragonbane) ![Token Action HUD Core](https://img.shields.io/badge/TAH%20Core-v2.1.1%2B-blue)
 
 **Token Action HUD Dragonbane** provides a repositionable HUD of stats and actions specifically designed for the Dragonbane RPG system by Free League Publishing.
 
@@ -72,7 +72,7 @@ https://github.com/kergalli/token-action-hud-dragonbane/releases/latest/download
 
 ### 🏥 **Health & Condition Management**
 
-- **Dragonbane Status Effects Integration**: Full compatibility with DSE module (v13+)
+- **Dragonbane Status Effects Integration**: Full compatibility with DSE module
   - **Categorized Conditions**: Organized into DSE-defined categories
   - **Respects DSE Settings**: Hidden categories automatically excluded
 - **Active State Indicators**: Active conditions highlighted with red styling
@@ -103,7 +103,7 @@ https://github.com/kergalli/token-action-hud-dragonbane/releases/latest/download
 - **Live Updates**: Immediate application of styling changes
 - **Per-Client Settings**: Individual user customization
 
-### 🤖 **YZE Combat Integration** ⭐ **NEW v2.4.1**
+### 🤖 **YZE Combat Integration**
 
 - **Smart Action Detection**: Seamless integration with Dragonbane Combat Assistant
 - **Automatic Exclusions**: Utility rolls correctly excluded from action counting
@@ -182,8 +182,8 @@ The HUD organizes into collapsible, repositionable sections:
 
 | Module                                                                             | Version | Purpose             |
 | ---------------------------------------------------------------------------------- | ------- | ------------------- |
-| **[Token Action HUD Core](https://foundryvtt.com/packages/token-action-hud-core)** | v2.0.0+ | Essential framework |
-| **[Dragonbane System](https://foundryvtt.com/packages/dragonbane)**                | v2.0+   | Official system     |
+| **[Token Action HUD Core](https://foundryvtt.com/packages/token-action-hud-core)** | v2.1.1+ | Essential framework |
+| **[Dragonbane System](https://foundryvtt.com/packages/dragonbane)**                | v4.x+   | Official system     |
 
 ### **Recommended Integrations**
 
@@ -191,7 +191,7 @@ The HUD organizes into collapsible, repositionable sections:
 | ------------------------------------------------------------------------------------------ | ----------- | -------------------------------------------- |
 | **[Dragonbane Combat Assistant](https://foundryvtt.com/packages/dragonbane-action-rules)** | Automatic   | Enhanced action rules, smart action counting |
 | **[YZE Combat](https://foundryvtt.com/packages/yze-combat)**                               | Automatic   | Single action tracking system                |
-| **[Dragonbane Status Effects](https://foundryvtt.com/packages/dragonbane-status-effects)** | Automatic   | Enhanced condition categorization (v13+)     |
+| **[Dragonbane Status Effects](https://foundryvtt.com/packages/dragonbane-status-effects)** | Automatic   | Enhanced condition categorization            |
 
 ### **🆕 Automatic Action Exclusions**
 
@@ -204,21 +204,25 @@ When using **Dragonbane Combat Assistant v2.2.3+**, these utility rolls are **au
 
 ### **Foundry Compatibility**
 
-- **Foundry VTT**: v12.331+ (v13.345+ recommended for full features)
-- **Optimized for**: v13+ with enhanced condition categorization
+- **Foundry VTT**: v14 only (v14.364+ verified)
+- **Dragonbane System**: v4.x only (v4.0.1 verified)
+- **Note**: For Foundry v13 / Dragonbane v3.x, use module version **2.5.0** — the last release supporting that line.
 
 ---
 
 ## 📝 **Recent Updates**
 
-### **v2.5.0 - Dragonbane v3.1.5 Compatibility** ⭐
+### **v2.6.0 - Foundry v14 / Dragonbane v4 Compatibility** ⭐
 
-- **Rest Dialogs**: Stretch Rest and Shift Rest now open the system's rest dialogs from the HUD, with full Interrupt support and respect for the system's dialog behaviour setting
-- **Monster Attack Names**: Fixed attack name resolution to match the system's v3.1.0 priority order (`result.name` → bold tag → fallback)
-- **Verified**: Confirmed compatible with Dragonbane system v3.1.5
+- **Clean cut to Foundry v14**: Now v14-only (`14.364` verified). For v13 / Dragonbane v3.x, stay on v2.5.0.
+- **Dragonbane v4.0.1**: Requires the v4.x system; verified against `4.0.1`.
+- **Token Action HUD Core 2.1.1**: Required Core module version bumped accordingly.
+- **Attribute & Death rolls**: Updated the HUD's calls into the character sheet to match Dragonbane v4.0.1's new ApplicationV2 `(event, target)` handler signature, restoring boons/banes dialogs and death-roll tracking from the HUD.
+- **Chat buttons**: Hardened the chat-message render hook for Foundry v14's native-element form, keeping Fear Effect and Severe Injury roll buttons working.
 
 ### **Previous Major Updates**
 
+- **v2.5.0**: Rest dialog support from the HUD (Stretch/Shift with Interrupt), monster attack name resolution matching the system's v3.1.0 priority order; verified against Dragonbane v3.1.5
 - **v2.4.1**: Auto exclusion of certain test for YZE Engine action tracking, preserved dialogs, ignore flag system, more integration with Dragonbane Combat Assistant
 - **v2.4.0**: Rally Self visibility improvements, Death Roll enhancements, Light Test dialog upgrades
 - **v2.3.3**: Right-click rules summaries, intelligent torch placement

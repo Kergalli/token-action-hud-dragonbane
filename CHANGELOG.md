@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.6.0] - 2026-06-15
+
+### ⚙️ Foundry v14 / Dragonbane v4 Compatibility
+
+This release is a clean cut to **Foundry VTT v14** and the **Dragonbane v4.x** system. It is **not compatible with Foundry v13 or Dragonbane v3.x** — stay on v2.5.0 for those.
+
+- **Foundry VTT v14**: Compatibility band moved to v14-only (`minimum`/`verified`/`maximum` = 14 / 14.364 / 14).
+- **Dragonbane v4.0.1**: System relationship now requires `>= 4.0.0`, verified against `4.0.1`.
+- **Token Action HUD Core 2.1.1**: Required Core module version bumped to `2.1` (tracked as major `2`).
+
+### 🐛 Fixes
+
+- **Attribute rolls**: Updated the HUD's call into the character sheet's attribute-roll handler to match Dragonbane v4.0.1's new ApplicationV2 `(event, target)` signature, so boons/banes dialogs work again from the HUD.
+- **Death rolls**: Updated the HUD's call into the character sheet's death-roll handler for the same v4.0.1 signature change.
+- **Chat buttons**: Hardened the chat-message render hook to accept Foundry v14's native-element form, keeping the Fear Effect and Severe Injury roll buttons working.
+
+--
+
 ## [2.5.0] - 2025-04-04
 
 ### ✨ New Features
