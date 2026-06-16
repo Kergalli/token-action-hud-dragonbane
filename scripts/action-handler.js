@@ -45,7 +45,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           "Round Rest",
         tooltip:
           coreModule.api.Utils.i18n(
-            "tokenActionHud.dragonbane.tooltips.roundRest"
+            "tokenActionHud.dragonbane.tooltips.roundRest",
           ) || "Restores 1D6 WP",
         img: "systems/dragonbane/art/icons/rest-round.webp",
         disabled: !canRestRound,
@@ -71,7 +71,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           "Stretch Rest",
         tooltip:
           coreModule.api.Utils.i18n(
-            "tokenActionHud.dragonbane.tooltips.stretchRest"
+            "tokenActionHud.dragonbane.tooltips.stretchRest",
           ) ||
           "Restores 1D6 HP (2D6 with Healing), 1D6 WP, and removes 1 condition",
         img: "systems/dragonbane/art/icons/rest-stretch.webp",
@@ -98,7 +98,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           "Shift Rest",
         tooltip:
           coreModule.api.Utils.i18n(
-            "tokenActionHud.dragonbane.tooltips.shiftRest"
+            "tokenActionHud.dragonbane.tooltips.shiftRest",
           ) || "Restores all HP, all WP, and removes all conditions",
         img: "systems/dragonbane/art/icons/rest-shift.webp",
         disabled: !canRestShift,
@@ -124,7 +124,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           "Pass One Shift of Time",
         tooltip:
           coreModule.api.Utils.i18n(
-            "tokenActionHud.dragonbane.tooltips.passOneShift"
+            "tokenActionHud.dragonbane.tooltips.passOneShift",
           ) ||
           "Advances time without resting, making rest actions available again",
         img: "systems/dragonbane/art/icons/hourglass.webp",
@@ -150,10 +150,10 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         actions.push({
           id: "lightTest",
           name: coreModule.api.Utils.i18n(
-            "tokenActionHud.dragonbane.lightTest"
+            "tokenActionHud.dragonbane.lightTest",
           ),
           listName: coreModule.api.Utils.i18n(
-            "tokenActionHud.dragonbane.lightTest"
+            "tokenActionHud.dragonbane.lightTest",
           ),
           img: "icons/svg/light.svg",
           encodedValue: ["lightTest", "lightTest"].join(this.delimiter),
@@ -249,7 +249,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           const action = this._createConditionAction(
             effect,
             isActive,
-            attributeKey
+            attributeKey,
           );
 
           // Simple categorization: only attribute vs regular
@@ -312,7 +312,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           const action = this._createConditionAction(
             effect,
             isActive,
-            attributeKey
+            attributeKey,
           );
 
           // Enhanced categorization
@@ -397,7 +397,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       this.showUnequippedItems = Utils.getSetting("showUnequippedItems");
       this.showAllSpells = Utils.getSetting("showAllSpells");
       this.showEquippedWeaponsOnly = Utils.getSetting(
-        "showEquippedWeaponsOnly"
+        "showEquippedWeaponsOnly",
       );
       this.showAttributes = Utils.getSetting("showAttributes");
       this.showInjuries = Utils.getSetting("showInjuries");
@@ -459,7 +459,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           actionHandlers.handleSevereInjuryAction.bind(this),
         handleCombatSkillAction:
           actionHandlers.handleCombatSkillAction.bind(this),
-        handleDeathRollAction: actionHandlers.handleDeathRollAction.bind(this),
         handleMonsterAttack: actionHandlers.handleMonsterAttack.bind(this),
         handleMonsterDefend: actionHandlers.handleMonsterDefend.bind(this),
         handleMonsterWeaponDamage:
@@ -573,7 +572,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
       nameFormatter,
       filterCallback,
       handlerName,
-      groupId
+      groupId,
     ) {
       if (this.items.size === 0) return;
 
@@ -594,7 +593,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           name,
           itemData,
           actionTypeId,
-          handlerName
+          handlerName,
         );
       });
 

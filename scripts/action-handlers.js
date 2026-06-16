@@ -682,21 +682,6 @@ export function createActionHandlers(coreModule) {
       }
     },
 
-    handleDeathRollAction: async function (event) {
-      const actor = this.actor;
-
-      // Delegate to the sheet's death roll method (handles roll AND updates)
-      try {
-        return await game.dragonbane.rollAttribute(actor, "con", {
-          canPush: false,
-          flavor: "DoD.roll.deathRoll",
-        });
-      } catch (error) {
-        console.error("Token Action HUD Dragonbane: Death roll failed:", error);
-        ui.notifications.error("Could not perform death roll");
-      }
-    },
-
     /**
      * Handle monster attack action
      * @param {object} event The event

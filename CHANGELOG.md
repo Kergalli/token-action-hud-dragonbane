@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.6.0] - 2026-06-15
+## [2.6.0] - 2026-06-16
 
 ### ⚙️ Foundry v14 / Dragonbane v4 Compatibility
 
@@ -16,7 +16,11 @@ This release is a clean cut to **Foundry VTT v14** and the **Dragonbane v4.x** s
 - **Death rolls**: Updated the HUD's call into the character sheet's death-roll handler for the same v4.0.1 signature change.
 - **Chat buttons**: Hardened the chat-message render hook to accept Foundry v14's native-element form, keeping the Fear Effect and Severe Injury roll buttons working.
 
---
+### 🧹 Maintenance
+
+- **Removed unreachable death-roll path**: Deleted the unused `handleDeathRollAction` handler, which performed an untracked CON roll and was never reached at runtime (the Death Roll button routes through the tracked sheet path that updates success/failure counters and respects the action-counting ignore flag). Removing it prevents a future refactor from accidentally wiring up the untracked path. No user-facing change.
+
+---
 
 ## [2.5.0] - 2025-04-04
 

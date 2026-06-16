@@ -58,7 +58,7 @@ export function createActionBuilders(coreModule) {
           getName: () => {
             const movement = this.actor.system.movement.value;
             const moveLabel = game.i18n.localize(
-              "DoD.ui.character-sheet.movement"
+              "DoD.ui.character-sheet.movement",
             );
             return `${moveLabel}: ${movement}`;
           },
@@ -75,7 +75,7 @@ export function createActionBuilders(coreModule) {
             const maxEnc = this.actor.system.maxEncumbrance?.value || 0;
             const encLabel =
               game.i18n.localize(
-                "tokenActionHud.dragonbane.actions.stats.encumbrance"
+                "tokenActionHud.dragonbane.actions.stats.encumbrance",
               ) || "Enc";
             return `${encLabel}: ${currentEnc}/${maxEnc}`;
           },
@@ -98,7 +98,7 @@ export function createActionBuilders(coreModule) {
               this.actor.system.ferocity ||
               0;
             const ferocityLabel = game.i18n.localize(
-              "DoD.ui.character-sheet.ferocity"
+              "DoD.ui.character-sheet.ferocity",
             );
             return `${ferocityLabel}: ${ferocity}`;
           },
@@ -121,8 +121,8 @@ export function createActionBuilders(coreModule) {
               config.img,
               "stats",
               "handleStatsAction",
-              extraProps
-            )
+              extraProps,
+            ),
           );
         }
       }
@@ -208,7 +208,7 @@ export function createActionBuilders(coreModule) {
             name =
               game.i18n.format(
                 "tokenActionHud.dragonbane.actions.weapon.equipped",
-                { name }
+                { name },
               ) || `⚔ ${name}`;
           }
         }
@@ -234,7 +234,7 @@ export function createActionBuilders(coreModule) {
           itemData,
           "weapon",
           "handleWeaponAction",
-          extraProps
+          extraProps,
         );
       });
 
@@ -286,7 +286,7 @@ export function createActionBuilders(coreModule) {
             name =
               game.i18n.format(
                 "tokenActionHud.dragonbane.actions.spell.prepared",
-                { name }
+                { name },
               ) || `⚡ ${name}`;
           }
         }
@@ -311,7 +311,7 @@ export function createActionBuilders(coreModule) {
             name,
             itemData,
             "spell",
-            "handleSpellAction"
+            "handleSpellAction",
           );
         });
 
@@ -354,7 +354,7 @@ export function createActionBuilders(coreModule) {
           displayName,
           firstInstance.itemData,
           "ability",
-          "handleAbilityAction"
+          "handleAbilityAction",
         );
 
         actions.push(action);
@@ -379,7 +379,7 @@ export function createActionBuilders(coreModule) {
         this.buildSkillCategory(
           this.actor.system.coreSkills,
           "coreSkills",
-          actionTypeId
+          actionTypeId,
         );
       }
 
@@ -388,7 +388,7 @@ export function createActionBuilders(coreModule) {
         this.buildSkillCategory(
           this.actor.system.weaponSkills,
           "weaponSkills",
-          actionTypeId
+          actionTypeId,
         );
       }
 
@@ -400,7 +400,7 @@ export function createActionBuilders(coreModule) {
         this.buildSkillCategory(
           this.actor.system.secondarySkills,
           "secondarySkills",
-          actionTypeId
+          actionTypeId,
         );
       }
     },
@@ -452,7 +452,7 @@ export function createActionBuilders(coreModule) {
           img: "icons/svg/dice-target.svg",
           handler: "handleAttributeAction",
           handlerArgs: [attrKey],
-        })
+        }),
       );
 
       const actions = attributeConfigs.map((config) => {
@@ -461,7 +461,7 @@ export function createActionBuilders(coreModule) {
           config.name(),
           config.img,
           "attribute",
-          config.handler
+          config.handler,
         );
 
         // Override onClick to pass attribute key
@@ -489,7 +489,7 @@ export function createActionBuilders(coreModule) {
         const items = this._collectItemsWithEquipmentFilter(
           type,
           this.showUnequippedItems,
-          false
+          false,
         );
         if (items.size > 0) {
           inventoryMap.set(type, items);
@@ -508,7 +508,7 @@ export function createActionBuilders(coreModule) {
               name,
               itemData,
               "weapon", // Keep as weapon for proper right-click/left-click handling
-              "handleWeaponAction"
+              "handleWeaponAction",
             );
             unequippedTorches.push(action);
           }
@@ -534,7 +534,7 @@ export function createActionBuilders(coreModule) {
             displayName,
             itemData,
             "item",
-            "handleItemAction"
+            "handleItemAction",
           );
         });
 
@@ -588,7 +588,7 @@ export function createActionBuilders(coreModule) {
           config.name(),
           config.img,
           "currency",
-          "handleCurrencyAction"
+          "handleCurrencyAction",
         );
 
         // Override onClick to pass currency type
@@ -617,7 +617,7 @@ export function createActionBuilders(coreModule) {
           itemData.name,
           itemData,
           "item",
-          "handleConditionAction"
+          "handleConditionAction",
         );
       });
 
@@ -636,12 +636,12 @@ export function createActionBuilders(coreModule) {
 
         // Get the localized skill name from the key
         const localizedSkillName = game.i18n.localize(
-          `tokenActionHud.dragonbane.skillNames.${skillKey}`
+          `tokenActionHud.dragonbane.skillNames.${skillKey}`,
         );
 
         // Find the skill using the localized name
         const skill = this.actor.system.coreSkills.find(
-          (s) => s.name === localizedSkillName
+          (s) => s.name === localizedSkillName,
         );
         return skill?.system?.value || skill?.value || 0;
       };
@@ -658,7 +658,7 @@ export function createActionBuilders(coreModule) {
             this.actorType === "character" || this.actorType === "npc",
           name: () => {
             const baseName = coreModule.api.Utils.i18n(
-              "tokenActionHud.dragonbane.dodge"
+              "tokenActionHud.dragonbane.dodge",
             );
             const skillValue = getSkillValueByName("evade");
             return `${baseName} (${skillValue})`;
@@ -674,7 +674,7 @@ export function createActionBuilders(coreModule) {
             this.actorType === "character" || this.actorType === "npc",
           name: () => {
             const baseName = coreModule.api.Utils.i18n(
-              "tokenActionHud.dragonbane.firstAid"
+              "tokenActionHud.dragonbane.firstAid",
             );
             const skillValue = getSkillValueByName("healing");
             return `${baseName} (${skillValue})`;
@@ -690,7 +690,7 @@ export function createActionBuilders(coreModule) {
             this.actorType === "character" || this.actorType === "npc",
           name: () => {
             const baseName = coreModule.api.Utils.i18n(
-              "tokenActionHud.dragonbane.rallyOther"
+              "tokenActionHud.dragonbane.rallyOther",
             );
             const skillValue = getSkillValueByName("persuasion");
             return `${baseName} (${skillValue})`;
@@ -710,7 +710,7 @@ export function createActionBuilders(coreModule) {
           },
           name: () => {
             const baseName = coreModule.api.Utils.i18n(
-              "tokenActionHud.dragonbane.rallySelf"
+              "tokenActionHud.dragonbane.rallySelf",
             );
             const attributeValue = getAttributeValue("wil"); // This should use getAttributeValue, not getSkillValueByName
             return `${baseName} (${attributeValue})`;
@@ -730,12 +730,12 @@ export function createActionBuilders(coreModule) {
             config.name(),
             config.img,
             config.actionType,
-            config.handler
+            config.handler,
           );
 
           // Use encodedValue instead of onClick for combat actions
           action.encodedValue = [config.actionType, config.id].join(
-            this.delimiter
+            this.delimiter,
           );
 
           // Remove the onClick handler completely - let it route to RollHandler
@@ -755,7 +755,7 @@ export function createActionBuilders(coreModule) {
 
         // Build the full name with CON value and death roll progress
         const fullDeathRollName = `${coreModule.api.Utils.i18n(
-          "tokenActionHud.dragonbane.deathRoll"
+          "tokenActionHud.dragonbane.deathRoll",
         )} (${conValue}) [${deathRolls.successes}/${deathRolls.failures}]`;
 
         const deathRollAction = this._createSimpleAction(
@@ -763,7 +763,7 @@ export function createActionBuilders(coreModule) {
           fullDeathRollName, // Use the full name here instead of just CON
           "icons/svg/skull.svg",
           "combatAction",
-          "handleDeathRollAction"
+          null,
         );
 
         // The name is already set correctly, no need to override listName
@@ -786,7 +786,7 @@ export function createActionBuilders(coreModule) {
         if (!this.actor?.system?.coreSkills) return 0;
         const localizedSkillName = Utils.getLocalizedSkillName(skillKey);
         const skill = this.actor.system.coreSkills.find(
-          (s) => s.name === localizedSkillName
+          (s) => s.name === localizedSkillName,
         );
         return skill?.system?.value || skill?.value || 0;
       };
@@ -799,7 +799,7 @@ export function createActionBuilders(coreModule) {
             this.actorType === "character" || this.actorType === "npc",
           name: () => {
             const baseName = coreModule.api.Utils.i18n(
-              "tokenActionHud.dragonbane.pathfinder"
+              "tokenActionHud.dragonbane.pathfinder",
             );
             const skillValue = getSkillValueByName("bushcraft");
             return `${baseName} (${skillValue})`;
@@ -815,7 +815,7 @@ export function createActionBuilders(coreModule) {
             this.actorType === "character" || this.actorType === "npc",
           name: () => {
             const baseName = coreModule.api.Utils.i18n(
-              "tokenActionHud.dragonbane.makeCamp"
+              "tokenActionHud.dragonbane.makeCamp",
             );
             const skillValue = getSkillValueByName("bushcraft");
             return `${baseName} (${skillValue})`;
@@ -831,7 +831,7 @@ export function createActionBuilders(coreModule) {
             this.actorType === "character" || this.actorType === "npc",
           name: () => {
             const baseName = coreModule.api.Utils.i18n(
-              "tokenActionHud.dragonbane.hunt"
+              "tokenActionHud.dragonbane.hunt",
             );
             const skillValue = getSkillValueByName("huntingfishing");
             return `${baseName} (${skillValue})`;
@@ -847,7 +847,7 @@ export function createActionBuilders(coreModule) {
             this.actorType === "character" || this.actorType === "npc",
           name: () => {
             const baseName = coreModule.api.Utils.i18n(
-              "tokenActionHud.dragonbane.fish"
+              "tokenActionHud.dragonbane.fish",
             );
             const skillValue = getSkillValueByName("huntingfishing");
             return `${baseName} (${skillValue})`;
@@ -863,7 +863,7 @@ export function createActionBuilders(coreModule) {
             this.actorType === "character" || this.actorType === "npc",
           name: () => {
             const baseName = coreModule.api.Utils.i18n(
-              "tokenActionHud.dragonbane.forage"
+              "tokenActionHud.dragonbane.forage",
             );
             const skillValue = getSkillValueByName("bushcraft");
             return `${baseName} (${skillValue})`;
@@ -879,7 +879,7 @@ export function createActionBuilders(coreModule) {
             this.actorType === "character" || this.actorType === "npc",
           name: () => {
             const baseName = coreModule.api.Utils.i18n(
-              "tokenActionHud.dragonbane.cook"
+              "tokenActionHud.dragonbane.cook",
             );
             const skillValue = getSkillValueByName("bushcraft");
             return `${baseName} (${skillValue})`;
@@ -899,12 +899,12 @@ export function createActionBuilders(coreModule) {
             config.name(),
             config.img,
             config.actionType,
-            config.handler
+            config.handler,
           );
 
           // Use encodedValue instead of onClick for journey actions
           action.encodedValue = [config.actionType, config.id].join(
-            this.delimiter
+            this.delimiter,
           );
 
           actions.push(action);
@@ -989,7 +989,7 @@ export function createActionBuilders(coreModule) {
       } catch (error) {
         console.warn(
           "Token Action HUD Dragonbane: Error building monster attacks:",
-          error
+          error,
         );
       }
     },
@@ -1039,10 +1039,10 @@ export function createActionBuilders(coreModule) {
         {
           id: "monsterDefend",
           name: game.i18n.localize(
-            "DoD.ui.character-sheet.monsterDefendTooltip"
+            "DoD.ui.character-sheet.monsterDefendTooltip",
           ),
           listName: game.i18n.localize(
-            "DoD.ui.character-sheet.monsterDefendTooltip"
+            "DoD.ui.character-sheet.monsterDefendTooltip",
           ),
           img: "systems/dragonbane/art/icons/monster-defend.webp",
           onClick: async (event) => {
