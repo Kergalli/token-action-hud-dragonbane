@@ -256,7 +256,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
           author: game.user.id,
           speaker: ChatMessage.getSpeaker({ actor: actor }),
           content: content,
-          type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         });
 
         return content;

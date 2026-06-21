@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.6.1] - 2026-06-20
+
+### 🐛 Fixes
+
+- **Magic Tricks**: Fixed Magic Tricks (rank 0 / general school spells) not casting from the HUD. The confirmation dialog was using a legacy dialog API that Foundry v14 no longer supports; it now uses the current dialog API, matching the character sheet. Regular spells were unaffected.
+- **Stat chat messages**: Fixed the HP, WP, Movement, and Encumbrance buttons under the Stats menu, which stopped reporting their values to chat. These referenced a chat-message constant that was removed in Foundry v14.
+
+---
+
 ## [2.6.0] - 2026-06-16
 
 ### ⚙️ Foundry v14 / Dragonbane v4 Compatibility

@@ -151,26 +151,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
         spell: item.name,
       });
 
-      const use = await new Promise((resolve) => {
-        const data = {
-          title: title,
-          content: content,
-          buttons: {
-            ok: {
-              icon: '<i class="fas fa-check"></i>',
-              label: game.i18n.localize("Yes"),
-              callback: () => resolve(true),
-            },
-            cancel: {
-              icon: '<i class="fas fa-times"></i>',
-              label: game.i18n.localize("No"),
-              callback: () => resolve(false),
-            },
-          },
-          default: "cancel",
-          close: () => resolve(false),
-        };
-        new Dialog(data, null).render(true);
+      const use = await foundry.applications.api.DialogV2.confirm({
+        window: { title: title },
+        content: content,
       });
       if (!use) return;
 
